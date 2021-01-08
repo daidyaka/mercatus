@@ -1,21 +1,19 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Главная страница</title>
+    <title>Авторизация</title>
     <link rel="stylesheet" href="/styles/main.css"/>
 </head>
 <body>
 <header class="header">
     <div class="header-logo">Название</div>
     <div class="header-search">
-        <form action="/search.html" method="get">
-            <input class="header-search__input" placeholder="Какую услугу ищете?" name="q">
-            <input type="submit" class="header-search__btn" value="Я найду!">
-        </form>
+        <input class="header-search__input" placeholder="Какую услугу ищете?">
+        <input type="button" class="header-search__btn" value="Я найду!">
     </div>
     <div class="header-auth">
         <a href="/authorization.html">Войти</a>
@@ -31,10 +29,23 @@
     </div>
 </header>
 <main>
-
+    <form action="/authorization.html" method="post">
+        <h1>Авторизация</h1>
+        <label>
+            Email:
+            <input type="email" name="username">
+        </label>
+        <br>
+        <label>
+            Пароль:
+            <input type="password" name="password">
+        </label>
+        <button type="submit">Войти</button>
+    </form>
 </main>
 <footer>
 
 </footer>
+
 </body>
 </html>

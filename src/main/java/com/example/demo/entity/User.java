@@ -2,14 +2,80 @@ package com.example.demo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+
+@NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Document(value = "users")
-public class User {
+public class User implements UserDetails {
 
-    private String name;
-    private int age;
+    @Id
+    private String id;
 
+    @NotEmpty
+    private String firstName;
+
+    @NotEmpty
+    private String lastName;
+
+    @Email
+    private String email;
+
+    @NotEmpty
+    @Length(min = 6)
+    private String password;
+
+    @NotEmpty
+    private String dateOfBirth;
+
+    @NotEmpty
+    private String city;
+
+    @NotEmpty
+    private String gender;
+
+    private boolean isEntrepreneur = false;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return isEntrepreneur ? Arrays.asList(UserRole.CLIENT, UserRole.ENTREPRENEUR) :
+                Collections.singletonList(UserRole.CLIENT);
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Создать объявление</title>
+    <link rel="stylesheet" href="/styles/main.css"/>
+</head>
+<body>
+<header class="header">
+    <div class="header-logo">Название</div>
+    <div class="header-search">
+        <input class="header-search__input" placeholder="Какую услугу ищете?">
+        <input type="button" class="header-search__btn" value="Я найду!">
+    </div>
+    <div class="header-auth">
+        <a href="/logout">Выйти</a>
+    </div>
+    <div class="header-language">
+        <select class="header-language__select">
+            <option>Українська</option>
+            <option selected>Русский</option>
+            <option>English</option>
+        </select>
+    </div>
+</header>
+<main>
+    <form action="#">
+        <label>
+            Заголовок:
+            <input type="text" name="title">
+            Категория объявления:
+            <select name="type">
+                <optgroup label="А">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </optgroup>
+                <optgroup label="B">
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </optgroup>
+            </select>
+        </label>
+        <button id="add-adv-text">Добавить текст</button>
+        <button id="add-adv-image">Добавить картинку</button>
+        <button id="add-adv-video">Добавить видео</button>
+        <hr>
+        <button type="submit">Создать</button>
+    </form>
+</main>
+<script>
+    const title = document.querySelector('input[name="title"]');
+    const typeSelector = document.querySelector('select[name="type"]');
+
+    document.querySelector('form button[type="submit"]').onclick = function(event) {
+        event.preventDefault();
+        let url = "/entrepreneur/create-ad";
+        fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: title.value,
+                type: typeSelector.value
+            })
+        }).then(response => {
+            if (response.status == 201) {
+                window.location = '/entrepreneur/profile.html';
+            }
+        });
+    }
+</script>
+</body>
+</html>
