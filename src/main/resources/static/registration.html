@@ -12,9 +12,12 @@
 <header class="header">
     <div class="header-logo">Название</div>
     <div class="header-search">
-        <input class="header-search__input" placeholder="Какую услугу ищете?">
-        <input type="button" class="header-search__btn" value="Я найду!">
+        <form action="/search.html" method="get">
+            <input class="header-search__input" placeholder="Какую услугу ищете?" name="q">
+            <input type="submit" class="header-search__btn" value="Я найду!">
+        </form>
     </div>
+
     <div class="header-auth">
         <a href="/authorization.html">Войти</a>
         <span class="vertical-delimiter">/</span>

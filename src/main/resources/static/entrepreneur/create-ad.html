@@ -12,9 +12,12 @@
 <header class="header">
     <div class="header-logo">Название</div>
     <div class="header-search">
-        <input class="header-search__input" placeholder="Какую услугу ищете?">
-        <input type="button" class="header-search__btn" value="Я найду!">
+        <form action="/search.html" method="get">
+            <input class="header-search__input" placeholder="Какую услугу ищете?" name="q">
+            <input type="submit" class="header-search__btn" value="Я найду!">
+        </form>
     </div>
+
     <div class="header-auth">
         <a href="/logout">Выйти</a>
     </div>
@@ -27,53 +30,32 @@
     </div>
 </header>
 <main>
-    <form action="#">
-        <label>
-            Заголовок:
-            <input type="text" name="title">
-            Категория объявления:
-            <select name="type">
-                <optgroup label="А">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                </optgroup>
-                <optgroup label="B">
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                </optgroup>
-            </select>
-        </label>
-        <button id="add-adv-text">Добавить текст</button>
-        <button id="add-adv-image">Добавить картинку</button>
-        <button id="add-adv-video">Добавить видео</button>
-        <hr>
-        <button type="submit">Создать</button>
-    </form>
-</main>
-<script>
-    const title = document.querySelector('input[name="title"]');
-    const typeSelector = document.querySelector('select[name="type"]');
+    <label>
+        Заголовок:
+        <input type="text" name="title">
+        Категория объявления:
+        <select name="type">
+            <optgroup label="А">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </optgroup>
+            <optgroup label="B">
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </optgroup>
+        </select>
+    </label>
+    <div id="drop-adv-elements">
 
-    document.querySelector('form button[type="submit"]').onclick = function(event) {
-        event.preventDefault();
-        let url = "/entrepreneur/create-ad";
-        fetch(url, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                title: title.value,
-                type: typeSelector.value
-            })
-        }).then(response => {
-            if (response.status == 201) {
-                window.location = '/entrepreneur/profile.html';
-            }
-        });
-    }
-</script>
+    </div>
+    <button type="button" id="add-adv-text">Добавить текст</button>
+    <button type="button" id="add-adv-image">Добавить картинку</button>
+    <button type="button" id="add-adv-video">Добавить видео</button>
+    <hr>
+    <button type="button" id="adv-submit">Создать</button>
+</main>
+<script src="/js/create-ad.js"></script>
 </body>
 </html>
