@@ -6,11 +6,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.Map;
 
 import static com.example.demo.entity.UserRole.CLIENT;
 
@@ -32,5 +34,11 @@ public class AuthorizationController {
                 .map(GrantedAuthority::getAuthority)
                 .anyMatch(authority -> CLIENT.toString().equals(authority)) ? "/client" : "/entrepreneur";
         return "redirect:" + redirectUrl + "/profile.html";
+    }
+
+    @RequestMapping("/is-authenticated")
+    @ResponseBody
+    public Map<String, Boolean> isAuthenticated(Authentication auth) {
+        return Collections.singletonMap("isAuthenticated", auth != null && auth.isAuthenticated());
     }
 }

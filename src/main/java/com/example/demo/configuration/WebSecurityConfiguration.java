@@ -38,13 +38,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .antMatchers("/",
                             "/search.html",
                             "/search",
+                            "/is-authenticated",
                             "/styles/**",
-                            "/scripts/**").permitAll()
+                            "/scripts/**",
+                            "/js/**"
+                    ).permitAll()
                 .anyRequest().authenticated()
                 .and()
                     .formLogin()
                     .loginPage("/authorization.html")
-                    .defaultSuccessUrl("/profile-redirect")
+                    .defaultSuccessUrl("/")
                     .permitAll()
                 .and()
                     .logout()

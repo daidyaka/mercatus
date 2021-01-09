@@ -2,6 +2,8 @@ let params = new URLSearchParams(window.location.search);
 let q = params.get('q');
 
 if (q) {
+    document.querySelector('.header-search__input').value = q;
+
     fetch('/search?' + new URLSearchParams({
         query: q
     })).then(response => response.json())
