@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Advertisement;
 import com.example.demo.repository.AdRepository;
+import com.example.demo.util.TextTranslationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,7 @@ public class AdService {
     }
 
     public void createAd(Advertisement ad) {
+        ad.setUrl(TextTranslationUtil.translate(ad.getTitle()));
         adRepository.insert(ad);
     }
 

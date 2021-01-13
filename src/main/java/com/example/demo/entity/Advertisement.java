@@ -15,6 +15,7 @@ public class Advertisement {
 
     private String title;
     private String type;
+    private String url;
     private List<AdElement> elements;
 
 }
