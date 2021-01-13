@@ -11,9 +11,6 @@ public class ImageElement extends AdElement {
 
     @Override
     public String markup() {
-        return String.format(
-                "<img src='%s' alt='Image component'/>",
-                src
-        );
+        return String.format("<img src='%s' alt='Image component'/>", src);
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AdRepository extends MongoRepository<Advertisement, String> {
@@ -12,5 +13,7 @@ public interface AdRepository extends MongoRepository<Advertisement, String> {
     List<Advertisement> findByEntrepreneurId(String entrepreneurId);
 
     List<Advertisement> findByTitleIsLikeOrTypeIsLike(String title, String type);
+
+    Optional<Advertisement> findByUrl(String url);
 
 }

@@ -45,8 +45,8 @@ document.querySelector('#adv-submit').onclick = function (event) {
             elements: collectDropElements()
         })
     }).then(response => {
-        if (response.status == 201) {
-            window.location = '/entrepreneur/profile.html';
+        if (response.ok && response.status === 201) {
+            window.location = `${response.headers.get('Location')}.html`;
         }
     });
 }

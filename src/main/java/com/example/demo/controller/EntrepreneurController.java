@@ -30,7 +30,7 @@ public class EntrepreneurController {
     public ResponseEntity<String> createAd(@RequestBody Advertisement ad, Authentication auth) {
         ad.setEntrepreneurId(getCurrentUser(auth).getId());
         adService.createAd(ad);
-        return ResponseEntity.created(URI.create("/ad/" + ad.getId()))
+        return ResponseEntity.created(URI.create("/ad/" + ad.getUrl()))
                 .body("Advertisement created.");
     }
 

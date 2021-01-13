@@ -11,6 +11,6 @@ public class RichTextElement extends AdElement {
 
     @Override
     public String markup() {
-        return text;
+        return String.format("<div class='ad-element rich-text'>%s</div>", text);
     }
 }

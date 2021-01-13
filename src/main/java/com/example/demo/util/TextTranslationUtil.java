@@ -1,6 +1,7 @@
 package com.example.demo.util;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,10 +23,18 @@ public final class TextTranslationUtil {
             translationMap = Files.readAllLines(DEFAULT_LETTERS_TRANSLATION_FILE_PATH)
                     .stream()
                     .map(str -> str.split(LETTERS_DELIMITER))
-                    .filter(arr -> arr.length == 2)
-                    .collect(Collectors.toMap(arr -> arr[0], arr -> arr[1]));
-        } catch (IOException e) {
-            throw new RuntimeException("Unable to instantiate character translation map", e);
+                    .map(arr -> {
+                        if (arr.length == 2) {
+                            return arr;
+                        }
+                        if (arr.length == 1) {
+                            return new String[]{arr[0], ""};
+                        }
+                        return new String[]{"", ""};
+                    })
+                    .collect(Collectors.toMap(arr -> arr[0], arr -> arr[1], (s, s2) -> s));
+        } catch (IOException ioException) {
+            throw new UncheckedIOException("Unable to instantiate character translation map", ioException);
         }
     }
 

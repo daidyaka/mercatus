@@ -41,7 +41,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/is-authenticated",
                             "/styles/**",
                             "/scripts/**",
-                            "/js/**"
+                            "/js/**",
+                            "/ad/**"
                     ).permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -52,7 +53,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                     .logout()
                     .permitAll()
-                    .logoutSuccessUrl("/");
+                    .logoutSuccessUrl("/")
+            .and().headers()
+                .frameOptions().sameOrigin();
 
     }
 
