@@ -1,18 +1,61 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title th:text="${ad.title}">Объявление</title>
+    <link rel="stylesheet" href="/styles/main.css"/>
 </head>
 <body>
+<header class="header">
+    <div class="header-logo">Название</div>
+    <div class="header-search">
+        <form action="/search.html" method="get">
+            <input class="header-search__input" placeholder="Какую услугу ищете?" name="q">
+            <input type="submit" class="header-search__btn" value="Я найду!">
+        </form>
+    </div>
+    <div class="header-auth">
+    </div>
+    <div class="header-language">
+        <select class="header-language__select">
+            <option>Українська</option>
+            <option selected>Русский</option>
+            <option>English</option>
+        </select>
+    </div>
+</header>
+<main>
     <h1 th:text="${ad.title}"></h1>
+    <h2 th:text="${'Средняя оценка: ' + averageReviewMark}"></h2>
     <i th:text="${ad.type}"></i>
     <hr/>
     <div th:each="el: ${ad.elements}">
         [(${el.markup()})]
     </div>
+    <h3>Отзывы:</h3>
+    <div class="ad-review" th:each="review: ${ad.reviews}">
+        <hr>
+        <p th:text="${review.userFullName}"></p>
+        <p>Оценка: <b>[(${review.mark})]</b></p>
+        <p th:if="${review.text != null && review.text.length != 0}" th:text="${'Комментарий: ' + review.text}"></p>
+    </div>
+    <hr>
+    <form th:action="@{/ad/{adUrl}/review(adUrl=${ad.url})}" method="post" th:if="${user != null}">
+        <label>
+            Оценка:
+            <input type="number" min="1" max="5" value="5" name="mark">
+        </label>
+        <label>
+            Отзыв:
+            <textarea name="text" placeholder="Необязательно"></textarea>
+        </label>
+        <input name="username" type="hidden" th:value="${user.getId()}">
+        <input name="userFullName" type="hidden" th:value="${user.getFirstName() + ' ' + user.getLastName()}">
+        <input type="submit" value="Отправить">
+    </form>
+</main>
 </body>
 </html>

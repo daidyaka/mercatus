@@ -17,5 +17,6 @@ public class Advertisement {
     private String type;
     private String url;
     private List<AdElement> elements;
+    private List<AdvertisementReview> reviews;
 
 }

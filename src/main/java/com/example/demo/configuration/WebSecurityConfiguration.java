@@ -28,6 +28,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //TODO: Add /ad/.../review endpoint to a list where authentication is required (!!!)
         http.csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/registration.html",
