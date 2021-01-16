@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -46,12 +45,11 @@ public class User implements UserDetails {
     @NotEmpty
     private String gender;
 
-    private boolean isEntrepreneur = false;
+    private UserRole role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return isEntrepreneur ? Arrays.asList(UserRole.CLIENT, UserRole.ENTREPRENEUR) :
-                Collections.singletonList(UserRole.CLIENT);
+        return Collections.singleton(role);
     }
 
     @Override

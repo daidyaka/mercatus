@@ -33,7 +33,7 @@ const componentToObjectMapping = {
 
 document.querySelector('#adv-submit').onclick = function (event) {
     event.preventDefault();
-    let url = "/entrepreneur/create-ad";
+    let url = "/profile/create-ad";
     fetch(url, {
         method: "POST",
         headers: {

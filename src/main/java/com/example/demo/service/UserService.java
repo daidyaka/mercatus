@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.User;
+import com.example.demo.entity.UserRole;
 import com.example.demo.repository.UserRepository;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class UserService implements UserDetailsService {
 
     public void createUser(User user) {
         if (loadUserByUsername(user.getEmail()) == null) {
+            user.setRole(UserRole.USER);
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             userRepository.insert(user);
         }

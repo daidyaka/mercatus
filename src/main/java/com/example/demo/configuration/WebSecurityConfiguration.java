@@ -1,13 +1,11 @@
 package com.example.demo.configuration;
 
-import com.example.demo.repository.UserRepository;
+import com.example.demo.entity.UserRole;
 import com.example.demo.service.UserService;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,31 +29,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         //TODO: Add /ad/.../review endpoint to a list where authentication is required (!!!)
         http.csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/registration.html",
-                            "/registration",
-                            "/login").not().fullyAuthenticated()
-                    .antMatchers("/client/**").hasRole("CLIENT")
-                    .antMatchers("/entrepreneur/**").hasRole("ENTREPRENEUR")
-                    .antMatchers("/",
-                            "/search.html",
-                            "/search",
-                            "/is-authenticated",
-                            "/styles/**",
-                            "/scripts/**",
-                            "/js/**",
-                            "/ad/**"
-                    ).permitAll()
+                    .antMatchers(onlyAnonymousPaths()).not().fullyAuthenticated()
+                    .antMatchers(anonymousAllowedPaths()).permitAll()
+                    .antMatchers("/**").hasAnyRole(UserRole.USER.name(), UserRole.ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
                     .formLogin()
-                    .loginPage("/authorization.html")
-                    .defaultSuccessUrl("/")
+                    .loginPage("/login.html")
+                    .defaultSuccessUrl("/profile.html")
                     .permitAll()
                 .and()
                     .logout()
                     .permitAll()
                     .logoutSuccessUrl("/")
-            .and().headers()
+                .and().headers()
                 .frameOptions().sameOrigin();
 
     }
@@ -63,5 +50,27 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder());
+    }
+
+    private String[] anonymousAllowedPaths() {
+        return new String[]{
+                "/",
+                "/styles/**",
+                "/scripts/**",
+                "/js/**",
+                "/ad/**",
+                "/search",
+                "/search.html",
+                "/is-authenticated",
+                "/profile/get"
+        };
+    }
+
+    private String[] onlyAnonymousPaths() {
+        return new String[]{
+                "/registration.html",
+                "/profile/create",
+                "/login"
+        };
     }
 }
