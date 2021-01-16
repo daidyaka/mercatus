@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,7 +27,13 @@ public class ProfileController extends AbstractController {
 
     private final AdService adService;
     private final UserService userService;
-    private final StorageService storageService;
+
+    @GetMapping
+    public String profile(Authentication authentication, Model model) {
+        User authenticatedUser = getAuthenticatedUser(authentication);
+        model.addAttribute("user", authenticatedUser);
+        return "profile";
+    }
 
     @RequestMapping("/get")
     @ResponseBody
@@ -45,7 +52,7 @@ public class ProfileController extends AbstractController {
     public String register(@Valid User user,
                            @RequestParam(value = "avatar", required = false) MultipartFile file) throws IOException {
         userService.createUser(user, file);
-        return "redirect:/profile.html";
+        return "redirect:/profile";
     }
 
     @ResponseBody

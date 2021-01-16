@@ -35,7 +35,7 @@ public class UserService implements UserDetailsService {
 
             user = userRepository.insert(user);
 
-            if (file != null) {
+            if (file.getBytes().length != 0) {
                 String fileName = file.getName() + ".jpg";
                 user.setImageUrl(fileName);
                 storageService.saveAndCompressImage(file.getInputStream(), user.getId(), fileName);
@@ -45,7 +45,7 @@ public class UserService implements UserDetailsService {
     }
 
     public byte[] readUserPhoto(User user) {
-        return storageService.getUserAvatarPath(user.getId() + '/' + user.getImageUrl());
+        return storageService.loadFile(user.getId() + '/' + user.getImageUrl());
     }
 
 }

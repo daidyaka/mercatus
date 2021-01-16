@@ -28,7 +28,7 @@ public class StorageService {
         }
     }
 
-    public byte[] getUserAvatarPath(String folderImagePath) {
+    public byte[] loadFile(String folderImagePath) {
         try {
             return ImageUtil.readImage(localStoragePath + folderImagePath);
         } catch (IOException exception) {
