@@ -29,7 +29,7 @@
     </div>
 </header>
 <main>
-    <form action="/profile/create" method="post">
+    <form action="/profile/create" method="post" enctype="multipart/form-data">
         <h1>Регистрация</h1>
         <label>
             Имя:
@@ -38,6 +38,11 @@
         <label>
             Фамилия:
             <input type="text" name="lastName">
+        </label>
+        <br>
+        <label>
+            Фотография профиля:
+            <input type="file" name="avatar">
         </label>
         <br>
         <label>

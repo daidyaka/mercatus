@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.Advertisement;
 import com.example.demo.entity.AdvertisementReview;
 import com.example.demo.entity.User;
+import com.example.demo.exception.NoAuthenticationException;
 import com.example.demo.service.AdService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
@@ -23,16 +23,13 @@ import java.util.stream.Stream;
 @Controller
 @RequestMapping("/ad")
 @RequiredArgsConstructor
-public class AdvertisementController {
+public class AdvertisementController extends AbstractController {
 
     private final AdService adService;
 
     @GetMapping("/{uniqueUrl}.html")
     public String article(@PathVariable String uniqueUrl, Authentication authentication, Model model) {
-        if (Optional.ofNullable(authentication).filter(Authentication::isAuthenticated).isPresent()) {
-            User currentUser = (User) authentication.getPrincipal();
-            model.addAttribute("user", currentUser);
-        }
+        model.addAttribute("user", getCurrentUser(authentication));
 
         Advertisement foundAd = adService.getAdByUniqueUrl(uniqueUrl);
         OptionalDouble averageMark = Optional.ofNullable(foundAd.getReviews())
@@ -51,6 +48,14 @@ public class AdvertisementController {
     public String createReview(@Valid AdvertisementReview review, @PathVariable String adUrl) {
         adService.updateAdWithNewReview(adUrl, review);
         return "redirect:/ad/" + adUrl + ".html";
+    }
+
+    private User getCurrentUser(Authentication authentication) {
+        try {
+            return getAuthenticatedUser(authentication);
+        } catch (NoAuthenticationException ex) {
+            return null;
+        }
     }
 
 }

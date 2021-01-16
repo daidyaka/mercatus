@@ -1,0 +1,7 @@
+files.storage.path: C://Users/Mykyta_Trufanov/Desktop/photos/
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20971520 #20 MB
+      max-request-size: 26214400 #25 MB

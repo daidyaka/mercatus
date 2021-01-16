@@ -10,12 +10,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service
 @Setter(onMethod = @__(@Autowired))
 public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
+    private StorageService storageService;
+
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -23,11 +28,24 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email);
     }
 
-    public void createUser(User user) {
+    public void createUser(User user, MultipartFile file) throws IOException {
         if (loadUserByUsername(user.getEmail()) == null) {
             user.setRole(UserRole.USER);
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            userRepository.insert(user);
+
+            user = userRepository.insert(user);
+
+            if (file != null) {
+                String fileName = file.getName() + ".jpg";
+                user.setImageUrl(fileName);
+                storageService.saveAndCompressImage(file.getInputStream(), user.getId(), fileName);
+            }
+            userRepository.save(user);
         }
     }
+
+    public byte[] readUserPhoto(User user) {
+        return storageService.getUserAvatarPath(user.getId() + '/' + user.getImageUrl());
+    }
+
 }

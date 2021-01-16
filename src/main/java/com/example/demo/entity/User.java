@@ -23,6 +23,8 @@ public class User implements UserDetails {
     @Id
     private String id;
 
+    private String imageUrl;
+
     @NotEmpty
     private String firstName;
 
