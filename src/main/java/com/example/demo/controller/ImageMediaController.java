@@ -9,15 +9,24 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 import static com.example.demo.controller.MediaAbstractController.MEDIA_BASE_URL;
 
 @RestController
-@RequestMapping(MEDIA_BASE_URL + "/image")
+@RequestMapping(MEDIA_BASE_URL + "/images")
 public class ImageMediaController extends MediaAbstractController {
 
     public ImageMediaController(StorageService storageService) {
         super(storageService);
+    }
+
+    @GetMapping
+    @ResponseBody
+    public List<String> getAll(Authentication authentication) {
+        return storageService.loadUserFiles(
+                getAuthenticatedUser(authentication).getId()
+        );
     }
 
     @PostMapping("/upload")
