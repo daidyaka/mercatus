@@ -16,6 +16,7 @@ public class Advertisement {
     private String title;
     private String type;
     private String url;
+    private String phoneNumber;
     private List<AdElement> elements;
     private List<AdvertisementReview> reviews;
 

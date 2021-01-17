@@ -26,7 +26,7 @@ public class ImageMediaController extends MediaAbstractController {
         super(storageService);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     @ResponseBody
     public List<String> getAll(Authentication authentication) {
         return storageService.loadUserFiles(
