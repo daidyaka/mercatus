@@ -20,8 +20,8 @@ public class AdService {
 
     private final AdRepository adRepository;
 
-    public List<Advertisement> getAdsByEntrepreneurId(String entrepreneurId) {
-        return adRepository.findByEntrepreneurId(entrepreneurId);
+    public List<Advertisement> getAdsByUserId(String userId) {
+        return adRepository.findByUserId(userId);
     }
 
     public List<Advertisement> getAdsByPatternSearch(String query) {

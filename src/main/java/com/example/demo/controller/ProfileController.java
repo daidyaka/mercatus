@@ -21,6 +21,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,12 +42,19 @@ public class ProfileController extends AbstractController {
 
     @RequestMapping("/get")
     @ResponseBody
-    public Map<String, Boolean> isAuthenticated(Authentication auth) {
-        return Collections.singletonMap("isAuthenticated", auth != null && auth.isAuthenticated());
+    public Map<String, Object> isAuthenticated(Authentication auth) {
+        User user = getAuthenticatedUserOrNull(auth);
+
+        Map<String, Object> userProps = new HashMap<>();
+        userProps.put("isAuthenticated", user != null);
+        if (user != null) {
+            userProps.put("userId", user.getId());
+        }
+        return userProps;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/avatar", produces = "image/jpeg")
+    @RequestMapping(value = "/avatar", produces = "`image/jpeg`")
     public byte[] getProfilePhoto(Authentication authentication) {
         User authenticatedUser = getAuthenticatedUser(authentication);
         return userService.readUserPhoto(authenticatedUser);
@@ -63,12 +71,12 @@ public class ProfileController extends AbstractController {
     @GetMapping("/advertisements")
     public List<Advertisement> getCurrentUserAdvertisements(Authentication auth) {
         String userId = getAuthenticatedUser(auth).getId();
-        return adService.getAdsByEntrepreneurId(userId);
+        return adService.getAdsByUserId(userId);
     }
 
     @PostMapping("/create-ad")
     public ResponseEntity<String> createAd(@RequestBody Advertisement ad, Authentication auth) {
-        ad.setEntrepreneurId(getAuthenticatedUser(auth).getId());
+        ad.setUserId(getAuthenticatedUser(auth).getId());
         adService.createAd(ad);
         return ResponseEntity.created(URI.create("/ad/" + ad.getUrl()))
                 .body("Advertisement created.");

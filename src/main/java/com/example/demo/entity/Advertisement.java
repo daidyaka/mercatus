@@ -11,7 +11,7 @@ import java.util.List;
 public class Advertisement {
 
     private String id;
-    private String entrepreneurId;
+    private String userId;
 
     private String title;
     private String type;

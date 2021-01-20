@@ -26,7 +26,7 @@ const componentToObjectMapping = {
     'image': (el) => {
         return {
             type: 'image',
-            src: el.value
+            src: `/media/images/${APP.userId}/${el.value}`
         }
     }
 };
@@ -61,7 +61,7 @@ addTextBtn.onclick = function () {
 
 addImageBtn.onclick = function () {
     let imgInput = document.createElement('input');
-    imgInput.type = 'image'
+    imgInput.type = 'text'
     imgInput.setAttribute('adv-type', 'image')
     dropElements.appendChild(imgInput);
     dropElements.appendChild(LINE_DELIMITER);

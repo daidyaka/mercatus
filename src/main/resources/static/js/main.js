@@ -2,9 +2,10 @@ const APP = {};
 
 fetch('/profile/get')
     .then(response => response.json())
-    .then(auth => APP.isAuthenticated = auth.isAuthenticated)
-    .then(() => {
-        if (APP.isAuthenticated) {
+    .then((auth) => {
+        if (auth.isAuthenticated) {
+            APP.isAuthenticated = auth.isAuthenticated
+            APP.userId = auth.userId;
             document.querySelector('.header-auth').innerHTML = `
                 <a href="/profile.html">Профиль</a>
                 <span class="vertical-delimiter">/</span>

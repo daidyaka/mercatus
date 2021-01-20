@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface AdRepository extends MongoRepository<Advertisement, String> {
 
-    List<Advertisement> findByEntrepreneurId(String entrepreneurId);
+    List<Advertisement> findByUserId(String userId);
 
     List<Advertisement> findByTitleIsLikeOrTypeIsLike(String title, String type);
 
