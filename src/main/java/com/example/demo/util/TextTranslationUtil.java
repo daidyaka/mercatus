@@ -1,7 +1,9 @@
 package com.example.demo.util;
 
+import com.google.common.collect.ImmutableList;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -9,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -19,8 +22,10 @@ public final class TextTranslationUtil {
     private static final Map<String, String> translationMap;
 
     private static final Path DEFAULT_LETTERS_TRANSLATION_FILE_PATH =
-            Paths.get("src/main/resources/letters-translation.txt");
+            Paths.get("src/main/resources/application-data/letters-translation.txt");
     private static final String LETTERS_DELIMITER = "=";
+    private static final List<String> SPECIAL_CHARACTERS =
+            Arrays.asList(",.-=+()!@#$%^*|{}[]/\\:;`<>?".split(StringUtils.EMPTY));
 
     static {
         try {
@@ -46,6 +51,7 @@ public final class TextTranslationUtil {
         Objects.requireNonNull(str, "String should not be null");
 
         return Arrays.stream(str.toLowerCase().trim().split(""))
+                .filter(ch -> !SPECIAL_CHARACTERS.contains(ch))
                 .map(ch -> translationMap.getOrDefault(ch, ch))
                 .collect(Collectors.joining());
     }

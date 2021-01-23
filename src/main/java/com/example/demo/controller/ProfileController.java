@@ -75,7 +75,7 @@ public class ProfileController extends AbstractController {
     }
 
     @PostMapping("/create-ad")
-    public ResponseEntity<String> createAd(@RequestBody Advertisement ad, Authentication auth) {
+    public ResponseEntity<String> createAd(@RequestBody @Valid Advertisement ad, Authentication auth) {
         ad.setUserId(getAuthenticatedUser(auth).getId());
         adService.createAd(ad);
         return ResponseEntity.created(URI.create("/ad/" + ad.getUrl()))

@@ -1,4 +1,6 @@
-const APP = {};
+const APP = {
+    services: {}
+};
 
 fetch('/profile/get')
     .then(response => response.json())

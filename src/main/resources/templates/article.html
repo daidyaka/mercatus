@@ -30,7 +30,7 @@
 <main>
     <h1 th:text="${ad.title}"></h1>
     <h2 th:text="${'Средняя оценка: ' + averageReviewMark}"></h2>
-    <i th:text="${ad.type}"></i>
+    <i th:data-ad-type="${ad.type}"></i>
     <b th:text="${ad.getPhoneNumber()}"></b>
     <hr/>
     <div th:each="el: ${ad.elements}">
@@ -58,5 +58,8 @@
         <input type="submit" value="Отправить">
     </form>
 </main>
+<script src="/js/main.js"></script>
+<script src="/js/services.js"></script>
+<script src="/js/ad.js"></script>
 </body>
 </html>
