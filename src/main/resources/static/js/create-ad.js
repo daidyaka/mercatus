@@ -1,14 +1,36 @@
 const LINE_DELIMITER = document.createElement('br')
 
 const title = document.querySelector('input[name="title"]');
+const typeSelector = document.querySelector('.adv-type-select');
+const addTextBtn = document.querySelector('#add-adv-text');
+const addImageBtn = document.querySelector('#add-adv-image');
+const addVideoBtn = document.querySelector('#add-adv-video');
 
-const typeSelector = document.querySelector('select[name="type"]');
-const addTextBtn = document.querySelector('#add-adv-text')
-const addImageBtn = document.querySelector('#add-adv-image')
+const dropElements = document.querySelector('#drop-adv-elements');
+const typeService = APP.services[APP.SERVICES.adTypes];
 
-const addVideoBtn = document.querySelector('#add-adv-video')
-
-const dropElements = document.querySelector('#drop-adv-elements')
+(function () {
+    let types = typeService.getTypes();
+    for (const type in types) {
+        let optionToAdd;
+        if (types[type].name) {
+            optionToAdd = document.createElement('optgroup');
+            optionToAdd.value = type;
+            optionToAdd.label = types[type].name;
+            for (const [key, value] of Object.entries(types[type].options)) {
+                let option = document.createElement('option');
+                option.value = key;
+                option.innerText = value;
+                optionToAdd.appendChild(option);
+            }
+        } else {
+            optionToAdd = document.createElement('option');
+            optionToAdd.value = type;
+            optionToAdd.innerText = types[type];
+        }
+        typeSelector.appendChild(optionToAdd);
+    }
+})();
 
 const componentToObjectMapping = {
     'youtube-video': (el) => {
@@ -41,8 +63,9 @@ document.querySelector('#adv-submit').onclick = function (event) {
         },
         body: JSON.stringify({
             title: title.value,
-            type: typeSelector.value,
-            elements: collectDropElements()
+            type: collectSelectorType(),
+            elements: collectDropElements(),
+            phoneNumber: document.querySelector('input[name="phoneNumber"]').value
         })
     }).then(response => {
         if (response.ok && response.status === 201) {
@@ -91,4 +114,24 @@ function collectDropElements() {
         }
     }
     return elements;
+}
+
+function collectSelectorType() {
+    let types = typeService.getTypes();
+    let selectedValue = typeSelector.value;
+
+    for (const type in types) {
+        if (types[type].name) {
+            for (const key of Object.keys(types[type].options)) {
+                if (key === selectedValue) {
+                    return selectedValue;
+                }
+            }
+        } else {
+            if (selectedValue === type) {
+                return selectedValue;
+            }
+        }
+    }
+    return 'others';
 }
