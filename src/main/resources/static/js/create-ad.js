@@ -7,7 +7,7 @@ const addImageBtn = document.querySelector('#add-adv-image');
 const addVideoBtn = document.querySelector('#add-adv-video');
 
 const dropElements = document.querySelector('#drop-adv-elements');
-const typeService = APP.services[APP.SERVICES.adTypes];
+const typeService = APP.services.adTypes;
 
 (function () {
     let types = typeService.getTypes();

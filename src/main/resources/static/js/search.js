@@ -1,11 +1,12 @@
-let params = new URLSearchParams(window.location.search);
-let q = params.get('q');
+const urlService = APP.services.urlParser;
+let q = urlService.getParam('q');
 
 if (q) {
     document.querySelector('.header-search__input').value = q;
 
-    fetch('/search?' + new URLSearchParams({
-        query: q
+    fetch('/search?' + urlService.toUrlParams({
+        query: q,
+        type: q,
     })).then(response => response.json())
         .then(result => {
             let searchResult = document.querySelector('.search-results');
@@ -23,7 +24,7 @@ if (q) {
         });
 }
 
-let types = APP.services[APP.SERVICES.adTypes].getTypes();
+let types = APP.services.adTypes.getTypes();
 let adTypesList = document.querySelector('.ad-type-list');
 for (const type in types) {
     if (types[type].name) {

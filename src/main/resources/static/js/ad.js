@@ -1,4 +1,4 @@
-const adService = APP.services[APP.SERVICES.adTypes];
+const adService = APP.services.adTypes;
 
 (function () {
     let adTypeText = document.querySelector('[data-ad-type]');

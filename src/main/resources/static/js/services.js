@@ -1,7 +1,3 @@
-APP.SERVICES = {
-    adTypes: 'add-type-service'
-}
-
 class AdTypeService {
     constructor() {
         this.types = {
@@ -69,4 +65,19 @@ class AdTypeService {
     }
 }
 
-APP.services[APP.SERVICES.adTypes] = new AdTypeService();
+class UrlParser {
+    constructor() {
+        this.params = new URLSearchParams(window.location.search);
+    }
+
+    getParam(paramName) {
+        return this.params.get(paramName);
+    }
+
+    toUrlParams(obj) {
+        return new URLSearchParams(obj).toString();
+    }
+}
+
+APP.services.adTypes = new AdTypeService();
+APP.services.urlParser = new UrlParser();

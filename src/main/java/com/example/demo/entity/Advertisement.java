@@ -2,9 +2,12 @@ package com.example.demo.entity;
 
 import com.example.demo.entity.ad.AdElement;
 import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -23,6 +26,6 @@ public class Advertisement {
 
     private String url;
     private List<AdElement> elements;
-    private List<AdvertisementReview> reviews;
-
+    private LocalDateTime dateCreated;
+    private List<AdvertisementReview> reviews = new ArrayList<>();
 }
