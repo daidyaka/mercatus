@@ -1,30 +1,30 @@
 package com.tpls.paradigme.controller;
 
 import com.tpls.paradigme.entity.Advertisement;
+import com.tpls.paradigme.entity.LoginDto;
 import com.tpls.paradigme.entity.User;
 import com.tpls.paradigme.service.AdService;
 import com.tpls.paradigme.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/profile")
 @RequiredArgsConstructor
 public class ProfileController extends AbstractController {
@@ -33,16 +33,13 @@ public class ProfileController extends AbstractController {
     private final UserService userService;
 
     @GetMapping
-    public String profile(Authentication authentication, Model model) {
-        User authenticatedUser = getAuthenticatedUser(authentication);
-        model.addAttribute("user", authenticatedUser);
-        return "profile";
+    public User profile(Authentication authentication) {
+        return getAuthenticatedUser(authentication, userService);
     }
 
     @RequestMapping("/get")
-    @ResponseBody
     public Map<String, Object> isAuthenticated(Authentication auth) {
-        User user = getAuthenticatedUserOrNull(auth);
+        User user = getAuthenticatedUserOrNull(auth, userService);
 
         Map<String, Object> userProps = new HashMap<>();
         userProps.put("isAuthenticated", user != null);
@@ -52,33 +49,40 @@ public class ProfileController extends AbstractController {
         return userProps;
     }
 
-    @ResponseBody
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@Valid LoginDto dto) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.authorizeUser(dto));
+    }
+
     @RequestMapping(value = "/avatar", produces = "`image/jpeg`")
     public byte[] getProfilePhoto(Authentication authentication) {
-        User authenticatedUser = getAuthenticatedUser(authentication);
+        User authenticatedUser = getAuthenticatedUser(authentication, userService);
         return userService.readUserPhoto(authenticatedUser);
     }
 
     @PostMapping("/create")
-    public String register(@Valid User user,
-                           @RequestParam(value = "avatar", required = false) MultipartFile file) throws IOException {
+    public ResponseEntity<String> register(@Valid User user,
+                                           @RequestParam(value = "avatar", required = false) MultipartFile file) throws IOException {
         userService.createUser(user, file);
-        return "redirect:/profile";
+        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY)
+                .header(HttpHeaders.LOCATION, "/profile")
+                .build();
     }
 
-    @ResponseBody
     @GetMapping("/advertisements")
     public List<Advertisement> getCurrentUserAdvertisements(Authentication auth) {
-        String userId = getAuthenticatedUser(auth).getId();
+        String userId = getAuthenticatedUser(auth, userService).getId();
         return adService.getAdsByUserId(userId);
     }
 
     @PostMapping("/create-ad")
     public ResponseEntity<String> createAd(@RequestBody @Valid Advertisement ad, Authentication auth) {
-        ad.setUserId(getAuthenticatedUser(auth).getId());
+        ad.setUserId(getAuthenticatedUser(auth, userService).getId());
         adService.createAd(ad);
-        return ResponseEntity.created(URI.create("/ad/" + ad.getUrl()))
-                .body("Advertisement created.");
+
+        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY)
+                .header(HttpHeaders.LOCATION, "/ad/" + ad.getUrl())
+                .build();
     }
 
 }

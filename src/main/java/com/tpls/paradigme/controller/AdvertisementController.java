@@ -5,6 +5,7 @@ import com.tpls.paradigme.entity.AdvertisementReview;
 import com.tpls.paradigme.entity.User;
 import com.tpls.paradigme.exception.NoAuthenticationException;
 import com.tpls.paradigme.service.AdService;
+import com.tpls.paradigme.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ import java.util.stream.Stream;
 public class AdvertisementController extends AbstractController {
 
     private final AdService adService;
+    private final UserService userService;
 
     @GetMapping("/{uniqueUrl}.html")
     public String article(@PathVariable String uniqueUrl, Authentication authentication, Model model) {
@@ -52,7 +54,7 @@ public class AdvertisementController extends AbstractController {
 
     private User getCurrentUser(Authentication authentication) {
         try {
-            return getAuthenticatedUser(authentication);
+            return getAuthenticatedUser(authentication, userService);
         } catch (NoAuthenticationException ex) {
             return null;
         }

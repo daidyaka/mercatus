@@ -1,6 +1,13 @@
-files.storage:
-  path: C://Users/Mykyta_Trufanov/Desktop/photos/
-  default-image: src/main/resources/static/images/no-photo.jpeg
+app:
+  security:
+    jwt:
+      keystore-location: application-data/keystore.jks
+      keystore-password: Uhbif2012!
+      key-alias: jwtsigning
+      private-key-passphrase: Uhbif2012!
+  files.storage:
+    path: C://Users/Mykyta_Trufanov/Desktop/photos/
+    default-image: src/main/resources/static/images/no-photo.jpeg
 spring:
   servlet:
     multipart:

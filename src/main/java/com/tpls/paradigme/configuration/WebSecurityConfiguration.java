@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.web.servlet.OAuth2ResourceServerDsl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
@@ -29,21 +32,22 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         //TODO: Add /ad/.../review endpoint to a list where authentication is required (!!!)
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers(onlyAnonymousPaths()).not().fullyAuthenticated()
-                .antMatchers(anonymousAllowedPaths()).permitAll()
-                .antMatchers("/**").hasAnyRole(UserRole.USER.name(), UserRole.ADMIN.name())
-                .anyRequest().authenticated()
+                    .antMatchers(onlyAnonymousPaths()).not().fullyAuthenticated()
+                    .antMatchers(anonymousAllowedPaths()).permitAll()
+                    .antMatchers("/**").hasAnyRole(UserRole.USER.name(), UserRole.ADMIN.name())
+                    .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login.html")
-                .defaultSuccessUrl("/profile")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll()
-                .logoutSuccessUrl("/")
-                .and().headers()
-                .frameOptions().sameOrigin();
+//                .formLogin()
+//                .loginPage("/login.html")
+//                .defaultSuccessUrl("/profile")
+//                .permitAll()
+//                .and()
+                    .logout()
+                    .permitAll()
+                    .logoutSuccessUrl("/")
+                .and().headers().frameOptions().sameOrigin()
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 
     }
 
@@ -62,7 +66,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 "/search",
                 "/search.html",
                 "/is-authenticated",
-                "/profile/get"
+                "/profile/get",
+                "/profile/login"
         };
     }
 

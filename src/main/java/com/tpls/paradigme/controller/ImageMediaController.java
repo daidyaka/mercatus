@@ -2,6 +2,7 @@ package com.tpls.paradigme.controller;
 
 import com.tpls.paradigme.entity.User;
 import com.tpls.paradigme.service.StorageService;
+import com.tpls.paradigme.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -23,15 +24,18 @@ import static com.tpls.paradigme.controller.MediaAbstractController.MEDIA_BASE_U
 @RequestMapping(MEDIA_BASE_URL + "/images")
 public class ImageMediaController extends MediaAbstractController {
 
-    public ImageMediaController(StorageService storageService) {
+    private final UserService userService;
+
+    public ImageMediaController(StorageService storageService, UserService userService) {
         super(storageService);
+        this.userService = userService;
     }
 
     @ResponseBody
     @GetMapping("/all")
     public List<String> getAll(Authentication authentication) {
         return storageService.loadUserFiles(
-                getAuthenticatedUser(authentication).getId()
+                getAuthenticatedUser(authentication, userService).getId()
         );
     }
 
@@ -51,7 +55,7 @@ public class ImageMediaController extends MediaAbstractController {
     public ResponseEntity<?> upload(@RequestParam(name = "image") MultipartFile file,
                                     Authentication authentication) throws IOException {
 
-        User authenticatedUser = getAuthenticatedUser(authentication);
+        User authenticatedUser = getAuthenticatedUser(authentication, userService);
         storageService.saveAndCompressImage(file.getInputStream(), authenticatedUser.getId(), file.getOriginalFilename());
         return new ResponseEntity<>(HttpStatus.OK);
     }

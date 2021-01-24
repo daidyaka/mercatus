@@ -20,10 +20,10 @@ import java.util.stream.Collectors;
 @Service
 public class StorageService {
 
-    @Value("${files.storage.path}")
+    @Value("${app.files.storage.path}")
     private String localStoragePath;
 
-    @Value("${files.storage.default-image}")
+    @Value("${app.files.storage.default-image}")
     private String defaultImagePath;
 
     public void createUserFolder(String userId) {
