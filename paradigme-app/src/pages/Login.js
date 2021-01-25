@@ -14,7 +14,7 @@ export default class Login extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch('http://localhost:8080/profile/login', {
+        fetch('/profile/login', {
             method: 'POST',
             body: new FormData(event.target)
         }).then(response => response.text())

@@ -44,7 +44,7 @@ public class ProfileController extends AbstractController {
         Map<String, Object> userProps = new HashMap<>();
         userProps.put("isAuthenticated", user != null);
         if (user != null) {
-            userProps.put("userId", user.getId());
+            userProps.put("user", user);
         }
         return userProps;
     }
@@ -64,9 +64,7 @@ public class ProfileController extends AbstractController {
     public ResponseEntity<String> register(@Valid User user,
                                            @RequestParam(value = "avatar", required = false) MultipartFile file) throws IOException {
         userService.createUser(user, file);
-        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY)
-                .header(HttpHeaders.LOCATION, "/profile")
-                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/advertisements")

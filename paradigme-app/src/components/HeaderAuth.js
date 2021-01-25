@@ -17,7 +17,7 @@ export default class HeaderAuth extends Component {
         if (jwtToken) {
             headers['Authorization'] = `Bearer ${jwtToken}`;
         }
-        fetch('http://localhost:8080/profile/get', {
+        fetch('/profile/get', {
             headers: new Headers(headers)
         })
             .then(response => response.json())

@@ -6,10 +6,22 @@ export default class Registration extends Component {
         document.title = 'Регистрация';
     }
 
+    handleSubmit(event) {
+        event.preventDefault();
+        fetch('/profile/create', {
+            method: 'POST',
+            body: new FormData(event.target)
+        }).then(res => {
+            if (res.status === 201) {
+                location.href = '/login';
+            }
+        })
+    }
+
     render() {
         return (
-            <main>
-                <form action="/profile/create" method="post" encType="multipart/form-data">
+            <>
+                <form method="post" encType="multipart/form-data" onSubmit={this.handleSubmit}>
                     <h1>Регистрация</h1>
                     <label>
                         Имя:
@@ -63,7 +75,7 @@ export default class Registration extends Component {
                     <button type="reset">Очистить</button>
                     <button type="submit">Зарегистрироваться</button>
                 </form>
-            </main>
+            </>
         );
     }
 };

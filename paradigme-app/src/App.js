@@ -14,7 +14,7 @@ function App() {
         <Router>
             <Header/>
             <Switch>
-                <Route path={'/profile'}><Profile user={}/></Route>
+                <Route path={'/profile'}><Profile/></Route>
                 <Route path={'/registration'}><Registration/></Route>
                 <Route path={'/login'}><Login/></Route>
                 <Route exact path={'/'}><Home/></Route>
