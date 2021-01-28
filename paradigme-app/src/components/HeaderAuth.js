@@ -12,14 +12,7 @@ export default class HeaderAuth extends Component {
 
 
     componentDidMount() {
-        let jwtToken = localStorage.getItem('jwt');
-        let headers = {};
-        if (jwtToken) {
-            headers['Authorization'] = `Bearer ${jwtToken}`;
-        }
-        fetch('/profile/get', {
-            headers: new Headers(headers)
-        })
+        fetch('/profile/get')
             .then(response => response.json())
             .then((auth) => {
                 this.setState({

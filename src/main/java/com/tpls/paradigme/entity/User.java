@@ -47,8 +47,6 @@ public class User implements UserDetails {
     @NotEmpty
     private String gender;
 
-    private String authToken;
-
     private UserRole role;
 
     @Override

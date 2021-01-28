@@ -1,7 +1,7 @@
 package com.tpls.paradigme.configuration;
 
-import com.tpls.paradigme.filter.AuthFilter;
-import com.tpls.paradigme.filter.AuthProvider;
+import com.tpls.paradigme.entity.UserRole;
+import com.tpls.paradigme.service.AuthenticationService;
 import com.tpls.paradigme.service.UserService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,32 +12,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
-import org.springframework.security.web.util.matcher.OrRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 @Setter(onMethod = @__(@Autowired))
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private static final RequestMatcher NOT_AUTHENTICATED_PATHS = new OrRequestMatcher(
-            new AntPathRequestMatcher("/ad/**"),
-            new AntPathRequestMatcher("/search"),
-            new AntPathRequestMatcher("/profile/create"),
-            new AntPathRequestMatcher("/profile/login"),
-            new AntPathRequestMatcher("/profile/get"),
-            new AntPathRequestMatcher("/error")
-    );
-
-    private static final RequestMatcher ONLY_AUTHENTICATED_PATHS = new NegatedRequestMatcher(NOT_AUTHENTICATED_PATHS);
-
     private UserService userService;
-    private AuthProvider authProvider;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -50,27 +32,46 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
-                .logout(AbstractHttpConfigurer::disable)
+                .logout().permitAll().logoutSuccessUrl("http://localhost:3000/").and()
                 .csrf(AbstractHttpConfigurer::disable)
-                .authenticationProvider(authProvider)
-                .addFilterBefore(authFilter(), AnonymousAuthenticationFilter.class)
-                .authorizeRequests().requestMatchers(ONLY_AUTHENTICATED_PATHS).authenticated()
-                .and().exceptionHandling()
-                .and().headers().frameOptions().sameOrigin()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
+                .authorizeRequests(auth -> {
+                    auth.antMatchers(notAuthenticatedPaths()).not().authenticated();
+                    auth.antMatchers(anonymousPaths()).permitAll();
+                    auth.antMatchers(onlyAuthenticatedPaths()).hasAnyRole(UserRole.USER.name(), UserRole.ADMIN.name());
+                })
+                .exceptionHandling()
+                .and().headers().frameOptions().sameOrigin();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder())
-                .and().authenticationProvider(authProvider);
+        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Bean
-    public AuthFilter authFilter() throws Exception {
-        AuthFilter authFilter = new AuthFilter(ONLY_AUTHENTICATED_PATHS);
-        authFilter.setAuthenticationManager(authenticationManager());
-        return authFilter;
+    public AuthenticationService authenticationService() throws Exception {
+        return new AuthenticationService(authenticationManager());
+    }
+
+    private String[] notAuthenticatedPaths() {
+        return new String[]{
+                "/profile/create",
+                "/profile/login"
+        };
+    }
+
+    private String[] anonymousPaths() {
+        return new String[]{
+                "/ad/**",
+                "/search",
+                "/profile/get",
+                "/error"
+        };
+    }
+
+    private String[] onlyAuthenticatedPaths() {
+        return new String[]{
+                "/**"
+        };
     }
 }

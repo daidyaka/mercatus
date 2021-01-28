@@ -17,9 +17,13 @@ export default class Login extends Component {
         fetch('/profile/login', {
             method: 'POST',
             body: new FormData(event.target)
-        }).then(response => response.text())
-            .then(jwtToken => localStorage.setItem('jwt', jwtToken))
-            .then(() => location.href='/profile')
+        }).then(response => {
+            if (response.status === 200) {
+                response.text()
+                    .then(jwtToken => localStorage.setItem('jwt', jwtToken))
+                    .then(() => location.href = '/profile')
+            }
+        })
     }
 
     render() {

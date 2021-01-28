@@ -13,11 +13,8 @@ export default class Profile extends Component {
 
 
     componentDidMount() {
-        fetch('/profile/advertisements', {
-            headers: new Headers({
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-            })
-        }).then(res => res.json())
+        fetch('/profile/advertisements')
+            .then(res => res.json())
             .then(ads => console.log(ads))
     }
 

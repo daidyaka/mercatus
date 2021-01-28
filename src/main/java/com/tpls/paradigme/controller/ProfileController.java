@@ -4,6 +4,7 @@ import com.tpls.paradigme.entity.Advertisement;
 import com.tpls.paradigme.entity.LoginDto;
 import com.tpls.paradigme.entity.User;
 import com.tpls.paradigme.service.AdService;
+import com.tpls.paradigme.service.AuthenticationService;
 import com.tpls.paradigme.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -31,6 +32,7 @@ public class ProfileController extends AbstractController {
 
     private final AdService adService;
     private final UserService userService;
+    private final AuthenticationService authenticationService;
 
     @GetMapping
     public User profile(Authentication authentication) {
@@ -50,8 +52,9 @@ public class ProfileController extends AbstractController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid LoginDto dto) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.authorizeUser(dto));
+    public ResponseEntity<?> login(@Valid LoginDto dto) {
+        authenticationService.authenticateUser(dto);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @RequestMapping(value = "/avatar", produces = "`image/jpeg`")
