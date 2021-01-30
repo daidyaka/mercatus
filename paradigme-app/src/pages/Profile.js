@@ -15,24 +15,24 @@ class Profile extends Component {
     componentDidMount() {
         fetch('/profile/advertisements')
             .then(res => res.json())
-            .then(ads => console.log(ads))
+            .then(ads => this.setState({ads}))
     }
 
     render() {
         return (
             <AuthenticationContext.Consumer>
-                {value => {
+                {() => {
                     return (
                         <>
                             <h1>{this.context.auth.user?.firstName} {this.context.auth.user?.lastName}</h1>
-                            {/*<img src={`/profile/avatar?userId=${this.state.userId}`} alt="Фото пользователя"*/}
-                            {/*     className="current-user-image" height="200" width="200"/>*/}
+                            <img src={`http://localhost:8080/profile/avatar?userId=${this.context.auth.user?.id}`}
+                                 alt="Фото пользователя" className="current-user-image" height="200" width="200"/>
                             <h1>Мои объявления</h1>
                             <ul className="ads">
-                                {this.state.ads.map(ad => <li><Link to={`/ad/${ad.url}`}>{ad.title}</Link></li>)}
+                                {this.state.ads.map(ad => <li key={ad.url}><Link to={`/ad/${ad.url}`}>{ad.title}</Link></li>)}
                             </ul>
                             <hr/>
-                            <a href="/profile/create-ad">Создать новое объявление</a>
+                            <Link to="/profile/create-ad">Создать новое объявление</Link>
                         </>)
                 }}
             </AuthenticationContext.Consumer>

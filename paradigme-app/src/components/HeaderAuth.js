@@ -19,7 +19,7 @@ class HeaderAuth extends Component {
                         <div className="header-auth">
                             <Link to="/profile">Профиль</Link>
                             <span className="vertical-delimiter">/</span>
-                            <Link to="/logout">Выйти</Link>
+                            <a href="http://localhost:8080/logout">Выйти</a>
                         </div>
                     ) : (
                         <div className="header-auth">
