@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import AdComponentContainer from "../components/AdComponentContainer";
+import AdTypeSelector from "../components/AdTypeSelector";
 
 export default class CreateAd extends Component {
 
@@ -8,17 +10,17 @@ export default class CreateAd extends Component {
         this.state = {
             title: '',
             type: '',
-            phoneNumber: '',
-            elements: []
+            phoneNumber: ''
         };
 
+        this.elements = [];
         this.createAd = this.createAd.bind(this);
-        this.addElement = this.addElement.bind(this);
+        this.updateElements = this.updateElements.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
     createAd() {
-        let url = "/profile/create-ad";
-        fetch(url, {
+        fetch('/profile/create-ad', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -26,8 +28,8 @@ export default class CreateAd extends Component {
             body: JSON.stringify({
                 title: this.state.title,
                 type: this.state.type,
-                elements: this.state.elements,
-                phoneNumber: document.querySelector('input[name="phoneNumber"]').value
+                phoneNumber: this.state.phoneNumber,
+                elements: this.elements
             })
         }).then(response => {
             if (response.ok && response.status === 201) {
@@ -36,18 +38,15 @@ export default class CreateAd extends Component {
         });
     }
 
-    addElement(event) {
-        let elementType = event.target.getAttribute('el-type');
-        let createdElement = this.componentToObjectMapping[elementType](event.target);
+    updateElements(elements) {
+        this.elements = elements;
+    }
 
-        let elements = this.state.elements;
-        elements.push(createdElement);
-        this.setState(state => ({
-            title: state.title,
-            type: state.type,
-            phoneNumber: state.phoneNumber,
-            elements: elements
-        }))
+    handleInputChange(event) {
+        let target = event.target;
+        this.setState({
+            [target.name]: target.value
+        })
     }
 
     render() {
@@ -55,72 +54,22 @@ export default class CreateAd extends Component {
             <>
                 <label>
                     Заголовок:
-                    <input type="text" name="title" value={this.state.title}/>
+                    <input type="text" name="title" value={this.state.title} onChange={this.handleInputChange}/>
                     Категория объявления:
-                    <select name="type" className="adv-type-select" value={this.state.type}/>
+                    <AdTypeSelector onTypeChange={this.handleInputChange}/>
                 </label>
                 <label>
                     Номер телефона для связи:
-                    <input type="text" name="phoneNumber" value={this.state.phoneNumber}/>
+                    <input type="text" name="phoneNumber" value={this.state.phoneNumber}
+                           onChange={this.handleInputChange}/>
                 </label>
                 <hr/>
-                <button type="button" el-type="text" onClick={this.addElement}>Добавить текст</button>
-                <button type="button" el-type="image" onClick={this.addElement}>Добавить картинку</button>
-                <button type="button" el-type="video" onClick={this.addElement}>Добавить видео</button>
-                <hr/>
-                <div id="drop-adv-elements">
-                    {this.state.elements.map(el => {
-                        if (el.type === 'video') {
-                            return (
-                                <>
-                                    <br/>
-                                    <input type="text" placeholder="Ссылка на видео Youtube"/>
-                                </>
-                            )
-                        }
-                        if (el.type === 'image') {
-                            return (
-                                <>
-                                    <br/>
-                                    <input type="text" placeholder="Ссылка на личные медиа"/>
-                                </>
-                            )
-                        }
-                        if (el.type === 'text') {
-                            return (
-                                <>
-                                    <br/>
-                                    <textarea placeholder="Текст" cols="50" rows="10"/>
-                                </>
-                            )
-                        }
-                    })}
-                </div>
+                <AdComponentContainer updateElements={this.updateElements}/>
                 <hr/>
                 <button type="button" id="adv-submit" onClick={this.createAd}>Создать</button>
             </>
         )
     }
 
-    componentToObjectMapping = {
-        'video': (el) => {
-            return {
-                type: 'video',
-                videoLink: el.value
-            }
-        },
-        'text': (el) => {
-            return {
-                type: 'text',
-                text: el.value
-            }
-        },
-        'image': (el) => {
-            return {
-                type: 'image',
-                src: `/media/images/userId/${el.value}`
-            }
-        }
-    };
 
 };

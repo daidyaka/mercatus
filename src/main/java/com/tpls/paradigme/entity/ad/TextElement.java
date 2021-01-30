@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class RichTextElement extends AdElement {
+public class TextElement extends AdElement {
 
     private String text;
 

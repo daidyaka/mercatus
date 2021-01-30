@@ -7,12 +7,11 @@ import lombok.Data;
 @Data
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
         property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = ImageElement.class, name = "image"),
-        @JsonSubTypes.Type(value = RichTextElement.class, name = "rich_text"),
-        @JsonSubTypes.Type(value = YoutubeVideoElement.class, name = "youtube_video")
+        @JsonSubTypes.Type(value = TextElement.class, name = "text"),
+        @JsonSubTypes.Type(value = YoutubeVideoElement.class, name = "video")
 })
 public abstract class AdElement {
 
