@@ -36,7 +36,7 @@ public class AdvertisementController extends AbstractController {
                 .mapToInt(AdvertisementReview::getMark)
                 .average();
         return ImmutableMap.of("ad", foundAd,
-                "averageReviewMark", averageMark.orElse(0));
+                "averageReviewMark", String.format("%.1f", averageMark.orElse(0)));
     }
 
     @PostMapping("/{adUrl}/review")

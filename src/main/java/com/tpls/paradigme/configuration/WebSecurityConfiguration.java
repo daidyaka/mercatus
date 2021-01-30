@@ -63,6 +63,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private String[] anonymousPaths() {
         return new String[]{
                 "/ad/**",
+                "/media/**",
                 "/search",
                 "/profile/get",
                 "/error"
