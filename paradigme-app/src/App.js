@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import CreateAd from "./pages/CreateAd";
 import AuthenticationContext from "./providers/AuthenticationContext";
 import AdPage from "./pages/AdPage";
+import Search from "./pages/Search";
 
 class App extends React.Component {
 
@@ -46,6 +47,7 @@ class App extends React.Component {
                         <Route path={'/ad/:title'}><AdPage/></Route>
                         <Route path={'/profile/create-ad'}><CreateAd/></Route>
                         <Route path={'/profile'}><Profile/></Route>
+                        <Route path={'/search'}><Search/></Route>
                         <Route path={'/registration'}><Registration/></Route>
                         <Route path={'/login'}><Login/></Route>
                         <Route exact path={'/'}><Home/></Route>

@@ -9,7 +9,7 @@ export default class Header extends Component {
                 <Link className="header-logo" to={"/"}>Paradigme</Link>
                 <div className="header-search">
                     <form action="/search" method="get">
-                        <input className="header-search__input" placeholder="Какую услугу ищете?" name="q"/>
+                        <input className="header-search__input" placeholder="Какую услугу ищете?" name="query"/>
                         <input type="submit" className="header-search__btn" value="Я найду!"/>
                     </form>
                 </div>

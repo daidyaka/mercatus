@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import javax.validation.constraints.Min;
@@ -20,20 +21,18 @@ public class SearchDto {
 
     private String query;
     private String type;
+
     @NotNull
     private SortType sortType = SortType.RELEVANCE_DESC;
 
     @Min(0)
     private int limit = 10;
+
     @Min(0)
     private int page = 0;
 
-    public String getQuery() {
-        return Optional.ofNullable(query).orElse(StringUtils.EMPTY);
-    }
-
-    public String getType() {
-        return Optional.ofNullable(type).orElse(StringUtils.EMPTY);
+    public PageRequest getPageRequest() {
+        return PageRequest.of(page, limit, sortType.getSort());
     }
 
     @Getter

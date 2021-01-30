@@ -12,7 +12,9 @@ import java.util.Optional;
 @Repository
 public interface AdRepository extends MongoRepository<Advertisement, String> {
 
-    List<Advertisement> findByTitleIsLikeOrTypeIsLike(String title, String type, Pageable pageable);
+    List<Advertisement> findByTitleIsLikeAndTypeIsLike(String title, String type, Pageable pageable);
+
+    List<Advertisement> findByTitleIsLike(String title, PageRequest of);
 
     List<Advertisement> findByType(String type, PageRequest of);
 

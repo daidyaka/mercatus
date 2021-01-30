@@ -7,12 +7,13 @@ import com.tpls.paradigme.exception.ResourceNotFound;
 import com.tpls.paradigme.repository.AdRepository;
 import com.tpls.paradigme.util.TextTranslationUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -28,13 +29,18 @@ public class AdService {
     }
 
     public List<Advertisement> findAdvertisements(SearchDto query) {
-        return adRepository.findByTitleIsLikeOrTypeIsLike(query.getQuery(), query.getType(),
-                PageRequest.of(query.getPage(), query.getLimit(), query.getSortType().getSort()));
+        if (StringUtils.isNoneBlank(query.getQuery(), query.getType())) {
+            return adRepository.findByTitleIsLikeAndTypeIsLike(query.getQuery(), query.getType(), query.getPageRequest());
+        } else if (StringUtils.isNotBlank(query.getQuery())){
+            return adRepository.findByTitleIsLike(query.getQuery(), query.getPageRequest());
+        } else if (StringUtils.isNotBlank(query.getType())) {
+            return adRepository.findByType(query.getType(), query.getPageRequest());
+        }
+        return Collections.emptyList();
     }
 
     public List<Advertisement> findAdvertisementsByAdType(SearchDto query) {
-        return adRepository.findByType(query.getType(), PageRequest.of(query.getPage(), query.getLimit(),
-                query.getSortType().getSort()));
+        return adRepository.findByType(query.getType(), query.getPageRequest());
     }
 
     public void createAd(Advertisement ad) {
