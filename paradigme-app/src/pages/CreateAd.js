@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import AdComponentContainer from "../components/AdComponentContainer";
+import CreateAdComponentContainer from "../components/CreateAdComponentContainer";
 import AdTypeSelector from "../components/AdTypeSelector";
 
 export default class CreateAd extends Component {
@@ -64,7 +64,7 @@ export default class CreateAd extends Component {
                            onChange={this.handleInputChange}/>
                 </label>
                 <hr/>
-                <AdComponentContainer updateElements={this.updateElements}/>
+                <CreateAdComponentContainer updateElements={this.updateElements}/>
                 <hr/>
                 <button type="button" id="adv-submit" onClick={this.createAd}>Создать</button>
             </>

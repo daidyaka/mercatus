@@ -9,8 +9,4 @@ public class ImageElement extends AdElement {
 
     private String src;
 
-    @Override
-    public String markup() {
-        return String.format("<img src='%s' alt='Image component'/>", src);
-    }
 }

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-export default class AdComponentContainer extends Component {
+export default class CreateAdComponentContainer extends Component {
 
     constructor(props) {
         super(props);

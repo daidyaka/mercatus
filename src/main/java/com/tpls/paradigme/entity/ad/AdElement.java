@@ -15,6 +15,4 @@ import lombok.Data;
 })
 public abstract class AdElement {
 
-    public abstract String markup();
-
 }
