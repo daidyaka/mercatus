@@ -32,46 +32,9 @@ const typeService = APP.services.adTypes;
     }
 })();
 
-const componentToObjectMapping = {
-    'youtube-video': (el) => {
-        return {
-            type: 'youtube_video',
-            videoLink: el.value
-        }
-    },
-    'text': (el) => {
-        return {
-            type: 'rich_text',
-            text: el.value
-        }
-    },
-    'image': (el) => {
-        return {
-            type: 'image',
-            src: `/media/images/${APP.userId}/${el.value}`
-        }
-    }
-};
-
 document.querySelector('#adv-submit').onclick = function (event) {
     event.preventDefault();
-    let url = "/profile/create-ad";
-    fetch(url, {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            title: title.value,
-            type: collectSelectorType(),
-            elements: collectDropElements(),
-            phoneNumber: document.querySelector('input[name="phoneNumber"]').value
-        })
-    }).then(response => {
-        if (response.ok && response.status === 201) {
-            window.location = `${response.headers.get('Location')}.html`;
-        }
-    });
+
 }
 
 addTextBtn.onclick = function () {
