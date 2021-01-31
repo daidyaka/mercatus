@@ -1,0 +1,36 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    box-shadow: 0 3px 10px lightgray;
+    background-color: rgb(255,255,255);
+    position: relative;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.header-logo-link {
+    font-family: 'Faster One', cursive;
+    text-decoration: none;
+    color: black;
+    font-size: 35px;
+}
+
+.header-search__input {
+    width: 375px;
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.header-search {
+    position: relative;
+}
+
+.header-search .fa-search {
+    position: absolute;
+    top: 12px;
+    left: 365px;
+}

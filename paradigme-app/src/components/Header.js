@@ -1,16 +1,19 @@
 import React, {Component} from "react";
 import HeaderAuth from "./HeaderAuth";
 import {Link} from "react-router-dom";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import '../styles/Header.css';
 
 export default class Header extends Component {
     render() {
         return (
             <header className="header">
-                <Link className="header-logo" to={"/"}>Paradigme</Link>
+                <Link className="header-logo-link" to={"/"}>Paradigme</Link>
                 <div className="header-search">
                     <form action="/search" method="get">
                         <input className="header-search__input" placeholder="Какую услугу ищете?" name="query"/>
-                        <input type="submit" className="header-search__btn" value="Я найду!"/>
+                        <FontAwesomeIcon icon={faSearch}/>
                     </form>
                 </div>
                 <HeaderAuth/>

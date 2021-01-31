@@ -11,6 +11,7 @@ import CreateAd from "./pages/CreateAd";
 import AuthenticationContext from "./providers/AuthenticationContext";
 import AdPage from "./pages/AdPage";
 import Search from "./pages/Search";
+import ModalWindow from "./components/ModalWindow";
 
 class App extends React.Component {
 
@@ -43,16 +44,19 @@ class App extends React.Component {
             <AuthenticationContext.Provider value={this.state}>
                 <Router>
                     <Header/>
-                    <Switch>
-                        <Route path={'/ad/:title'}><AdPage/></Route>
-                        <Route path={'/profile/create-ad'}><CreateAd/></Route>
-                        <Route path={'/profile'}><Profile/></Route>
-                        <Route path={'/search'}><Search/></Route>
-                        <Route path={'/registration'}><Registration/></Route>
-                        <Route path={'/login'}><Login/></Route>
-                        <Route exact path={'/'}><Home/></Route>
-                        <Route path={'*'}><NotFound/></Route>
-                    </Switch>
+                    <ModalWindow isActive={true} text="Hello world! Lorem ipsum dolor sit amet!!"/>
+                    <main id="root">
+                        <Switch>
+                            <Route path={'/ad/:title'}><AdPage/></Route>
+                            <Route path={'/profile/create-ad'}><CreateAd/></Route>
+                            <Route path={'/profile'}><Profile/></Route>
+                            <Route path={'/search'}><Search/></Route>
+                            <Route path={'/registration'}><Registration/></Route>
+                            <Route path={'/login'}><Login/></Route>
+                            <Route exact path={'/'}><Home/></Route>
+                            <Route path={'*'}><NotFound/></Route>
+                        </Switch>
+                    </main>
                 </Router>
             </AuthenticationContext.Provider>
         );
