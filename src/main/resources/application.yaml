@@ -1,9 +1,15 @@
-files.storage:
-  path: C://Users/Mykyta_Trufanov/Desktop/photos/
-  default-image: src/main/resources/static/images/no-photo.jpeg
+app:
+  files.storage:
+    path: C://Users/Mykyta_Trufanov/Desktop/photos/
+    default-image: src/main/resources/static/images/no-photo.jpeg
 spring:
   servlet:
     multipart:
       enabled: true
       max-file-size: 20971520
       max-request-size: 26214400
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://login.domain.com/xxx/keys
