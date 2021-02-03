@@ -1,0 +1,44 @@
+.hoverable-image {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.hoverable-image img {
+    width: 100%;
+    vertical-align: top;
+}
+
+.hoverable-image:after, .hoverable-image:before {
+    position: absolute;
+    opacity: 0;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+}
+
+.hoverable-image:after {
+    content: '\A';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.hoverable-image:before {
+    content: attr(data-content);
+    width: 100%;
+    color: #fff;
+    z-index: 1;
+    bottom: 0;
+    padding: 4px 10px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    cursor: pointer;
+}
+
+.hoverable-image:hover:after, .hoverable-image:hover:before {
+    opacity: 1;
+}

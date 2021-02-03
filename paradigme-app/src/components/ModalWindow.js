@@ -10,8 +10,10 @@ export default class ModalWindow extends Component {
             isActive: props.isActive
         }
 
-        this.text = props.text;
+        this.markup = props.markup;
         this.closeModal = this.closeModal.bind(this);
+
+        console.log('log')
     }
 
     closeModal() {
@@ -25,7 +27,7 @@ export default class ModalWindow extends Component {
             <div className="modal" style={{display: this.state.isActive ? 'block' : 'none'}} onClick={this.closeModal}>
                 <div className="modal-content">
                     <span className="close" onClick={this.closeModal}>&times;</span>
-                    <p>{this.text}</p>
+                    {this.markup}
                 </div>
             </div>
         );

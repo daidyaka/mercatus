@@ -52,11 +52,24 @@ public class ImageMediaController extends MediaAbstractController {
 
     @ResponseBody
     @PostMapping("/upload")
-    public ResponseEntity<?> upload(@RequestParam(name = "image") MultipartFile file,
+    public ResponseEntity<?> upload(@RequestParam MultipartFile file,
                                     Authentication authentication) throws IOException {
 
         User authenticatedUser = getAuthenticatedUser(authentication, userService);
         storageService.saveAndCompressImage(file.getInputStream(), authenticatedUser.getId(), file.getOriginalFilename());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @PostMapping("/upload-avatar")
+    public ResponseEntity<?> uploadAvatar(@RequestParam(name = "avatar") MultipartFile file,
+                                    Authentication authentication) throws IOException {
+
+        User authenticatedUser = getAuthenticatedUser(authentication, userService);
+        storageService.saveAndCompressImage(file.getInputStream(), authenticatedUser.getId(), file.getOriginalFilename());
+
+        authenticatedUser.setImageUrl(file.getOriginalFilename());
+        userService.updateUser(authenticatedUser);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

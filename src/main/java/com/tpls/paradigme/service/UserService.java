@@ -1,19 +1,16 @@
 package com.tpls.paradigme.service;
 
-import com.tpls.paradigme.entity.LoginDto;
 import com.tpls.paradigme.entity.User;
 import com.tpls.paradigme.entity.UserRole;
 import com.tpls.paradigme.repository.UserRepository;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 
@@ -46,6 +43,10 @@ public class UserService implements UserDetailsService {
                 userRepository.save(user);
             }
         }
+    }
+
+    public User updateUser(User user) {
+        return userRepository.save(user);
     }
 
     public byte[] readUserPhoto(User user) {

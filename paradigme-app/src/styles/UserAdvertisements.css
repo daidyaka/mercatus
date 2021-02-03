@@ -1,0 +1,22 @@
+.user-ads-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.user-ads-block h1, a {
+    width: auto;
+}
+
+.no-ads-container {
+    text-align: center;
+}
+
+.no-ads-container svg {
+    color: gray;
+    width: 100px;
+    height: 100px;
+    transform: scale(5);
+}

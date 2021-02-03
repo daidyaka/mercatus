@@ -1,0 +1,29 @@
+.profile-data {
+    padding: 25px 10px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-avatar-name {
+    display: flex;
+}
+
+.profile-avatar-name > div {
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.personal-media-link {
+    margin-top: auto;
+}
+
+.profile-avatar-name > img:after {
+    content: '';
+    background-color: rgba(0, 0, 0, 1);
+}
+
+.profile-avatar-name > img:after img:hover {
+    content: "";
+    background-color: rgba(0, 0, 0, 1);
+}

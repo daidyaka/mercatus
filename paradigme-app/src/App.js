@@ -44,7 +44,6 @@ class App extends React.Component {
             <AuthenticationContext.Provider value={this.state}>
                 <Router>
                     <Header/>
-                    <ModalWindow isActive={true} text="Hello world! Lorem ipsum dolor sit amet!!"/>
                     <main id="root">
                         <Switch>
                             <Route path={'/ad/:title'}><AdPage/></Route>
