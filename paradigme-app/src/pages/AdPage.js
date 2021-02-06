@@ -51,6 +51,24 @@ class AdPage extends Component {
         );
     }
 
+    /*convertTypeToText(adTypeText, types) {
+        let value = adTypeText.getAttribute('data-ad-type')
+        for (const type in types) {
+            if (types[type].name) {
+                for (const [key, elVal] of Object.entries(types[type].options)) {
+                    if (key === value) {
+                        return types[type].name + ' > ' + elVal;
+                    }
+                }
+            } else {
+                if (value === type) {
+                    return types[type];
+                }
+            }
+        }
+        return 'Others';
+    }*/
+
 }
 
 export default withRouter(AdPage);
