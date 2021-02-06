@@ -38,6 +38,25 @@ main {
     height: 24px;
 }
 
+.btn.green {
+    background-color: forestgreen;
+    border-color: darkgreen;
+}
+
+.btn.red {
+    background-color: indianred;
+    border-color: darkred;
+}
+
+.btn.blue {
+    background-color: dodgerblue;
+    border-color: royalblue;
+}
+
+button.btn {
+    height: auto;
+}
+
 hr {
     border-left: 0;
     border-right: 0;
@@ -45,4 +64,22 @@ hr {
     margin-top: 5px;
     margin-bottom: 5px;
     border-color: rgba(0, 0, 0, 0.1);
+}
+
+.margin-header {
+    padding: 25px 10px 10px;
+}
+
+.input {
+    padding: 5px;
+    border: 1px solid dimgray;
+    border-radius: 3px;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex.space-even {
+    justify-content: space-evenly;
 }

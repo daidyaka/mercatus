@@ -1,0 +1,9 @@
+.create-ad-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+
+.create-ad-header>label span {
+    margin-right: 10px;
+}

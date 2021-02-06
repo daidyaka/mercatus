@@ -32,7 +32,7 @@ public class ImageMediaController extends MediaAbstractController {
     }
 
     @ResponseBody
-    @GetMapping("/all")
+    @GetMapping("/my/all")
     public List<String> getAll(Authentication authentication) {
         return storageService.loadUserFiles(
                 getAuthenticatedUser(authentication, userService).getId()

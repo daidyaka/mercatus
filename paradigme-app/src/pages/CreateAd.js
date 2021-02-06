@@ -1,6 +1,10 @@
 import React, {Component} from "react";
 import CreateAdComponentContainer from "../components/CreateAdComponentContainer";
 import AdTypeSelector from "../components/AdTypeSelector";
+import "../styles/CreateAd.css";
+import VerticalDelimiter from "../components/VerticalDelimiter";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSave} from "@fortawesome/free-solid-svg-icons";
 
 export default class CreateAd extends Component {
 
@@ -9,7 +13,7 @@ export default class CreateAd extends Component {
 
         this.state = {
             title: '',
-            type: '',
+            type: 'construction',
             phoneNumber: ''
         };
 
@@ -29,10 +33,11 @@ export default class CreateAd extends Component {
                 title: this.state.title,
                 type: this.state.type,
                 phoneNumber: this.state.phoneNumber,
-                elements: this.elements
+                elements: this.elements,
+                imageUrl: null
             })
         }).then(response => {
-            if (response.ok && response.status === 201) {
+            if (response.ok) {
                 window.location = `${response.headers.get('Location')}.html`;
             }
         });
@@ -51,23 +56,33 @@ export default class CreateAd extends Component {
 
     render() {
         return (
-            <>
-                <label>
-                    Заголовок:
-                    <input type="text" name="title" value={this.state.title} onChange={this.handleInputChange}/>
-                    Категория объявления:
+            <div className="margin-header">
+                <div className="create-ad-header">
+                    <label>
+                        <span>Заголовок:</span>
+                        <input className="input" type="text" name="title" value={this.state.title}
+                               onChange={this.handleInputChange}/>
+                    </label>
                     <AdTypeSelector onTypeChange={this.handleInputChange}/>
-                </label>
-                <label>
-                    Номер телефона для связи:
-                    <input type="text" name="phoneNumber" value={this.state.phoneNumber}
-                           onChange={this.handleInputChange}/>
-                </label>
+                    <label>
+                        <span>Номер телефона для связи:</span>
+                        <input className="input" type="text" name="phoneNumber" value={this.state.phoneNumber}
+                               onChange={this.handleInputChange}/>
+                    </label>
+                </div>
                 <hr/>
-                <CreateAdComponentContainer updateElements={this.updateElements}/>
+                <CreateAdComponentContainer updateElements={this.updateElements}
+                                            createButton={
+                                                <>
+                                                    <VerticalDelimiter/>
+                                                    <button className="btn blue" type="button" el-type="video"
+                                                            onClick={this.createAd}>
+                                                        <FontAwesomeIcon icon={faSave}/> Создать
+                                                    </button>
+                                                </>
+                                            }/>
                 <hr/>
-                <button type="button" id="adv-submit" onClick={this.createAd}>Создать</button>
-            </>
+            </div>
         )
     }
 

@@ -11,7 +11,6 @@ import CreateAd from "./pages/CreateAd";
 import AuthenticationContext from "./providers/AuthenticationContext";
 import AdPage from "./pages/AdPage";
 import Search from "./pages/Search";
-import ModalWindow from "./components/ModalWindow";
 
 class App extends React.Component {
 

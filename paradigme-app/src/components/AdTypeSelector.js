@@ -13,9 +13,12 @@ export default class AdTypeSelector extends Component {
 
     render() {
         return (
-            <select name="type" className="adv-type-select" onChange={this.onTypeChange}>
-                {this.collectTypes()}
-            </select>
+            <label>
+                <span>Категория:</span>
+                <select name="type" className="input" onChange={this.onTypeChange}>
+                    {this.collectTypes()}
+                </select>
+            </label>
         );
     }
 

@@ -8,6 +8,17 @@
     overflow: auto;
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
+    transition: visibility 0s, opacity 0.25s ease-in-out;
+}
+
+.modal.enabled {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal.disabled {
+    visibility: hidden;
+    opacity: 0;
 }
 
 .modal-content {

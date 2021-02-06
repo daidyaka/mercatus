@@ -3,6 +3,7 @@ import AdTypeSelector from "../components/AdTypeSelector";
 import {getAllParams, toUrlParams} from '../services/url-parser';
 import {Link} from "react-router-dom";
 import {withRouter} from "react-router";
+import AdSearchElement from "../components/AdSearchElement";
 
 class Search extends Component {
 
@@ -65,12 +66,8 @@ class Search extends Component {
                        onChange={this.collectValue}/>
                 <AdTypeSelector onTypeChange={this.collectValue}/>
                 <div className="search-results">
-                    {this.state.results.length !== 0 ? this.state.results.map((res, index) => {
-                        return (
-                            <div>
-                                {index + 1}. <Link to={`/ad/${res.url}`}>{res.title}</Link>
-                            </div>
-                        );
+                    {this.state.results.length !== 0 ? this.state.results.map((ad) => {
+                        return <AdSearchElement ad={ad}/>;
                     }) : 'Результатов не найдено :('}
                 </div>
             </>

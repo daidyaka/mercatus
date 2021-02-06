@@ -24,6 +24,7 @@ public class Advertisement {
     private String phoneNumber;
 
     private String url;
+    private String imageUrl;
     private List<AdElement> elements;
     private LocalDateTime dateCreated;
     private List<AdvertisementReview> reviews = new ArrayList<>();

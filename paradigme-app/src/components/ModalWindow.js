@@ -6,28 +6,16 @@ export default class ModalWindow extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            isActive: props.isActive
-        }
-
-        this.markup = props.markup;
-        this.closeModal = this.closeModal.bind(this);
-
-        console.log('log')
-    }
-
-    closeModal() {
-        this.setState({
-            isActive: false
-        })
+        this.onClose = props.onClose;
     }
 
     render() {
         return (
-            <div className="modal" style={{display: this.state.isActive ? 'block' : 'none'}} onClick={this.closeModal}>
+            <div className={`modal ${this.props.isActive ? 'enabled' : 'disabled'}`} onClick={this.onClose}>
                 <div className="modal-content">
-                    <span className="close" onClick={this.closeModal}>&times;</span>
-                    {this.markup}
+                    {this.props.children}
+                    {console.log(this.props.children)}
+                    {console.log(this.props.isActive)}
                 </div>
             </div>
         );

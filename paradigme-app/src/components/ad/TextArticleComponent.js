@@ -9,6 +9,6 @@ export default class TextArticleComponent extends Component {
     }
 
     render() {
-        return <p>{this.text}</p>
+        return <div dangerouslySetInnerHTML={{__html: this.text}}/>
     }
 }
