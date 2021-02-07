@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import '../styles/UserAdvertisements.css';
-import {faPenSquare, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faPenSquare, faPlus, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import HorizontalSlider from "./HorizontalSlider";
+import Slider from "./Slider";
 import Card from "./Card";
 import AdType from "./AdType";
 
@@ -35,13 +35,16 @@ export default class UserAdvertisements extends Component {
                 <hr/>
                 <div className="ads">
                     {this.state.ads && this.state.ads.length ?
-                        <HorizontalSlider numberOfElements={4}>
+                        <Slider withScroll={true}>
                             {this.state.ads.map(ad => <Card imageLink={ad.imageUrl}
                                                             link={`/ad/${ad.url}`}
                                                             title={ad.title}>
                                 <AdType type={ad.type}/>
+                                <div className="delete-ad-btn">
+                                    <button className="btn red"><FontAwesomeIcon icon={faTrash}/> Удалить</button>
+                                </div>
                             </Card>)}
-                        </HorizontalSlider>
+                        </Slider>
                         : (
                             <div className="no-ads-container">
                                 <FontAwesomeIcon icon={faPenSquare}/>

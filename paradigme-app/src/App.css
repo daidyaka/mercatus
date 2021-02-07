@@ -17,9 +17,8 @@ body {
 main {
     width: 80%;
     background-color: white;
-    /*display: flex;*/
     margin-left: 10%;
-    height: calc(100vh - 71px);
+    min-height: calc(100vh - 71px);
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-top: 0;
     border-bottom: 0;
