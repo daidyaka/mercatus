@@ -34,9 +34,7 @@ public class ImageMediaController extends MediaAbstractController {
     @ResponseBody
     @GetMapping("/my/all")
     public List<String> getAll(Authentication authentication) {
-        return storageService.loadUserFiles(
-                getAuthenticatedUser(authentication, userService).getId()
-        );
+        return storageService.loadUserFiles(getAuthenticatedUser(authentication).getId());
     }
 
     @ResponseBody
@@ -55,7 +53,7 @@ public class ImageMediaController extends MediaAbstractController {
     public ResponseEntity<?> upload(@RequestParam MultipartFile file,
                                     Authentication authentication) throws IOException {
 
-        User authenticatedUser = getAuthenticatedUser(authentication, userService);
+        User authenticatedUser = getAuthenticatedUser(authentication);
         storageService.saveAndCompressImage(file.getInputStream(), authenticatedUser.getId(), file.getOriginalFilename());
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -65,7 +63,7 @@ public class ImageMediaController extends MediaAbstractController {
     public ResponseEntity<?> uploadAvatar(@RequestParam(name = "avatar") MultipartFile file,
                                     Authentication authentication) throws IOException {
 
-        User authenticatedUser = getAuthenticatedUser(authentication, userService);
+        User authenticatedUser = getAuthenticatedUser(authentication);
         storageService.saveAndCompressImage(file.getInputStream(), authenticatedUser.getId(), file.getOriginalFilename());
 
         authenticatedUser.setImageUrl(file.getOriginalFilename());

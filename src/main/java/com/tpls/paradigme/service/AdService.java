@@ -3,6 +3,8 @@ package com.tpls.paradigme.service;
 import com.tpls.paradigme.entity.Advertisement;
 import com.tpls.paradigme.entity.AdvertisementReview;
 import com.tpls.paradigme.entity.SearchDto;
+import com.tpls.paradigme.entity.User;
+import com.tpls.paradigme.exception.NoRightsException;
 import com.tpls.paradigme.exception.ResourceNotFound;
 import com.tpls.paradigme.repository.AdRepository;
 import com.tpls.paradigme.util.TextTranslationUtil;
@@ -56,6 +58,20 @@ public class AdService {
         reviews.add(adReview);
         foundAd.setReviews(reviews);
         adRepository.save(foundAd);
+    }
+
+    public void removeAd(User user, String adUrl) {
+        Optional<Advertisement> ad = adRepository.findByUrl(adUrl);
+        if (!ad.isPresent()) {
+            throw new ResourceNotFound();
+        }
+
+        Advertisement advertisement = ad.get();
+        if (!advertisement.getUserId().equals(user.getId())) {
+            throw new NoRightsException();
+        }
+
+        adRepository.delete(advertisement);
     }
 
     @NonNull

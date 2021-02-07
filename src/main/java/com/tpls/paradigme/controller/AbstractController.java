@@ -9,16 +9,16 @@ import java.util.Optional;
 
 public abstract class AbstractController {
 
-    protected User getAuthenticatedUser(Authentication authentication, UserService userService) {
+    protected User getAuthenticatedUser(Authentication authentication) {
         return Optional.ofNullable(authentication)
                 .filter(Authentication::isAuthenticated)
                 .map(auth -> (User) auth.getPrincipal())
                 .orElseThrow(NoAuthenticationException::new);
     }
 
-    protected User getAuthenticatedUserOrNull(Authentication authentication, UserService userService) {
+    protected User getAuthenticatedUserOrNull(Authentication authentication) {
         try {
-            return getAuthenticatedUser(authentication, userService);
+            return getAuthenticatedUser(authentication);
         } catch (NoAuthenticationException exception) {
             return null;
         }

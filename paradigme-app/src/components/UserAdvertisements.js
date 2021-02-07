@@ -14,12 +14,12 @@ export default class UserAdvertisements extends Component {
         this.state = {
             ads: []
         }
+
+        this.fetchAds = this.fetchAds.bind(this);
     }
 
     componentDidMount() {
-        fetch('/profile/advertisements')
-            .then(res => res.json())
-            .then(ads => this.setState({ads}))
+        this.fetchAds();
     }
 
     render() {
@@ -38,11 +38,13 @@ export default class UserAdvertisements extends Component {
                         <Slider withScroll={true}>
                             {this.state.ads.map(ad => <Card imageLink={ad.imageUrl}
                                                             link={`/ad/${ad.url}`}
-                                                            title={ad.title}>
+                                                            title={ad.title}
+                                                            button={{
+                                                                icon: faTrash,
+                                                                className: "btn red",
+                                                                onClick: this.deleteAd.bind(this, ad.url)
+                                                            }}>
                                 <AdType type={ad.type}/>
-                                <div className="delete-ad-btn">
-                                    <button className="btn red"><FontAwesomeIcon icon={faTrash}/> Удалить</button>
-                                </div>
                             </Card>)}
                         </Slider>
                         : (
@@ -54,6 +56,20 @@ export default class UserAdvertisements extends Component {
                 </div>
             </>
         );
+    }
+
+    fetchAds() {
+        fetch('/profile/advertisements')
+            .then(res => res.json())
+            .then(ads => this.setState({ads}))
+    }
+
+    deleteAd(adUrl, event) {
+        event.preventDefault();
+        event.stopPropagation();
+        fetch(`/ad/${adUrl}/delete`, {
+            method: 'delete'
+        }).then(res => res.text()).then(() => location.reload())
     }
 
 }

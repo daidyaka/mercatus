@@ -36,12 +36,12 @@ public class ProfileController extends AbstractController {
 
     @GetMapping
     public User profile(Authentication authentication) {
-        return getAuthenticatedUser(authentication, userService);
+        return getAuthenticatedUser(authentication);
     }
 
     @RequestMapping("/get")
     public Map<String, Object> isAuthenticated(Authentication auth) {
-        User user = getAuthenticatedUserOrNull(auth, userService);
+        User user = getAuthenticatedUserOrNull(auth);
 
         Map<String, Object> userProps = new HashMap<>();
         userProps.put("isAuthenticated", user != null);
@@ -59,7 +59,7 @@ public class ProfileController extends AbstractController {
 
     @RequestMapping(value = "/avatar", produces = "`image/jpeg`")
     public byte[] getProfilePhoto(Authentication authentication) {
-        User authenticatedUser = getAuthenticatedUser(authentication, userService);
+        User authenticatedUser = getAuthenticatedUser(authentication);
         return userService.readUserPhoto(authenticatedUser);
     }
 
@@ -72,13 +72,13 @@ public class ProfileController extends AbstractController {
 
     @GetMapping("/advertisements")
     public List<Advertisement> getCurrentUserAdvertisements(Authentication auth) {
-        String userId = getAuthenticatedUser(auth, userService).getId();
+        String userId = getAuthenticatedUser(auth).getId();
         return adService.getAdsByUserId(userId);
     }
 
     @PostMapping("/create-ad")
     public ResponseEntity<String> createAd(@RequestBody @Valid Advertisement ad, Authentication auth) {
-        ad.setUserId(getAuthenticatedUser(auth, userService).getId());
+        ad.setUserId(getAuthenticatedUser(auth).getId());
         adService.createAd(ad);
 
         return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY)

@@ -25,3 +25,13 @@ a.card:hover {
     width: 100px;
     height: 200px;
 }
+
+.card-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-title button {
+    height: 34px;
+    width: 34px;
+}
