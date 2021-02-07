@@ -14,22 +14,18 @@ export default class HorizontalSlider extends Component {
             rightBtnActive: this.props.children.length - this.numberOfElements
         }
 
-        this.getItems = this.getItems.bind(this);
+        this.displayItems = this.displayItems.bind(this);
         this.leftClick = this.leftClick.bind(this);
         this.rightClick = this.rightClick.bind(this);
-
-        this.state.items = this.getItems();
     }
 
-    getItems() {
+    displayItems() {
         let items = [];
         let i = 0;
         while (i < this.numberOfElements) {
             items.push(this.props.children[this.state.index + i]);
             i++;
         }
-        items.forEach(it => console.log(it.props.title));
-        console.log('--------------')
         return items;
     }
 
@@ -68,7 +64,7 @@ export default class HorizontalSlider extends Component {
                         disabled={!this.state.leftBtnActive}
                         onClick={this.state.leftBtnActive ? this.leftClick : () => {
                         }}>&larr;</button>
-                {this.state.items}
+                {this.displayItems()}
                 <button type="button" className="horizontal-slider-control"
                         disabled={!this.state.rightBtnActive}
                         onClick={this.state.rightBtnActive ? this.rightClick : () => {
