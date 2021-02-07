@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.tpls.paradigme.controller.MediaAbstractController.MEDIA_BASE_URL;
 
@@ -34,7 +35,10 @@ public class ImageMediaController extends MediaAbstractController {
     @ResponseBody
     @GetMapping("/my/all")
     public List<String> getAll(Authentication authentication) {
-        return storageService.loadUserFiles(getAuthenticatedUser(authentication).getId());
+        String userId = getAuthenticatedUser(authentication).getId();
+        return storageService.loadUserFiles(userId).stream()
+                .map(fileName -> "/media/images/" + userId + "/" + fileName)
+                .collect(Collectors.toList());
     }
 
     @ResponseBody
@@ -61,7 +65,7 @@ public class ImageMediaController extends MediaAbstractController {
     @ResponseBody
     @PostMapping("/upload-avatar")
     public ResponseEntity<?> uploadAvatar(@RequestParam(name = "avatar") MultipartFile file,
-                                    Authentication authentication) throws IOException {
+                                          Authentication authentication) throws IOException {
 
         User authenticatedUser = getAuthenticatedUser(authentication);
         storageService.saveAndCompressImage(file.getInputStream(), authenticatedUser.getId(), file.getOriginalFilename());

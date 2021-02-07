@@ -57,7 +57,7 @@ public class ProfileController extends AbstractController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @RequestMapping(value = "/avatar", produces = "`image/jpeg`")
+    @RequestMapping(value = "/avatar", produces = "image/jpeg")
     public byte[] getProfilePhoto(Authentication authentication) {
         User authenticatedUser = getAuthenticatedUser(authentication);
         return userService.readUserPhoto(authenticatedUser);

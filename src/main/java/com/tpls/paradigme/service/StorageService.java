@@ -58,7 +58,7 @@ public class StorageService {
             return Files.list(Paths.get(localStoragePath + userId))
                     .map(Path::toFile)
                     .filter(File::isFile)
-                    .map(File::getAbsolutePath)
+                    .map(File::getName)
                     .collect(Collectors.toList());
         } catch (IOException e) {
             throw new UncheckedIOException("Could not find a user directory in storage", e);
