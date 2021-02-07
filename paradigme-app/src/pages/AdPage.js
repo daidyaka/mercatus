@@ -3,6 +3,7 @@ import {withRouter} from "react-router";
 import AdComponentHolder from "../components/AdComponentHolder";
 import AdReviewSection from "../components/AdReviewSection";
 import LeaveReviewComponent from "../components/LeaveReviewComponent";
+import AdType from "../components/AdType";
 
 class AdPage extends Component {
 
@@ -35,7 +36,7 @@ class AdPage extends Component {
                 <>
                     <h1>{ad.title}</h1>
                     <h2>Средняя оценка: {averageReviewMark}</h2>
-                    <i data-ad-type={ad.type}/>
+                    <AdType type={ad.type}/>
                     <b>{ad.phoneNumber}</b>
                     <hr/>
                     <AdComponentHolder elements={ad.elements} userId={ad.userId}/>
@@ -50,25 +51,6 @@ class AdPage extends Component {
             )
         );
     }
-
-    /*convertTypeToText(adTypeText, types) {
-        let value = adTypeText.getAttribute('data-ad-type')
-        for (const type in types) {
-            if (types[type].name) {
-                for (const [key, elVal] of Object.entries(types[type].options)) {
-                    if (key === value) {
-                        return types[type].name + ' > ' + elVal;
-                    }
-                }
-            } else {
-                if (value === type) {
-                    return types[type];
-                }
-            }
-        }
-        return 'Others';
-    }*/
-
 }
 
 export default withRouter(AdPage);

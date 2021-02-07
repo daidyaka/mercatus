@@ -14,8 +14,6 @@ export default class ModalWindow extends Component {
             <div className={`modal ${this.props.isActive ? 'enabled' : 'disabled'}`} onClick={this.onClose}>
                 <div className="modal-content">
                     {this.props.children}
-                    {console.log(this.props.children)}
-                    {console.log(this.props.isActive)}
                 </div>
             </div>
         );

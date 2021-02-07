@@ -1,0 +1,42 @@
+.horizontal-slider {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.horizontal-slider-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: royalblue;
+    color: white;
+    border: 1px solid royalblue;
+    padding: 10px;
+    border-radius: 100%;
+    font-size: 30px;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.horizontal-slider-control[disabled] {
+    color: #7a93e7;
+    border-color: #7a93e7;
+    background-color: white;
+    cursor: default;
+}
+
+.horizontal-slider-control:hover {
+    background-color: royalblue;
+    color: white;
+}
+
+.horizontal-slider-control[disabled]:hover {
+    color: #7a93e7;
+    border-color: #7a93e7;
+    background-color: white;
+    cursor: not-allowed;
+}

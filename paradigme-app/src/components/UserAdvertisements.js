@@ -1,8 +1,11 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import '../styles/UserAdvertisements.css';
-import {faPlus, faPenSquare} from "@fortawesome/free-solid-svg-icons";
+import {faPenSquare, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import HorizontalSlider from "./HorizontalSlider";
+import Card from "./Card";
+import AdType from "./AdType";
 
 export default class UserAdvertisements extends Component {
 
@@ -30,21 +33,24 @@ export default class UserAdvertisements extends Component {
                     </Link>
                 </div>
                 <hr/>
-                <ul className="ads">
-                    {this.state.ads && this.state.ads.length ? this.state.ads.map(ad => {
-                        return (
-                            <li key={ad.url}>
-                                <Link to={`/ad/${ad.url}`}>{ad.title}</Link>
-                            </li>
-                        )
-                    }) : (
-                        <div className="no-ads-container">
-                            <FontAwesomeIcon icon={faPenSquare}/>
-                            <h3>Пока нет ваших объявлений, но вы можете создать новое.</h3>
-                        </div>
-                    )}
-                </ul>
+                <div className="ads">
+                    {this.state.ads && this.state.ads.length ?
+                        <HorizontalSlider numberOfElements={4}>
+                            {this.state.ads.map(ad => <Card imageLink={ad.imageUrl}
+                                                            link={`/ad/${ad.url}`}
+                                                            title={ad.title}>
+                                <AdType type={ad.type}/>
+                            </Card>)}
+                        </HorizontalSlider>
+                        : (
+                            <div className="no-ads-container">
+                                <FontAwesomeIcon icon={faPenSquare}/>
+                                <h3>Пока нет ваших объявлений, но вы можете создать новое.</h3>
+                            </div>
+                        )}
+                </div>
             </>
         );
     }
+
 }
