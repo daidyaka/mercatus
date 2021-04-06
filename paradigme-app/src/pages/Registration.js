@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import {Button, Col, Form, FormFile, Image} from "react-bootstrap";
+import "../styles/Registarion.css";
 
 export default class Registration extends Component {
 
@@ -20,62 +22,82 @@ export default class Registration extends Component {
 
     render() {
         return (
-            <>
-                <form method="post" encType="multipart/form-data" onSubmit={this.handleSubmit}>
-                    <h1>Регистрация</h1>
-                    <label>
-                        Имя:
-                        <input type="text" name="firstName"/>
-                    </label>
-                    <label>
-                        Фамилия:
-                        <input type="text" name="lastName"/>
-                    </label>
-                    <br/>
-                    <label>
-                        Фотография профиля:
-                        <input type="file" name="avatar"/>
-                    </label>
-                    <br/>
-                    <label>
-                        Email:
-                        <input type="email" name="email"/>
-                    </label>
-                    <br/>
-                    <label>
-                        Пароль:
-                        <input type="password" name="password"/>
-                    </label>
-                    <label>
-                        Повторите пароль:
-                        <input type="password" name="repeatPassword"/>
-                    </label>
-                    <hr/>
-                    <label>
-                        Город:
-                        <input type="text" name="city"/>
-                    </label>
-                    <label>
-                        Дата рождения:
-                        <input type="date" name="dateOfBirth"/>
-                    </label>
-                    <label>
-                        Пол:
-                        <select name="gender">
+            <Form encType="multipart/form-data" onSubmit={this.handleSubmit}>
+                <h1 className={"mt-4"}>Регистрация</h1>
+
+                <hr/>
+
+                <Form.Row className={"mt-4 justify-content-center"}>
+                    <FormFile.Label>
+                        <Image src="http://via.placeholder.com/150x150" roundedCircle/>
+                        <FormFile.Input name="avatar" className={"avatar-upload"}/>
+                    </FormFile.Label>
+                </Form.Row>
+
+                <Form.Row className={"mt-2"}>
+                    <Form.Group as={Col} controlId="formGridFirstname">
+                        <Form.Label>Имя</Form.Label>
+                        <Form.Control type="text" placeholder="Введите имя" name="firstName"/>
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formGridLastname">
+                        <Form.Label>Фамилия</Form.Label>
+                        <Form.Control type="text" placeholder="Введите фамилию" name="lastName"/>
+                    </Form.Group>
+                </Form.Row>
+
+                <hr/>
+
+                <Form.Row className={"mt-4"}>
+                    <Form.Group as={Col} controlId="formGridEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" placeholder="Введите email" name={"email"}/>
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formGridPassword">
+                        <Form.Label>Пароль</Form.Label>
+                        <Form.Control type="password" placeholder="Введите пароль" name={"password"}/>
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formGridPassword">
+                        <Form.Label>Повторите пароль</Form.Label>
+                        <Form.Control type="password" placeholder="Повторите пароль" name={"repeatPassword"}/>
+                    </Form.Group>
+                </Form.Row>
+
+                <Form.Row>
+                    <Form.Group as={Col} controlId="formGridCity">
+                        <Form.Label>Город</Form.Label>
+                        <Form.Control name={"city"}/>
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formGridGender">
+                        <Form.Label>Пол</Form.Label>
+                        <Form.Control as="select" defaultValue="Не указан" name={"gender"}>
                             <option>Мужской</option>
                             <option>Женский</option>
-                        </select>
-                    </label>
-                    <hr/>
-                    <label>
-                        <input type="checkbox" name="isAgreed"/>
-                        Я согласен с условиями использования
-                    </label>
-                    <hr/>
-                    <button type="reset">Очистить</button>
-                    <button type="submit">Зарегистрироваться</button>
-                </form>
-            </>
+                        </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formGridBirth">
+                        <Form.Label>Zip</Form.Label>
+                        <Form.Control type={"date"} name={"dateOfBirth"}/>
+                    </Form.Group>
+                </Form.Row>
+
+                <Form.Group id="formGridCheckbox">
+                    <Form.Check type="checkbox" label="Я согласен с условиями использования" name="isAgreed"/>
+                </Form.Group>
+
+                <Form.Row className={"justify-content-end"}>
+                    <Button variant="outline-danger" type="reset">
+                        Очистить
+                    </Button>
+                    <Button variant="success" type="submit" className={"ml-4"}>
+                        Зарегистрироваться
+                    </Button>
+                </Form.Row>
+            </Form>
         );
     }
 };

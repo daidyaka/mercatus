@@ -1,6 +1,6 @@
 app:
   files.storage:
-    path: C://Users/Mykyta_Trufanov/Desktop/photos/
+    path: D://storage/
     default-image: src/main/resources/static/images/no-photo.jpeg
 spring:
   servlet:

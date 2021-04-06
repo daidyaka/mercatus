@@ -12,7 +12,8 @@ export default class CreateAdComponentContainer extends Component {
 
         this.state = {
             elements: [],
-            images: []
+            images: [],
+            showImageModal: false
         }
 
         this.updateElements = props.updateElements;
@@ -34,6 +35,13 @@ export default class CreateAdComponentContainer extends Component {
 
     addElement(event) {
         let elementType = event.target.getAttribute('el-type');
+
+        if (elementType === 'image') {
+            this.setState({
+                showImageModal: true
+            });
+        }
+
         let createdElement = this.componentToObjectMapping[elementType](event.target);
 
         let elements = this.state.elements;
@@ -100,8 +108,6 @@ export default class CreateAdComponentContainer extends Component {
                                         toolbarConfig={this.toolbarConfig}
                                         onChange={this.handleText.bind(this, index)}
                                     />
-                                    {/*<textarea placeholder="Текст" cols="50" rows="10"*/}
-                                    {/*          onChange={this.handleText.bind(this, index)}/>*/}
                                     <button className="btn red" type="button"
                                             onClick={this.removeElement.bind(this, {index})}>&nbsp;&times;&nbsp;</button>
                                 </div>
@@ -110,8 +116,11 @@ export default class CreateAdComponentContainer extends Component {
                         return <></>;
                     })}
                 </div>
-                <ModalWindow isActive={true}>
-                    {this.state.images.map(el => <img src={el} alt="Изображение"/>)}
+                <ModalWindow isActive={this.state.showImageModal} onClose={() => this.setState({showImageModal: false})}>
+                    {this.state.images.map(el => {
+                        return <img src={el} alt="Изображение" height="200" width="200" el-type="image"
+                                    value={el} onClick={this.addElement}/>
+                    })}
                 </ModalWindow>
             </div>
         );
@@ -164,7 +173,6 @@ export default class CreateAdComponentContainer extends Component {
     };
 
     toolbarConfig = {
-        // Optionally specify the groups to display (displayed in the order listed).
         display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'LINK_BUTTONS', 'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
         INLINE_STYLE_BUTTONS: [
             {label: 'Bold', style: 'BOLD', className: 'custom-css-class'},

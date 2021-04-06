@@ -43,7 +43,7 @@ export default class CurrentUserInformation extends Component {
                                     <HoverableImage caption="Изменить фото" handleClick={this.showModal}/>
                                     <div>
                                         <h1>{this.context.auth.user?.firstName} {this.context.auth.user?.lastName}</h1>
-                                        <p><b><FontAwesomeIcon icon={faMapMarkedAlt}/> Харьков, Харьковская область</b>
+                                        <p><b><FontAwesomeIcon icon={faMapMarkedAlt}/> {this.context.auth.user?.city}</b>
                                         </p>
                                         <p className="personal-media-link"><a href="#"><FontAwesomeIcon icon={faPhotoVideo}/> Загруженные изображения и видео</a></p>
                                         <p><a href="#"><FontAwesomeIcon icon={faComment}/> &nbsp;Мои оставленные отзывы</a></p>

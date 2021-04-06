@@ -11,6 +11,7 @@ import CreateAd from "./pages/CreateAd";
 import AuthenticationContext from "./providers/AuthenticationContext";
 import AdPage from "./pages/AdPage";
 import Search from "./pages/Search";
+import {Container} from "react-bootstrap";
 
 class App extends React.Component {
 
@@ -43,7 +44,7 @@ class App extends React.Component {
             <AuthenticationContext.Provider value={this.state}>
                 <Router>
                     <Header/>
-                    <main id="root">
+                    <Container id="root">
                         <Switch>
                             <Route path={'/ad/:title'}><AdPage/></Route>
                             <Route path={'/profile/create-ad'}><CreateAd/></Route>
@@ -54,7 +55,7 @@ class App extends React.Component {
                             <Route exact path={'/'}><Home/></Route>
                             <Route path={'*'}><NotFound/></Route>
                         </Switch>
-                    </main>
+                    </Container>
                 </Router>
             </AuthenticationContext.Provider>
         );

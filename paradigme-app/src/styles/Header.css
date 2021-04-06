@@ -1,36 +1,27 @@
-.header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 70px;
-    box-shadow: 0 3px 10px lightgray;
-    background-color: rgb(255,255,255);
-    position: relative;
-    padding-left: 10%;
-    padding-right: 10%;
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
+
+.site-name {
+    font-family: 'Bungee Shade', cursive;
+    font-size: 35px !important;
+    padding: 0 !important;
+    transition: 0.25s ease;
 }
 
-.header-logo-link {
-    font-family: 'Faster One', cursive;
-    text-decoration: none;
-    color: black;
-    font-size: 35px;
+.site-name:hover {
+    transform: scale(1.05);
 }
 
-.header-search__input {
-    width: 375px;
-    border: 1px solid gray;
-    padding: 10px;
-    border-radius: 5px;
+.site-name:active {
+    transform: scale(0.95);
 }
 
-.header-search {
-    position: relative;
+.search-btn {
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
 }
 
-.header-search .fa-search {
-    position: absolute;
-    top: 12px;
-    left: 365px;
+.search-field {
+    width: 300px !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-right-radius: 0 !important;
 }
