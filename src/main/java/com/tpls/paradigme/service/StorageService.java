@@ -1,14 +1,19 @@
 package com.tpls.paradigme.service;
 
+import com.tpls.paradigme.entity.UploadedMediaItemResponse;
 import com.tpls.paradigme.util.ImageUtil;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,12 +44,20 @@ public class StorageService {
         }
     }
 
-    public byte[] loadUserFile(String folderImagePath) {
+    public UploadedMediaItemResponse loadUserFile(String folderImagePath) {
         try {
-            return ImageUtil.readImage(localStoragePath + folderImagePath);
+            Path path = Paths.get(localStoragePath + folderImagePath);
+            return UploadedMediaItemResponse.builder()
+                    .mediaType(getMediaType(path.toFile()))
+                    .bytes(Files.readAllBytes(path))
+                    .build();
         } catch (FileNotFoundException foundException) {
             try {
-                return ImageUtil.readImage(defaultImagePath);
+                return UploadedMediaItemResponse.builder()
+                        .mediaType(MediaType.IMAGE_JPEG_VALUE)
+                        .bytes(ImageUtil.readImage(defaultImagePath))
+                        .isImage(Boolean.TRUE)
+                        .build();
             } catch (IOException exception) {
                 throw new UncheckedIOException("Cannot retrieve a user image.", exception);
             }
@@ -53,16 +66,38 @@ public class StorageService {
         }
     }
 
-    public List<String> loadUserFiles(String userId) {
+    public List<UploadedMediaItemResponse> loadUserFiles(String userId) {
         try {
             return Files.list(Paths.get(localStoragePath + userId))
                     .map(Path::toFile)
                     .filter(File::isFile)
-                    .map(File::getName)
+                    .map(file -> UploadedMediaItemResponse.builder()
+                            .name(file.getName())
+                            .link("/media/" + userId + "/" + file.getName())
+                            .isImage("image".equals(getMediaType(file).split("/")[0]))
+                            .build())
                     .collect(Collectors.toList());
         } catch (IOException e) {
             throw new UncheckedIOException("Could not find a user directory in storage", e);
         }
     }
 
+    public void save(InputStream initialStream, String id, String originalFilename) throws IOException {
+        byte[] buffer = new byte[initialStream.available()];
+        initialStream.read(buffer);
+
+        File targetFile = new File(localStoragePath + id + "/" + originalFilename);
+        OutputStream outStream = new FileOutputStream(targetFile);
+        outStream.write(buffer);
+    }
+
+    @SneakyThrows
+    private String getMediaType(File file) {
+        return Files.probeContentType(Paths.get(String.valueOf(file)));
+//        return new MimetypesFileTypeMap().getContentType(file);
+    }
+
+    public boolean removeFile(String fileName, String userId) {
+        return new File(localStoragePath + userId + "/" + fileName).delete();
+    }
 }

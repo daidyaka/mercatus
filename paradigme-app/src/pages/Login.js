@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {toUrlParams} from "../services/url-parser";
+import {Button, Col, Form, Row} from "react-bootstrap";
 
 export default class Login extends Component {
 
@@ -40,19 +41,32 @@ export default class Login extends Component {
 
     render() {
         return (
-            <form action={'#'} method="post" onSubmit={this.handleSubmit}>
-                <h1>Авторизация</h1>
-                <label>
-                    Email:
-                    <input type="email" name="username" value={this.state.username} onChange={this.handleInput}/>
-                </label>
-                <br/>
-                <label>
-                    Пароль:
-                    <input type="password" name="password" value={this.state.password} onChange={this.handleInput}/>
-                </label>
-                <button type="submit">Войти</button>
-            </form>
+            <Form action={'#'} method="post" onSubmit={this.handleSubmit}>
+                <Row className="justify-content-md-center">
+                    <Col xs={5}>
+                        <h1>Авторизация</h1>
+                    </Col>
+                </Row>
+                <Row className="justify-content-md-center mt-4">
+                    <Col xs={5}>
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" placeholder="Введите email" name="username" value={this.state.username}
+                                      onChange={this.handleInput}/>
+                    </Col>
+                </Row>
+                <Row className={"justify-content-md-center mt-4"} >
+                    <Col xs={5}>
+                        <Form.Label>Пароль</Form.Label>
+                        <Form.Control type="password" placeholder="Введите пароль" name="password" value={this.state.password}
+                                      onChange={this.handleInput}/>
+                    </Col>
+                </Row>
+                <Row className={"justify-content-md-center mt-4"} xs={5}>
+                    <Button variant="success" type="submit">
+                        Войти
+                    </Button>
+                </Row>
+            </Form>
         );
     }
 }

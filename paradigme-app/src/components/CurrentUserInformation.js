@@ -45,7 +45,7 @@ export default class CurrentUserInformation extends Component {
                                         <h1>{this.context.auth.user?.firstName} {this.context.auth.user?.lastName}</h1>
                                         <p><b><FontAwesomeIcon icon={faMapMarkedAlt}/> {this.context.auth.user?.city}</b>
                                         </p>
-                                        <p className="personal-media-link"><a href="#"><FontAwesomeIcon icon={faPhotoVideo}/> Загруженные изображения и видео</a></p>
+                                        <p className="personal-media-link"><Link to="/profile/media"><FontAwesomeIcon icon={faPhotoVideo}/> Загруженные изображения и видео</Link></p>
                                         <p><a href="#"><FontAwesomeIcon icon={faComment}/> &nbsp;Мои оставленные отзывы</a></p>
                                     </div>
                                 </div>

@@ -50,7 +50,7 @@ public class UserService implements UserDetailsService {
     }
 
     public byte[] readUserPhoto(User user) {
-        return storageService.loadUserFile(user.getId() + '/' + user.getImageUrl());
+        return storageService.loadUserFile(user.getId() + '/' + user.getImageUrl()).getBytes();
     }
 
 }

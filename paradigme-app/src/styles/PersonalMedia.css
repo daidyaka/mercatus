@@ -1,0 +1,45 @@
+.modal-container-upload {
+    height: 200px;
+    width: 300px;
+    border: 5px dashed #aaaaaa;
+    border-radius: 20px;
+    text-align: center;
+    color: #aaaaaa;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.modal-container-upload:hover {
+    color: dimgray;
+    border-color: gray;
+}
+
+.modal-container-upload__description {
+    font-size: 22px;
+}
+
+.modal-container-upload__icon svg {
+    transform: scale(5);
+    height: 100px;
+}
+
+.uploaded-file {
+    text-align: center;
+}
+
+.uploaded-file svg {
+    transform: scale(4);
+    height: 100px;
+    color: dimgray;
+}
+
+.remove-upload-file {
+    position: absolute;
+    right: 25px;
+    top: 10px;
+    opacity: 0.6;
+}
+
+.remove-upload-file:hover {
+    opacity: 1;
+}

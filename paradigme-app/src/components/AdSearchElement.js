@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import AuthenticationContext from "../providers/AuthenticationContext";
+import {Image} from "react-bootstrap";
 
 export default class AdSearchElement extends Component {
 
@@ -14,8 +15,10 @@ export default class AdSearchElement extends Component {
     render() {
         return (
             <div>
-                <img src={`/media/images/${this.context.auth?.user.id}/${this.ad.imageUrl}`} alt="Объявление"/>
-                <Link to={`/ad/${this.ad.url}`}>{this.ad.title}</Link>
+                <Link to={`/ad/${this.ad.url}`}>
+                    <Image src={`/media/images/${this.ad.userId}/${this.ad.imageUrl}`} alt="Объявление" rounded/>
+                    <span>{this.ad.title}</span>
+                </Link>
             </div>
         );
     }

@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Header from "./components/Header";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
+import PersonalMedia from "./pages/PersonalMedia";
 import CreateAd from "./pages/CreateAd";
 import AuthenticationContext from "./providers/AuthenticationContext";
 import AdPage from "./pages/AdPage";
@@ -47,6 +48,7 @@ class App extends React.Component {
                     <Container id="root">
                         <Switch>
                             <Route path={'/ad/:title'}><AdPage/></Route>
+                            <Route path={'/profile/media'}><PersonalMedia/></Route>
                             <Route path={'/profile/create-ad'}><CreateAd/></Route>
                             <Route path={'/profile'}><Profile/></Route>
                             <Route path={'/search'}><Search/></Route>

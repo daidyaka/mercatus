@@ -49,7 +49,7 @@ public final class ImageUtil {
         ImageWriteParam param = writer.getDefaultWriteParam();
 
         param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-        param.setCompressionQuality(0.1f);
+        param.setCompressionQuality(0.9f);
         writer.write(null, new IIOImage(bufferedImage, null, null), param);
 
         createUserDirectory(folderPath);

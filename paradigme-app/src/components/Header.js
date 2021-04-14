@@ -14,7 +14,7 @@ export default class Header extends Component {
                 <Link to={"/"}><Navbar.Brand className={"site-name"}>Paradigme</Navbar.Brand></Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
-                    <Form inline>
+                    <Form inline action="/search" method="get">
                         <FormControl type="text" placeholder="Поиск" className="search-field"/>
                         <Button variant="primary" className="search-btn"><FontAwesomeIcon
                             icon={faSearch}/> Search</Button>

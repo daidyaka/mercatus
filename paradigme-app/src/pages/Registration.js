@@ -89,7 +89,7 @@ export default class Registration extends Component {
                     <Form.Check type="checkbox" label="Я согласен с условиями использования" name="isAgreed"/>
                 </Form.Group>
 
-                <Form.Row className={"justify-content-end"}>
+                <Form.Row className={"justify-content-end mb-4"}>
                     <Button variant="outline-danger" type="reset">
                         Очистить
                     </Button>

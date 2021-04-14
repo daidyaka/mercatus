@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import types from '../data/ad-types'
+import {Form} from "react-bootstrap";
 
 export default class AdTypeSelector extends Component {
 
@@ -13,12 +14,14 @@ export default class AdTypeSelector extends Component {
 
     render() {
         return (
-            <label>
-                <span>Категория:</span>
-                <select name="type" className="input" onChange={this.onTypeChange}>
-                    {this.collectTypes()}
-                </select>
-            </label>
+            <>
+                <Form.Group>
+                    <Form.Control as="select" size="sm" custom name="type" className="input"
+                                  onChange={this.onTypeChange}>
+                        {this.collectTypes()}
+                    </Form.Control>
+                </Form.Group>
+            </>
         );
     }
 
