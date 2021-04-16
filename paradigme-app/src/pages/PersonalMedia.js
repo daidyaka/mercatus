@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import {Button, Col, Container, Image, Modal, Row} from "react-bootstrap";
+import {Alert, Button, Col, Container, Image, Modal, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFileDownload, faFileUpload, faTrash, faUpload} from "@fortawesome/free-solid-svg-icons";
+import {faFileDownload, faFileUpload, faTrash, faUpload, faWindowClose} from "@fortawesome/free-solid-svg-icons";
 import "../styles/PersonalMedia.css";
 import DragNDropComponent from "../components/DragNDropComponent";
 
@@ -10,7 +10,8 @@ export default class PersonalMedia extends Component {
     state = {
         filesToUpload: [],
         showUpload: false,
-        files: []
+        files: [],
+        showError: false
     }
 
     handleDrop = (files) => {
@@ -19,7 +20,8 @@ export default class PersonalMedia extends Component {
             if (!files[i].name) return
             fileList.push(files[i])
         }
-        this.setState({files: fileList})
+        this.setState({filesToUpload: fileList})
+        this.uploadFiles();
     }
 
     showUploadModal = () => {
@@ -38,44 +40,50 @@ export default class PersonalMedia extends Component {
         return (
             <>
                 <div>
-                    <hr/>
-                    {!this.state.filesToUpload.length ? 'Буфер к загрузке пуст' : this.state.filesToUpload.map((file) =>
-                        <div>{file.name}</div>
-                    )}
+                    {this.state.showError ? (
+                        <Alert variant={'danger'}>
+                            Во время удаления файл не был удален, попробуйте позже.
+                        </Alert>
+                    ) : <></>}
                     <hr/>
                     <Button variant={"success"} onClick={this.showUploadModal} size="lg" block>
                         <FontAwesomeIcon icon={faUpload}/> Загрузить файл(ы)
                     </Button>
                     <hr/>
                     <Row>
-                        {this.state.files.map((file) =>
-                            <Col xs={6} md={4}>
-                                {file.image ? (
-                                        <div>
-                                            <Image src={file.link} thumbnail/>
-                                            <Button className={"remove-upload-file"} variant={"danger"}
+
+                        {this.state.files.length ? (this.state.files.map((file) =>
+                                <Col xs={6} md={4}>
+                                    {file.image ? (
+                                            <div>
+                                                <Image src={file.link} thumbnail/>
+                                                <Button className={"remove-upload-file"} variant={"danger"}
+                                                        filename={file.name}
+                                                        onClick={this.deleteFile}>
+                                                    <FontAwesomeIcon icon={faTrash}/>
+                                                </Button>
+                                            </div>
+                                        ) :
+                                        (<>
+                                            <div className="img-thumbnail uploaded-file">
+                                                <a href={`localhost:8080${file.link}`}>
+                                                    <FontAwesomeIcon icon={faFileDownload}/>
+                                                    <br/>
+                                                    <p>{file.name}</p>
+                                                </a>
+                                            </div>
+                                            <Button variant={"danger"} className={"remove-upload-file"}
                                                     filename={file.name}
                                                     onClick={this.deleteFile}>
                                                 <FontAwesomeIcon icon={faTrash}/>
                                             </Button>
-                                        </div>
-                                    ) :
-                                    (<>
-                                        <div className="img-thumbnail uploaded-file">
-                                            <a href={`localhost:8080${file.link}`}>
-                                                <FontAwesomeIcon icon={faFileDownload}/>
-                                                <br/>
-                                                <p>{file.name}</p>
-                                            </a>
-                                        </div>
-                                        <Button variant={"danger"} className={"remove-upload-file"}
-                                                filename={file.name}
-                                                onClick={this.deleteFile}>
-                                            <FontAwesomeIcon icon={faTrash}/>
-                                        </Button>
-                                    </>)}
-                            </Col>
-                        )}
+                                        </>)}
+                                </Col>
+                            )) :
+                            (<Col style={{textAlign: 'center', fontSize: 35}}>
+                                <FontAwesomeIcon icon={faWindowClose}/>
+                                <p>Файлы не найдены</p>
+                            </Col>)}
                     </Row>
                 </div>
 
@@ -128,9 +136,14 @@ export default class PersonalMedia extends Component {
         fetch('/media/my/all')
             .then(res => res.json())
             .then(files => this.setState({files}))
+            .then(() => this.setState({showError: false}))
     }
 
     deleteFile = ({target}) => {
+
+        if (target.tagName === 'path') {
+            target = target.parentNode.parentNode;
+        }
 
         let fileName = target.getAttribute('filename');
         let url = `/media/my/${fileName}/remove`;
@@ -139,6 +152,8 @@ export default class PersonalMedia extends Component {
         }).then(res => res.text()).then((t) => {
             if (t === 'true') {
                 this.fetchFiles()
+            } else {
+                this.setState({showError: true})
             }
         })
     }

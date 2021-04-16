@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,19 +46,18 @@ public class StorageService {
     public UploadedMediaItemResponse loadUserFile(String folderImagePath) {
         try {
             Path path = Paths.get(localStoragePath + folderImagePath);
-            return UploadedMediaItemResponse.builder()
-                    .mediaType(getMediaType(path.toFile()))
-                    .bytes(Files.readAllBytes(path))
-                    .build();
-        } catch (FileNotFoundException foundException) {
-            try {
+
+            if (path.toFile().exists()) {
+                return UploadedMediaItemResponse.builder()
+                        .mediaType(getMediaType(path.toFile()))
+                        .bytes(Files.readAllBytes(path))
+                        .build();
+            } else {
                 return UploadedMediaItemResponse.builder()
                         .mediaType(MediaType.IMAGE_JPEG_VALUE)
                         .bytes(ImageUtil.readImage(defaultImagePath))
                         .isImage(Boolean.TRUE)
                         .build();
-            } catch (IOException exception) {
-                throw new UncheckedIOException("Cannot retrieve a user image.", exception);
             }
         } catch (IOException exception) {
             throw new UncheckedIOException("Cannot retrieve a user image.", exception);
@@ -94,7 +92,6 @@ public class StorageService {
     @SneakyThrows
     private String getMediaType(File file) {
         return Files.probeContentType(Paths.get(String.valueOf(file)));
-//        return new MimetypesFileTypeMap().getContentType(file);
     }
 
     public boolean removeFile(String fileName, String userId) {
