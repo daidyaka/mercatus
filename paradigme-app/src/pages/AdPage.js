@@ -4,6 +4,7 @@ import AdComponentHolder from "../components/AdComponentHolder";
 import AdReviewSection from "../components/AdReviewSection";
 import LeaveReviewComponent from "../components/LeaveReviewComponent";
 import AdType from "../components/AdType";
+import {Spinner} from "react-bootstrap";
 
 class AdPage extends Component {
 
@@ -45,9 +46,10 @@ class AdPage extends Component {
                     <LeaveReviewComponent ad={ad}/>
                 </>
             ) : (
-                <p>
-                    Loading...
-                </p>
+                <div style={{textAlign: 'center'}}>
+                    <Spinner animation="border" />
+                    <p>Загрузка</p>
+                </div>
             )
         );
     }

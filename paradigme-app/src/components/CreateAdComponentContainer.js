@@ -3,6 +3,9 @@ import "../styles/CreateAdComponentContainer.css";
 import {faPhotoVideo, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import RichTextEditor from 'react-rte';
+import {Button, Modal} from "react-bootstrap";
+import PersonalMedia from "../pages/PersonalMedia";
+import RTEConfigs from "../providers/RTEConfigs";
 
 export default class CreateAdComponentContainer extends Component {
 
@@ -12,7 +15,8 @@ export default class CreateAdComponentContainer extends Component {
         this.state = {
             elements: [],
             images: [],
-            showImageModal: false
+            showImageModal: false,
+            chooseImage: null
         }
 
         this.updateElements = props.updateElements;
@@ -34,12 +38,6 @@ export default class CreateAdComponentContainer extends Component {
 
     addElement(event) {
         let elementType = event.target.getAttribute('el-type');
-
-        if (elementType === 'image') {
-            this.setState({
-                showImageModal: true
-            });
-        }
 
         let createdElement = this.componentToObjectMapping[elementType](event.target);
 
@@ -92,7 +90,10 @@ export default class CreateAdComponentContainer extends Component {
                                 <div key={index} className="add-image">
                                     <br/>
                                     <input type="text" placeholder="Ссылка на личные медиа"
-                                           onChange={this.handleImage.bind(this, index)}/>
+                                           value={el.src}
+                                           onClick={() => {
+                                               this.showModal(this.handleImage.bind(this, index));
+                                           }}/>
                                     <button className="btn red" type="button"
                                             onClick={this.removeElement.bind(this, {index})}>&nbsp;&times;&nbsp;</button>
                                 </div>
@@ -104,7 +105,7 @@ export default class CreateAdComponentContainer extends Component {
                                     <br/>
                                     <RichTextEditor
                                         value={el.rteVal}
-                                        toolbarConfig={this.toolbarConfig}
+                                        toolbarConfig={RTEConfigs}
                                         onChange={this.handleText.bind(this, index)}
                                     />
                                     <button className="btn red" type="button"
@@ -115,8 +116,27 @@ export default class CreateAdComponentContainer extends Component {
                         return <></>;
                     })}
                 </div>
+                <Modal show={this.state.showImageModal} onHide={this.closeModal}>
+                    <Modal.Body>
+                        <h3>Выбор изображения</h3>
+                        <PersonalMedia onImageChose={this.state.handleImageClick}/>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.closeModal}>
+                            Закрыть
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         );
+    }
+
+    showModal = (whatToDo) => {
+        this.setState({showImageModal: true, handleImageClick: whatToDo});
+    }
+
+    closeModal = () => {
+        this.setState({showImageModal: false})
     }
 
     handleVideo(index, event) {
@@ -127,8 +147,9 @@ export default class CreateAdComponentContainer extends Component {
 
     handleImage(index, event) {
         let elements = this.state.elements;
-        elements[index].src = event.target.value;
+        elements[index].src = event.target.getAttribute('filename');
         this.sendElements(elements);
+        this.closeModal();
     }
 
     handleText(index, value) {
@@ -164,25 +185,5 @@ export default class CreateAdComponentContainer extends Component {
             }
         }
     };
-
-    toolbarConfig = {
-        display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'LINK_BUTTONS', 'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
-        INLINE_STYLE_BUTTONS: [
-            {label: 'Bold', style: 'BOLD', className: 'custom-css-class'},
-            {label: 'Italic', style: 'ITALIC'},
-            {label: 'Underline', style: 'UNDERLINE'}
-        ],
-        BLOCK_TYPE_DROPDOWN: [
-            {label: 'Normal', style: 'unstyled'},
-            {label: 'Heading Large', style: 'header-one'},
-            {label: 'Heading Medium', style: 'header-two'},
-            {label: 'Heading Small', style: 'header-three'}
-        ],
-        BLOCK_TYPE_BUTTONS: [
-            {label: 'UL', style: 'unordered-list-item'},
-            {label: 'OL', style: 'ordered-list-item'}
-        ]
-    };
-
 
 }

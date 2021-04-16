@@ -37,7 +37,7 @@ public class UserService implements UserDetailsService {
 
             storageService.createUserFolder(user.getId());
             if (file.getBytes().length != 0) {
-                String fileName = file.getName() + ".jpg";
+                String fileName = file.getName();
                 user.setImageUrl(fileName);
                 storageService.saveAndCompressImage(file.getInputStream(), user.getId(), fileName);
                 userRepository.save(user);

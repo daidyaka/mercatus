@@ -10,6 +10,11 @@ export default class ImageArticleComponent extends Component {
 
 
     render() {
-        return <img src={this.imageLink} alt='Пользовательское изображение'/>
+        return (
+            <div className={'mt-4'} style={{textAlign: 'center'}}>
+                <img src={this.imageLink} alt='Пользовательское изображение'
+                     style={{height: 500, objectFit: 'contain'}}/>
+            </div>
+        );
     }
 }

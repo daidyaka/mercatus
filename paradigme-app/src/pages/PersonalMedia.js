@@ -7,11 +7,18 @@ import DragNDropComponent from "../components/DragNDropComponent";
 
 export default class PersonalMedia extends Component {
 
-    state = {
-        filesToUpload: [],
-        showUpload: false,
-        files: [],
-        showError: false
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            filesToUpload: [],
+            showUpload: false,
+            files: [],
+            showError: false
+        };
+
+        this.onImageChose = props.onImageChose ? props.onImageChose : () => {
+        };
     }
 
     handleDrop = (files) => {
@@ -55,8 +62,8 @@ export default class PersonalMedia extends Component {
                         {this.state.files.length ? (this.state.files.map((file) =>
                                 <Col xs={6} md={4}>
                                     {file.image ? (
-                                            <div>
-                                                <Image src={file.link} thumbnail/>
+                                            <div onClick={this.onImageChose}>
+                                                <Image src={file.link} filename={file.name} thumbnail/>
                                                 <Button className={"remove-upload-file"} variant={"danger"}
                                                         filename={file.name}
                                                         onClick={this.deleteFile}>
@@ -65,7 +72,8 @@ export default class PersonalMedia extends Component {
                                             </div>
                                         ) :
                                         (<>
-                                            <div className="img-thumbnail uploaded-file">
+                                            <div className="img-thumbnail uploaded-file" filename={file.name}
+                                                 onClick={this.onImageChose}>
                                                 <a href={`localhost:8080${file.link}`}>
                                                     <FontAwesomeIcon icon={faFileDownload}/>
                                                     <br/>
@@ -129,7 +137,7 @@ export default class PersonalMedia extends Component {
         fetch('/media/upload', {
             method: 'POST',
             body: formData
-        }).then(() => window.location.reload())
+        }).then(() => this.fetchFiles()).then(() => this.closeUploadModal())
     }
 
     fetchFiles = () => {

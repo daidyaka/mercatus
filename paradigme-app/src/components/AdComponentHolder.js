@@ -21,7 +21,7 @@ export default class AdComponentHolder extends Component {
                 }
 
                 if (el.type === 'image') {
-                    return <ImageArticleComponent imageLink={`http://localhost:8080/media/images/${this.userId + '/' + el.src}.jpg`}/>
+                    return <ImageArticleComponent imageLink={`http://localhost:8080/media/images/${this.userId + '/' + el.src}`}/>
                 }
 
                 if (el.type === 'video') {

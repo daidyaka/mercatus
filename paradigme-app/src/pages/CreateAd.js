@@ -5,6 +5,7 @@ import "../styles/CreateAd.css";
 import VerticalDelimiter from "../components/VerticalDelimiter";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSave} from "@fortawesome/free-solid-svg-icons";
+import {Button} from "react-bootstrap";
 
 export default class CreateAd extends Component {
 
@@ -75,13 +76,12 @@ export default class CreateAd extends Component {
                                             createButton={
                                                 <>
                                                     <VerticalDelimiter/>
-                                                    <button className="btn blue" type="button" el-type="video"
+                                                    <Button variant={"success"} type="button"
                                                             onClick={this.createAd}>
                                                         <FontAwesomeIcon icon={faSave}/> Создать
-                                                    </button>
+                                                    </Button>
                                                 </>
                                             }/>
-                <hr/>
             </div>
         )
     }
