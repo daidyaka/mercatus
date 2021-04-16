@@ -4,8 +4,8 @@ import AdTypeSelector from "../components/AdTypeSelector";
 import "../styles/CreateAd.css";
 import VerticalDelimiter from "../components/VerticalDelimiter";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSave} from "@fortawesome/free-solid-svg-icons";
-import {Button} from "react-bootstrap";
+import {faPhoneAlt, faSave} from "@fortawesome/free-solid-svg-icons";
+import {Button, Col, Form, InputGroup, Row} from "react-bootstrap";
 
 export default class CreateAd extends Component {
 
@@ -58,19 +58,26 @@ export default class CreateAd extends Component {
     render() {
         return (
             <div className="margin-header">
-                <div className="create-ad-header">
-                    <label>
-                        <span>Заголовок:</span>
-                        <input className="input" type="text" name="title" value={this.state.title}
-                               onChange={this.handleInputChange}/>
-                    </label>
+                <Row className="create-ad-header">
+                    <Col>
+                        <Form.Control size="sm" type="text" name="title" placeholder="Заголовок"
+                                      value={this.state.title}
+                                      onChange={this.handleInputChange}/>
+                    </Col>
                     <AdTypeSelector onTypeChange={this.handleInputChange}/>
-                    <label>
-                        <span>Номер телефона для связи:</span>
-                        <input className="input" type="text" name="phoneNumber" value={this.state.phoneNumber}
-                               onChange={this.handleInputChange}/>
-                    </label>
-                </div>
+                    <Col xs={3}>
+                        <InputGroup size={"sm"}>
+                            <InputGroup.Prepend>
+                                <InputGroup.Text id="basic-addon1">
+                                    <FontAwesomeIcon icon={faPhoneAlt}/>
+                                </InputGroup.Text>
+                            </InputGroup.Prepend>
+                            <Form.Control size="sm" type="text" name="phoneNumber" placeholder="Номер телефона"
+                                          value={this.state.phoneNumber}
+                                          onChange={this.handleInputChange}/>
+                        </InputGroup>
+                    </Col>
+                </Row>
                 <hr/>
                 <CreateAdComponentContainer updateElements={this.updateElements}
                                             createButton={

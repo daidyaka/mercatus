@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Alert, Button, Col, Container, Image, Modal, Row} from "react-bootstrap";
+import {Alert, Button, Col, Container, Image, Modal, Row, Spinner} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFileDownload, faFileUpload, faTrash, faUpload, faWindowClose} from "@fortawesome/free-solid-svg-icons";
 import "../styles/PersonalMedia.css";
@@ -11,6 +11,7 @@ export default class PersonalMedia extends Component {
         super(props);
 
         this.state = {
+            loaded: false,
             filesToUpload: [],
             showUpload: false,
             files: [],
@@ -58,40 +59,47 @@ export default class PersonalMedia extends Component {
                     </Button>
                     <hr/>
                     <Row>
-
-                        {this.state.files.length ? (this.state.files.map((file) =>
-                                <Col xs={6} md={4}>
-                                    {file.image ? (
-                                            <div onClick={this.onImageChose}>
-                                                <Image src={file.link} filename={file.name} thumbnail/>
-                                                <Button className={"remove-upload-file"} variant={"danger"}
+                        {this.state.loaded ? (this.state.files.length ? (this.state.files.map((file) =>
+                                    <Col xs={6} md={4}>
+                                        {file.image ? (
+                                                <div onClick={this.onImageChose}>
+                                                    <Image src={file.link} filename={file.name} thumbnail/>
+                                                    <Button className={"remove-upload-file"} variant={"danger"}
+                                                            filename={file.name}
+                                                            onClick={this.deleteFile}>
+                                                        <FontAwesomeIcon icon={faTrash}/>
+                                                    </Button>
+                                                </div>
+                                            ) :
+                                            (<>
+                                                <div className="img-thumbnail uploaded-file" filename={file.name}
+                                                     onClick={this.onImageChose}>
+                                                    <a href={`localhost:8080${file.link}`}>
+                                                        <FontAwesomeIcon icon={faFileDownload}/>
+                                                        <br/>
+                                                        <p>{file.name}</p>
+                                                    </a>
+                                                </div>
+                                                <Button variant={"danger"} className={"remove-upload-file"}
                                                         filename={file.name}
                                                         onClick={this.deleteFile}>
                                                     <FontAwesomeIcon icon={faTrash}/>
                                                 </Button>
-                                            </div>
-                                        ) :
-                                        (<>
-                                            <div className="img-thumbnail uploaded-file" filename={file.name}
-                                                 onClick={this.onImageChose}>
-                                                <a href={`localhost:8080${file.link}`}>
-                                                    <FontAwesomeIcon icon={faFileDownload}/>
-                                                    <br/>
-                                                    <p>{file.name}</p>
-                                                </a>
-                                            </div>
-                                            <Button variant={"danger"} className={"remove-upload-file"}
-                                                    filename={file.name}
-                                                    onClick={this.deleteFile}>
-                                                <FontAwesomeIcon icon={faTrash}/>
-                                            </Button>
-                                        </>)}
+                                            </>)}
+                                    </Col>
+                                )
+                            ) : (
+                                <Col style={{textAlign: 'center', fontSize: 35}}>
+                                    <FontAwesomeIcon icon={faWindowClose}/>
+                                    <p>Файлы не найдены</p>
                                 </Col>
-                            )) :
-                            (<Col style={{textAlign: 'center', fontSize: 35}}>
-                                <FontAwesomeIcon icon={faWindowClose}/>
-                                <p>Файлы не найдены</p>
-                            </Col>)}
+                            )
+                        ) : (
+                            <Col style={{textAlign: 'center'}}>
+                                <Spinner animation="border" />
+                                <p>Загрузка</p>
+                            </Col>
+                        )}
                     </Row>
                 </div>
 
@@ -141,10 +149,12 @@ export default class PersonalMedia extends Component {
     }
 
     fetchFiles = () => {
+        this.setState({loaded: false});
+
         fetch('/media/my/all')
             .then(res => res.json())
             .then(files => this.setState({files}))
-            .then(() => this.setState({showError: false}))
+            .then(() => this.setState({showError: false, loaded: true}))
     }
 
     deleteFile = ({target}) => {

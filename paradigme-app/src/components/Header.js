@@ -16,14 +16,14 @@ export default class Header extends Component {
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
                     <Form inline action="/search" method="get">
                         <FormControl type="text" placeholder="Поиск" className="search-field"/>
-                        <Button variant="primary" className="search-btn"><FontAwesomeIcon
-                            icon={faSearch}/> Search</Button>
+                        <Button variant="secondary" className="search-btn"><FontAwesomeIcon icon={faSearch}/></Button>
                     </Form>
                     <div className="mr-4"/>
                     <NavDropdown title="Язык" id="basic-nav-dropdown">
                         <NavDropdown.Item href="#ua"><Flags.UA style={{height: '20px'}}/> Українська</NavDropdown.Item>
-                        <NavDropdown.Item href="#ru" selected><Flags.RU  style={{height: '20px'}}/> Русский</NavDropdown.Item>
-                        <NavDropdown.Item href="#en"><Flags.GB  style={{height: '20px'}}/> English</NavDropdown.Item>
+                        <NavDropdown.Item href="#ru" selected><Flags.RU
+                            style={{height: '20px'}}/> Русский</NavDropdown.Item>
+                        <NavDropdown.Item href="#en"><Flags.GB style={{height: '20px'}}/> English</NavDropdown.Item>
                     </NavDropdown>
                 </Navbar.Collapse>
                 <HeaderAuth/>
