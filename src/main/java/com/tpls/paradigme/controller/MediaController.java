@@ -1,7 +1,7 @@
 package com.tpls.paradigme.controller;
 
 import com.tpls.paradigme.entity.UploadedMediaItemResponse;
-import com.tpls.paradigme.entity.User;
+import com.tpls.paradigme.entity.user.User;
 import com.tpls.paradigme.service.StorageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

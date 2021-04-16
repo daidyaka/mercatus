@@ -2,10 +2,17 @@ import React, {Component} from "react";
 import AuthenticationContext from "../providers/AuthenticationContext";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faComment, faEdit, faFileUpload, faMapMarkedAlt, faPhotoVideo} from "@fortawesome/free-solid-svg-icons";
+import {
+    faComment,
+    faEdit,
+    faFileUpload,
+    faMapMarkedAlt,
+    faPassport,
+    faPhotoVideo
+} from "@fortawesome/free-solid-svg-icons";
 import "../styles/CurrentUserInformation.css";
 import HoverableImage from "./HoverableImage";
-import {Button, Col, Container, Modal, Row} from "react-bootstrap";
+import {Button, Col, Container, Form, Modal, Row} from "react-bootstrap";
 import DragNDropComponent from "./DragNDropComponent";
 
 export default class CurrentUserInformation extends Component {
@@ -14,6 +21,8 @@ export default class CurrentUserInformation extends Component {
         super();
 
         this.state = {
+            showUpdateUserData: false,
+            showUpdatePassword: false,
             showUpload: false,
             image: null
         }
@@ -52,11 +61,17 @@ export default class CurrentUserInformation extends Component {
                                 </div>
                                 <div className="profile-edit-section">
                                     <Link to="/profile/edit" className="btn">
-                                        <FontAwesomeIcon icon={faEdit}/> Редактировать
+                                        <FontAwesomeIcon icon={faEdit}/> Редактировать данные
+                                    </Link>
+                                </div>
+                                <div className="profile-edit-section">
+                                    <Link to="/profile/edit" className="btn">
+                                        <FontAwesomeIcon icon={faPassport}/> Изменить пароль
                                     </Link>
                                 </div>
                             </div>
 
+                            {/* UPDATE AVATAR MODAL */}
                             <Modal show={this.state.showUpload} onHide={this.closeModal}>
                                 <Modal.Header closeButton>
                                     <Modal.Title>Загрузить файлы в хранилище</Modal.Title>
@@ -87,6 +102,20 @@ export default class CurrentUserInformation extends Component {
                                         Загрузить
                                     </Button>
                                 </Modal.Footer>
+                            </Modal>
+
+                            {/* UPDATE USER DATA MODAL */}
+                            <Modal size="lg" show={true} onHide={() => {}}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>
+                                        Редактирование данных
+                                    </Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <Form>
+
+                                    </Form>
+                                </Modal.Body>
                             </Modal>
                         </>
                     )

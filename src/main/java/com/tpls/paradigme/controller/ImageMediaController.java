@@ -1,6 +1,6 @@
 package com.tpls.paradigme.controller;
 
-import com.tpls.paradigme.entity.User;
+import com.tpls.paradigme.entity.user.User;
 import com.tpls.paradigme.service.StorageService;
 import com.tpls.paradigme.service.UserService;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.tpls.paradigme.entity;
+package com.tpls.paradigme.entity.user;
 
 import org.springframework.security.core.GrantedAuthority;
 

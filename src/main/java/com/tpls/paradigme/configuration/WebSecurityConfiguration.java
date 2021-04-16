@@ -1,6 +1,6 @@
 package com.tpls.paradigme.configuration;
 
-import com.tpls.paradigme.entity.UserRole;
+import com.tpls.paradigme.entity.user.UserRole;
 import com.tpls.paradigme.service.AuthenticationService;
 import com.tpls.paradigme.service.UserService;
 import lombok.Setter;

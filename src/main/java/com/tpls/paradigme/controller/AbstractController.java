@@ -1,8 +1,7 @@
 package com.tpls.paradigme.controller;
 
-import com.tpls.paradigme.entity.User;
+import com.tpls.paradigme.entity.user.User;
 import com.tpls.paradigme.exception.NoAuthenticationException;
-import com.tpls.paradigme.service.UserService;
 import org.springframework.security.core.Authentication;
 
 import java.util.Optional;

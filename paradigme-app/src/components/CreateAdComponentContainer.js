@@ -3,7 +3,7 @@ import "../styles/CreateAdComponentContainer.css";
 import {faPhotoVideo, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import RichTextEditor from 'react-rte';
-import {Button, Modal} from "react-bootstrap";
+import {Button, Form, InputGroup, Modal} from "react-bootstrap";
 import PersonalMedia from "../pages/PersonalMedia";
 import RTEConfigs from "../providers/RTEConfigs";
 
@@ -77,11 +77,15 @@ export default class CreateAdComponentContainer extends Component {
                             return (
                                 <div key={index} className="add-video">
                                     <br/>
-                                    <input type="text" placeholder="Ссылка на видео Youtube"
-                                           value={this.state.elements[index].text}
-                                           onChange={this.handleVideo.bind(this, index)}/>
-                                    <button className="btn red" type="button"
-                                            onClick={this.removeElement.bind(this, {index})}>&nbsp;&times;&nbsp;</button>
+                                    <InputGroup>
+                                        <Form.Control type="text" placeholder="Ссылка на видео Youtube"
+                                                      value={this.state.elements[index].text}
+                                                      onChange={this.handleVideo.bind(this, index)}/>
+                                        <InputGroup.Append>
+                                            <Button variant="danger"
+                                                    onClick={this.removeElement.bind(this, {index})}>&nbsp;&times;&nbsp;</Button>
+                                        </InputGroup.Append>
+                                    </InputGroup>
                                 </div>
                             )
                         }
@@ -89,13 +93,18 @@ export default class CreateAdComponentContainer extends Component {
                             return (
                                 <div key={index} className="add-image">
                                     <br/>
-                                    <input type="text" placeholder="Ссылка на личные медиа"
-                                           value={el.src}
-                                           onClick={() => {
-                                               this.showModal(this.handleImage.bind(this, index));
-                                           }}/>
-                                    <button className="btn red" type="button"
-                                            onClick={this.removeElement.bind(this, {index})}>&nbsp;&times;&nbsp;</button>
+                                    <InputGroup>
+                                        <Form.Control type="text" placeholder="Ссылка на личные медиа"
+                                                      value={el.src}
+                                                      onClick={() => {
+                                                          this.showModal(this.handleImage.bind(this, index));
+                                                      }}
+                                                      readOnly={true}/>
+                                        <InputGroup.Append>
+                                            <Button variant="danger"
+                                                    onClick={this.removeElement.bind(this, {index})}>&nbsp;&times;&nbsp;</Button>
+                                        </InputGroup.Append>
+                                    </InputGroup>
                                 </div>
                             )
                         }
@@ -108,8 +117,8 @@ export default class CreateAdComponentContainer extends Component {
                                         toolbarConfig={RTEConfigs}
                                         onChange={this.handleText.bind(this, index)}
                                     />
-                                    <button className="btn red" type="button"
-                                            onClick={this.removeElement.bind(this, {index})}>&nbsp;&times;&nbsp;</button>
+                                    <Button variant={"danger"} type="button"
+                                            onClick={this.removeElement.bind(this, {index})}>&nbsp;&times;&nbsp;</Button>
                                 </div>
                             )
                         }

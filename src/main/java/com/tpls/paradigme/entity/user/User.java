@@ -1,4 +1,4 @@
-package com.tpls.paradigme.entity;
+package com.tpls.paradigme.entity.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,22 +21,24 @@ import java.util.Collections;
 @Document(value = "users")
 public class User implements UserDetails {
 
+    static final int MIN_PASSWORD_LENGTH = 6;
+
     @Id
     private String id;
 
     private String imageUrl;
 
-    @NotEmpty
+    @NotBlank
     private String firstName;
 
-    @NotEmpty
+    @NotBlank
     private String lastName;
 
     @Email
     private String email;
 
     @NotEmpty
-    @Length(min = 6)
+    @Length(min = MIN_PASSWORD_LENGTH)
     private String password;
 
     @NotEmpty

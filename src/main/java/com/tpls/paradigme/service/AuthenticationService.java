@@ -1,7 +1,6 @@
 package com.tpls.paradigme.service;
 
-import com.tpls.paradigme.entity.LoginDto;
-import com.tpls.paradigme.entity.User;
+import com.tpls.paradigme.entity.user.LoginDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

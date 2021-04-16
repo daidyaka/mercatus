@@ -3,7 +3,7 @@ package com.tpls.paradigme.controller;
 import com.google.common.collect.ImmutableMap;
 import com.tpls.paradigme.entity.Advertisement;
 import com.tpls.paradigme.entity.AdvertisementReview;
-import com.tpls.paradigme.entity.User;
+import com.tpls.paradigme.entity.user.User;
 import com.tpls.paradigme.service.AdService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;

@@ -3,7 +3,7 @@ package com.tpls.paradigme.service;
 import com.tpls.paradigme.entity.Advertisement;
 import com.tpls.paradigme.entity.AdvertisementReview;
 import com.tpls.paradigme.entity.SearchDto;
-import com.tpls.paradigme.entity.User;
+import com.tpls.paradigme.entity.user.User;
 import com.tpls.paradigme.exception.NoRightsException;
 import com.tpls.paradigme.exception.ResourceNotFound;
 import com.tpls.paradigme.repository.AdRepository;

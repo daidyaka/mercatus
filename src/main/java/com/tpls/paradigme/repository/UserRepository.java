@@ -1,6 +1,6 @@
 package com.tpls.paradigme.repository;
 
-import com.tpls.paradigme.entity.User;
+import com.tpls.paradigme.entity.user.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

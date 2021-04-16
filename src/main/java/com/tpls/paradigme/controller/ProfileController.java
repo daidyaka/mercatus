@@ -1,8 +1,10 @@
 package com.tpls.paradigme.controller;
 
 import com.tpls.paradigme.entity.Advertisement;
-import com.tpls.paradigme.entity.LoginDto;
-import com.tpls.paradigme.entity.User;
+import com.tpls.paradigme.entity.user.ChangePasswordDto;
+import com.tpls.paradigme.entity.user.ChangeUserDataDto;
+import com.tpls.paradigme.entity.user.LoginDto;
+import com.tpls.paradigme.entity.user.User;
 import com.tpls.paradigme.service.AdService;
 import com.tpls.paradigme.service.AuthenticationService;
 import com.tpls.paradigme.service.UserService;
@@ -12,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -84,6 +87,19 @@ public class ProfileController extends AbstractController {
         return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY)
                 .header(HttpHeaders.LOCATION, "/ad/" + ad.getUrl())
                 .build();
+    }
+
+    @PatchMapping("/update")
+    public ResponseEntity<User> updateUser(Authentication auth, @Valid ChangeUserDataDto dto) {
+        User authenticatedUser = getAuthenticatedUser(auth);
+        return ResponseEntity.ok(userService.updateUser(authenticatedUser, dto));
+    }
+
+    @PatchMapping("/update-password")
+    public ResponseEntity<Boolean> updatePassword(Authentication auth, @Valid ChangePasswordDto dto) {
+        User authenticatedUser = getAuthenticatedUser(auth);
+        boolean isUpdated = userService.updatePassword(authenticatedUser, dto);
+        return ResponseEntity.status(isUpdated ? HttpStatus.OK : HttpStatus.BAD_REQUEST).body(isUpdated);
     }
 
 }
