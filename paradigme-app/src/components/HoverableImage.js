@@ -7,14 +7,16 @@ export default class HoverableImage extends Component {
         super(props);
 
         this.caption = props.caption;
-        this.handleClick = props.handleClick ? props.handleClick : () => {};
+        this.handleClick = props.handleClick ? props.handleClick : () => {
+        };
     }
 
     render() {
         return (
             <div data-content={this.caption} className="hoverable-image" onClick={this.handleClick}>
                 <img src={`http://localhost:8080/profile/avatar`}
-                     alt="Фото пользователя" className="current-user-image" height="200" width="200"/>
+                     alt="Фото пользователя" className="current-user-image"
+                     style={{height: 200, width: 200, objectFit: 'cover'}}/>
             </div>
         );
     }

@@ -3,7 +3,6 @@ import "../styles/CreateAdComponentContainer.css";
 import {faPhotoVideo, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import RichTextEditor from 'react-rte';
-import ModalWindow from "./ModalWindow";
 
 export default class CreateAdComponentContainer extends Component {
 
@@ -116,12 +115,6 @@ export default class CreateAdComponentContainer extends Component {
                         return <></>;
                     })}
                 </div>
-                <ModalWindow isActive={this.state.showImageModal} onClose={() => this.setState({showImageModal: false})}>
-                    {this.state.images.map(el => {
-                        return <img src={el} alt="Изображение" height="200" width="200" el-type="image"
-                                    value={el} onClick={this.addElement}/>
-                    })}
-                </ModalWindow>
             </div>
         );
     }
