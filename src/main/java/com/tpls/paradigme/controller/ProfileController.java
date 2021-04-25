@@ -89,13 +89,13 @@ public class ProfileController extends AbstractController {
                 .build();
     }
 
-    @PatchMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<User> updateUser(Authentication auth, @Valid ChangeUserDataDto dto) {
         User authenticatedUser = getAuthenticatedUser(auth);
         return ResponseEntity.ok(userService.updateUser(authenticatedUser, dto));
     }
 
-    @PatchMapping("/update-password")
+    @PostMapping("/update-password")
     public ResponseEntity<Boolean> updatePassword(Authentication auth, @Valid ChangePasswordDto dto) {
         User authenticatedUser = getAuthenticatedUser(auth);
         boolean isUpdated = userService.updatePassword(authenticatedUser, dto);

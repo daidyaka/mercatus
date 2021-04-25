@@ -12,7 +12,7 @@
     </parent>
 
     <groupId>com.tpls</groupId> <!-- Les technologies pour la société. -->
-    <artifactId>paradigme-backend</artifactId>
+    <artifactId>paradigme</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>

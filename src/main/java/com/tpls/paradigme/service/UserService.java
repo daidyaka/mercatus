@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean updatePassword(User user, ChangePasswordDto dto) {
-        if (!dto.getOldPassword().equals(user.getPassword())) {
+        if (!bCryptPasswordEncoder.matches(dto.getOldPassword(), user.getPassword())) {
             return false;
         }
 
