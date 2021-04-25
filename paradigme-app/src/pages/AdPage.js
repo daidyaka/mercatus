@@ -4,7 +4,9 @@ import AdComponentHolder from "../components/AdComponentHolder";
 import AdReviewSection from "../components/AdReviewSection";
 import LeaveReviewComponent from "../components/LeaveReviewComponent";
 import AdType from "../components/AdType";
-import {Spinner} from "react-bootstrap";
+import {Container, Jumbotron, Spinner} from "react-bootstrap";
+import {faPhoneAlt, faStar} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class AdPage extends Component {
 
@@ -34,10 +36,23 @@ class AdPage extends Component {
         return (
             ad ? (
                 <>
-                    <h1>{ad.title}</h1>
-                    <h2>Средняя оценка: {ad.rating}</h2>
-                    <AdType type={ad.type}/>
-                    <b>{ad.phoneNumber}</b>
+                    <Jumbotron fluid style={
+                        {
+                            background: ad.imageUrl ? `url(/media/images/${ad.userId}/${ad.imageUrl})` : 'lightgray',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center'
+                        }
+                    }>
+                        <Container>
+                            <h1>{ad.title}</h1>
+                            <AdType type={ad.type}/>
+                            <h3 className="mt-4">Средняя оценка: {ad.rating}<FontAwesomeIcon icon={faStar}/></h3>
+                            <a className="btn btn-success" href={`tel:${ad.phoneNumber}`}
+                               style={{float: 'right'}}>
+                                <FontAwesomeIcon icon={faPhoneAlt}/> Связаться по телефону
+                            </a>
+                        </Container>
+                    </Jumbotron>
                     <hr/>
                     <AdComponentHolder elements={ad.elements} userId={ad.userId}/>
                     <AdReviewSection reviews={ad.reviews}/>
@@ -46,7 +61,7 @@ class AdPage extends Component {
                 </>
             ) : (
                 <div style={{textAlign: 'center'}}>
-                    <Spinner animation="border" />
+                    <Spinner animation="border"/>
                     <p>Загрузка</p>
                 </div>
             )
