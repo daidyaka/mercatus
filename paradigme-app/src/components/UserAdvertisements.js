@@ -36,7 +36,7 @@ export default class UserAdvertisements extends Component {
                 <div className="ads">
                     {this.state.ads && this.state.ads.length ?
                         <Slider withScroll={true}>
-                            {this.state.ads.map(ad => <Card imageLink={ad.imageUrl}
+                            {this.state.ads.map(ad => <Card imageLink={`/media/images/${ad.userId}/${ad.imageUrl}`}
                                                             link={`/ad/${ad.url}`}
                                                             title={ad.title}
                                                             button={{

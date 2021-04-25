@@ -12,9 +12,10 @@ export default class ReviewComponent extends Component {
             <>
                 <hr/>
                 <p>{this.review.userFullName}</p>
-                <p>Оценка: <b>{this.review.mark}</b></p>
+                {this.review.mark !== -1 ? <p>Оценка: <b>{this.review.mark}</b></p> : <></>}
                 <p>{this.review.text ? 'Комментарий: ' + this.review.text : ''}</p>
             </>
         );
     }
+
 }

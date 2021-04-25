@@ -15,13 +15,20 @@ export default class CreateAd extends Component {
         this.state = {
             title: '',
             type: 'construction',
-            phoneNumber: ''
+            phoneNumber: '',
+            imageUrl: null
         };
 
         this.elements = [];
         this.createAd = this.createAd.bind(this);
         this.updateElements = this.updateElements.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+    }
+
+    updateImageUrl = (close, event) => {
+        let newValue = event.target.getAttribute('filename');
+        this.setState({imageUrl: newValue})
+        close();
     }
 
     createAd() {
@@ -35,7 +42,7 @@ export default class CreateAd extends Component {
                 type: this.state.type,
                 phoneNumber: this.state.phoneNumber,
                 elements: this.elements,
-                imageUrl: null
+                imageUrl: this.state.imageUrl
             })
         }).then(response => {
             if (response.ok) {
@@ -80,6 +87,8 @@ export default class CreateAd extends Component {
                 </Row>
                 <hr/>
                 <CreateAdComponentContainer updateElements={this.updateElements}
+                                            updateImageUrl={this.updateImageUrl}
+                                            mainImage={this.state.imageUrl}
                                             createButton={
                                                 <>
                                                     <VerticalDelimiter/>

@@ -6,8 +6,14 @@ import {faSearch} from '@fortawesome/free-solid-svg-icons'
 import '../styles/Header.css';
 import {Button, Form, FormControl, Navbar, NavDropdown} from "react-bootstrap";
 import Flags from 'country-flag-icons/react/3x2'
+import {getParam} from "../services/url-parser";
 
 export default class Header extends Component {
+
+    state = {
+        query: getParam('query')
+    }
+
     render() {
         return (
             <Navbar bg="light" expand="lg" className={"mb-4"}>
@@ -15,7 +21,9 @@ export default class Header extends Component {
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
                     <Form inline action="/search" method="get">
-                        <FormControl type="text" placeholder="Поиск" className="search-field"/>
+                        <FormControl type="text" placeholder="Поиск" name="query" className="search-field"
+                                     value={this.state.query}
+                                     onChange={ev => this.setState({query: ev.target.value})}/>
                         <Button variant="secondary" className="search-btn"><FontAwesomeIcon icon={faSearch}/></Button>
                     </Form>
                     <div className="mr-4"/>

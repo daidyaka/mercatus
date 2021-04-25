@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import AuthenticationContext from "../providers/AuthenticationContext";
 import {Card} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 export default class AdSearchElement extends Component {
 
@@ -16,13 +17,18 @@ export default class AdSearchElement extends Component {
             <Card>
                 <Card.Img variant="top" src={`/media/images/${this.ad.userId}/${this.ad.imageUrl}`}/>
                 <Card.Body>
-                    <Card.Title>{this.ad.title}</Card.Title>
+                    <Card.Title>
+                        <Link to={`/ad/${this.ad.url}`}>
+                            {this.ad.title}
+                        </Link>
+                    </Card.Title>
                     <Card.Text>
                         Средний рейтинг {this.ad.rating} баллов
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                    <small className="text-muted">Объявление создано {this.timeSince(new Date(this.ad.dateCreated))} назад</small>
+                    <small className="text-muted">Объявление
+                        создано {this.timeSince(new Date(this.ad.dateCreated))} назад</small>
                 </Card.Footer>
             </Card>
         );

@@ -21,6 +21,9 @@ export default class CreateAdComponentContainer extends Component {
 
         this.updateElements = props.updateElements;
         this.createButton = props.createButton;
+        this.updateImageUrl = props.updateImageUrl;
+        this.mainImage = props.mainImage;
+
         this.addElement = this.addElement.bind(this);
         this.sendElements = this.sendElements.bind(this);
 
@@ -56,7 +59,9 @@ export default class CreateAdComponentContainer extends Component {
         return (
             <div>
                 <div className="flex space-even">
-                    <button type="button" className="btn green">
+                    <button type="button" className="btn green" onClick={() => {
+                        this.showModal(this.updateImageUrl.bind(this, this.closeModal));
+                    }}>
                         <FontAwesomeIcon icon={faPhotoVideo}/> Выбрать главное фото
                     </button>
                     <button className="btn green" type="button" el-type="text" onClick={this.addElement}>
