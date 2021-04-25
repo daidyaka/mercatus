@@ -18,10 +18,14 @@ public class Advertisement {
 
     @NotBlank
     private String title;
+
     @NotBlank
     private String type;
+
     @NotBlank
     private String phoneNumber;
+
+    private double rating;
 
     private String url;
     private String imageUrl;

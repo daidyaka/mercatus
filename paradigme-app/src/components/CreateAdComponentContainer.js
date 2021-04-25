@@ -46,7 +46,7 @@ export default class CreateAdComponentContainer extends Component {
         this.sendElements(elements);
     }
 
-    removeElement({index}, event) {
+    removeElement({index}) {
         let elements = this.state.elements;
         elements[index] = null;
         this.sendElements(elements.filter(el => el !== null));

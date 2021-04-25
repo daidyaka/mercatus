@@ -1,7 +1,6 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
 import AuthenticationContext from "../providers/AuthenticationContext";
-import {Image} from "react-bootstrap";
+import {Card} from "react-bootstrap";
 
 export default class AdSearchElement extends Component {
 
@@ -14,13 +13,46 @@ export default class AdSearchElement extends Component {
 
     render() {
         return (
-            <div>
-                <Link to={`/ad/${this.ad.url}`}>
-                    <Image src={`/media/images/${this.ad.userId}/${this.ad.imageUrl}`} alt="Объявление" rounded/>
-                    <span>{this.ad.title}</span>
-                </Link>
-            </div>
+            <Card>
+                <Card.Img variant="top" src={`/media/images/${this.ad.userId}/${this.ad.imageUrl}`}/>
+                <Card.Body>
+                    <Card.Title>{this.ad.title}</Card.Title>
+                    <Card.Text>
+                        Средний рейтинг {this.ad.rating} баллов
+                    </Card.Text>
+                </Card.Body>
+                <Card.Footer>
+                    <small className="text-muted">Объявление создано {this.timeSince(new Date(this.ad.dateCreated))} назад</small>
+                </Card.Footer>
+            </Card>
         );
+    }
+
+    timeSince = (date) => {
+
+        const seconds = Math.floor((new Date() - date) / 1000);
+        let interval = seconds / 31536000;
+
+        if (interval > 1) {
+            return Math.floor(interval) + " лет";
+        }
+        interval = seconds / 2592000;
+        if (interval > 1) {
+            return Math.floor(interval) + " месяцев";
+        }
+        interval = seconds / 86400;
+        if (interval > 1) {
+            return Math.floor(interval) + " дней";
+        }
+        interval = seconds / 3600;
+        if (interval > 1) {
+            return Math.floor(interval) + " часов";
+        }
+        interval = seconds / 60;
+        if (interval > 1) {
+            return Math.floor(interval) + " минут";
+        }
+        return Math.floor(seconds) + " секунд";
     }
 }
 

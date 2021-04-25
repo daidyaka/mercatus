@@ -32,14 +32,8 @@ public class AdvertisementController extends AbstractController {
 
     @GetMapping("/{uniqueUrl}")
     public ImmutableMap<String, Object> article(@PathVariable String uniqueUrl) {
-        Advertisement foundAd = adService.getAdByUniqueUrl(uniqueUrl);
-        OptionalDouble averageMark = Optional.ofNullable(foundAd.getReviews())
-                .map(List::stream)
-                .orElse(Stream.empty())
-                .mapToInt(AdvertisementReview::getMark)
-                .average();
-        return ImmutableMap.of("ad", foundAd,
-                "averageReviewMark", String.format("%.1f", averageMark.orElse(0)));
+        Advertisement foundAd = adService.getAdByUniqueUrl(uniqueUrl);;
+        return ImmutableMap.of("ad", foundAd);
     }
 
     @PostMapping("/{adUrl}/review")

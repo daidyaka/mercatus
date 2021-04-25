@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import "../styles/Card.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTrash} from "@fortawesome/free-solid-svg-icons";
 
 export default class Card extends Component {
     constructor(props) {
@@ -16,7 +15,7 @@ export default class Card extends Component {
 
     render() {
         return (
-            <Link to={this.link} className="card">
+            <Link to={this.link} className="card-pm">
                 {this.imageLink ? <img src={this.imageLink} alt="Картинка"/> : <></>}
                 <div className="card-title">
                     <h1>{this.title}</h1>

@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import AdTypeSelector from "../components/AdTypeSelector";
 import {getAllParams, toUrlParams} from '../services/url-parser';
-import {withRouter} from "react-router";
 import AdSearchElement from "../components/AdSearchElement";
-import {Alert, Col, Container, Form, Row} from "react-bootstrap";
+import {Alert, CardColumns, Col, Container, Form, Row} from "react-bootstrap";
+import {withRouter} from "react-router";
 
 class Search extends Component {
 
@@ -54,19 +54,19 @@ class Search extends Component {
                         </Col>
                         <Col>
                             <Form.Control size="sm" type="text" name="location" placeholder="Город"
-                                   value={this.queryParameters?.location}
-                                   onChange={this.collectValue}/>
+                                          value={this.queryParameters?.location}
+                                          onChange={this.collectValue}/>
                         </Col>
                         <Col>
                             <Form.Group>
                                 <Form.Control as="select" size="sm" custom name="sortType" onChange={this.collectValue}>
                                     <optgroup label="по дате">
-                                        <option value="RELEVANCE_ASC">по убыванию</option>
-                                        <option value="RELEVANCE_DESC">по возрастанию</option>
+                                        <option value="RELEVANCE_ASC">дата по убыванию</option>
+                                        <option value="RELEVANCE_DESC">дата по возрастанию</option>
                                     </optgroup>
                                     <optgroup label="по алфавиту">
-                                        <option value="ALPHABET_ASC">по убыванию</option>
-                                        <option value="ALPHABET_DESC">по возрастанию</option>
+                                        <option value="ALPHABET_ASC">в алфавитном порядке</option>
+                                        <option value="ALPHABET_DESC">против алфавитного порядка</option>
                                     </optgroup>
                                     <optgroup label="по рейтингу (отключено)" disabled={true}>
                                         <option value="RATING_ASC">по убыванию</option>
@@ -78,10 +78,9 @@ class Search extends Component {
                     </Row>
                 </Container>
                 <Container className="search-results">
-                    {this.state.results.length !== 0 ? this.state.results.map(
-                        (ad) => {
-                            return <Row><AdSearchElement ad={ad}/></Row>;
-                        }) : <Alert variant={'danger'} className="mt-2">Результатов не найдено.</Alert>}
+                    {this.state.results.length !== 0
+                        ? <CardColumns> {this.state.results.map((ad) => <AdSearchElement ad={ad}/>)}</CardColumns>
+                        : <Alert variant={'danger'} className="mt-2">Результатов не найдено.</Alert>}
                 </Container>
             </>
         );

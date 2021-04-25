@@ -1,4 +1,4 @@
-package com.tpls.paradigme.entity;
+package com.tpls.paradigme.entity.search;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +17,7 @@ import java.util.Optional;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SearchDto {
+public class SearchRequestDto {
 
     private String query;
     private String type;

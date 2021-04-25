@@ -2,7 +2,7 @@ package com.tpls.paradigme.service;
 
 import com.tpls.paradigme.entity.Advertisement;
 import com.tpls.paradigme.entity.AdvertisementReview;
-import com.tpls.paradigme.entity.SearchDto;
+import com.tpls.paradigme.entity.search.SearchRequestDto;
 import com.tpls.paradigme.entity.user.User;
 import com.tpls.paradigme.exception.NoRightsException;
 import com.tpls.paradigme.exception.ResourceNotFound;
@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -30,10 +31,10 @@ public class AdService {
         return adRepository.findByUserId(userId);
     }
 
-    public List<Advertisement> findAdvertisements(SearchDto query) {
+    public List<Advertisement> findAdvertisements(SearchRequestDto query) {
         if (StringUtils.isNoneBlank(query.getQuery(), query.getType())) {
             return adRepository.findByTitleIsLikeAndTypeIsLike(query.getQuery(), query.getType(), query.getPageRequest());
-        } else if (StringUtils.isNotBlank(query.getQuery())){
+        } else if (StringUtils.isNotBlank(query.getQuery())) {
             return adRepository.findByTitleIsLike(query.getQuery(), query.getPageRequest());
         } else if (StringUtils.isNotBlank(query.getType())) {
             return adRepository.findByType(query.getType(), query.getPageRequest());
@@ -41,7 +42,7 @@ public class AdService {
         return Collections.emptyList();
     }
 
-    public List<Advertisement> findAdvertisementsByAdType(SearchDto query) {
+    public List<Advertisement> findAdvertisementsByAdType(SearchRequestDto query) {
         return adRepository.findByType(query.getType(), query.getPageRequest());
     }
 
@@ -56,6 +57,11 @@ public class AdService {
         Advertisement foundAd = getAdByUniqueUrl(adUrl);
         List<AdvertisementReview> reviews = Optional.ofNullable(foundAd.getReviews()).orElse(new ArrayList<>());
         reviews.add(adReview);
+        foundAd.setRating(reviews.stream()
+                .mapToInt(AdvertisementReview::getMark)
+                .filter(mark -> mark != -1)
+                .average()
+                .orElse(0));
         foundAd.setReviews(reviews);
         adRepository.save(foundAd);
     }

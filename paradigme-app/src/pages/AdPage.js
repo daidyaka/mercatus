@@ -30,13 +30,12 @@ class AdPage extends Component {
 
     render() {
         let ad = this.state.ad;
-        let averageReviewMark = this.state.averageReviewMark;
 
         return (
             ad ? (
                 <>
                     <h1>{ad.title}</h1>
-                    <h2>Средняя оценка: {averageReviewMark}</h2>
+                    <h2>Средняя оценка: {ad.rating}</h2>
                     <AdType type={ad.type}/>
                     <b>{ad.phoneNumber}</b>
                     <hr/>
