@@ -5,6 +5,7 @@ import com.tpls.paradigme.entity.Advertisement;
 import com.tpls.paradigme.entity.AdvertisementReview;
 import com.tpls.paradigme.entity.user.User;
 import com.tpls.paradigme.service.AdService;
+import com.tpls.paradigme.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,10 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
-import java.util.OptionalDouble;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/ad")
@@ -29,11 +26,13 @@ import java.util.stream.Stream;
 public class AdvertisementController extends AbstractController {
 
     private final AdService adService;
+    private final UserService userService;
 
     @GetMapping("/{uniqueUrl}")
     public ImmutableMap<String, Object> article(@PathVariable String uniqueUrl) {
-        Advertisement foundAd = adService.getAdByUniqueUrl(uniqueUrl);;
-        return ImmutableMap.of("ad", foundAd);
+        Advertisement foundAd = adService.getAdByUniqueUrl(uniqueUrl);
+        User user = userService.findById(foundAd.getUserId()).orElse(null);
+        return ImmutableMap.of("ad", foundAd, "author", user);
     }
 
     @PostMapping("/{adUrl}/review")

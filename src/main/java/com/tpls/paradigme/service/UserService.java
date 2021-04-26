@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 @Setter(onMethod = @__(@Autowired))
@@ -28,6 +29,10 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email);
+    }
+
+    public Optional<User> findById(String id) {
+        return userRepository.findById(id);
     }
 
     public void createUser(User user, MultipartFile file) throws IOException {

@@ -4,8 +4,8 @@ import AdComponentHolder from "../components/AdComponentHolder";
 import AdReviewSection from "../components/AdReviewSection";
 import LeaveReviewComponent from "../components/LeaveReviewComponent";
 import AdType from "../components/AdType";
-import {Container, Jumbotron, Spinner} from "react-bootstrap";
-import {faPhoneAlt, faStar} from "@fortawesome/free-solid-svg-icons";
+import {Container, Image, Jumbotron, Spinner} from "react-bootstrap";
+import {faLocationArrow, faMapMarkedAlt, faPhoneAlt, faStar} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class AdPage extends Component {
@@ -22,6 +22,7 @@ class AdPage extends Component {
             if (response.status === 200) {
                 response.json()
                     .then(loadedAd => {
+                        document.title = loadedAd.ad.title;
                         this.setState(loadedAd);
                     })
             } else {
@@ -32,6 +33,7 @@ class AdPage extends Component {
 
     render() {
         let ad = this.state.ad;
+        let author = this.state.author;
 
         return (
             ad ? (
@@ -43,12 +45,28 @@ class AdPage extends Component {
                             backgroundPosition: 'center'
                         }
                     }>
-                        <Container>
+                        <Container style={{
+                            boxShadow: '0 0 100px rgb(0 0 0 / 50%)',
+                            background: 'rgb(0 0 0 / 45%)',
+                            color: 'white',
+                            paddingBottom: 5,
+                            paddingTop: 5
+                        }}>
+                            <h6 style={{textAlign: 'right'}}>
+                                Автор: {author.firstName} {author.lastName}
+                                <Image className="ml-2" height={30} roundedCircle
+                                       src={`/media/images/${author.id}/${author.imageUrl}`}/>
+                            </h6>
                             <h1>{ad.title}</h1>
                             <AdType type={ad.type}/>
+                            <p className={"mt-2"}><FontAwesomeIcon icon={faMapMarkedAlt}/> {author.city}</p>
                             <h3 className="mt-4">Средняя оценка: {ad.rating}<FontAwesomeIcon icon={faStar}/></h3>
                             <a className="btn btn-success" href={`tel:${ad.phoneNumber}`}
-                               style={{float: 'right'}}>
+                               style={{
+                                   float: 'right',
+                                   position: 'relative',
+                                   bottom: 50
+                               }}>
                                 <FontAwesomeIcon icon={faPhoneAlt}/> Связаться по телефону
                             </a>
                         </Container>

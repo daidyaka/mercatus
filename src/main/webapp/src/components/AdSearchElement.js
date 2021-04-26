@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import AuthenticationContext from "../providers/AuthenticationContext";
 import {Card} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {faStar} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export default class AdSearchElement extends Component {
 
@@ -22,8 +24,8 @@ export default class AdSearchElement extends Component {
                             {this.ad.title}
                         </Link>
                     </Card.Title>
-                    <Card.Text>
-                        Средний рейтинг {this.ad.rating} баллов
+                    <Card.Text style={{textAlign: 'right'}}>
+                        Рейтинг: {this.ad.rating} <FontAwesomeIcon icon={faStar}/>
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer>

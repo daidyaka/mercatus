@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import AuthenticationContext from "../providers/AuthenticationContext";
 import {Button, Form} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 class LeaveReviewComponent extends Component {
 
@@ -51,7 +52,11 @@ class LeaveReviewComponent extends Component {
                         <Button type="submit" variant={"success"} style={{float: 'right'}}
                                 className="mb-4">Отправить</Button>
                     </Form>
-                ) : (<></>)}
+                ) : (
+                    <div className="mb-4" style={{textAlign: 'center'}}>
+                        Для того, чтобы оставить отзыв, необходимо <Link to="/login">авторизоваться</Link>.
+                    </div>
+                )}
             </div>
         );
     }

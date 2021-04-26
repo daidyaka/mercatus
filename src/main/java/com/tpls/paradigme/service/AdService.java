@@ -19,7 +19,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +34,7 @@ public class AdService {
         if (StringUtils.isNoneBlank(query.getQuery(), query.getType())) {
             return adRepository.findByTitleIsLikeAndTypeIsLike(query.getQuery(), query.getType(), query.getPageRequest());
         } else if (StringUtils.isNotBlank(query.getQuery())) {
-            return adRepository.findByTitleIsLike(query.getQuery(), query.getPageRequest());
+            return adRepository.findByTitle(query.getQuery(), query.getPageRequest());
         } else if (StringUtils.isNotBlank(query.getType())) {
             return adRepository.findByType(query.getType(), query.getPageRequest());
         }

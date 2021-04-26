@@ -8,7 +8,7 @@ export default {
             "exterior_renovation": "Ремонт и отделка фасадов",
             "cleaning": "Уборка",
             "design": "Дизайн",
-            "others": "Прочее"
+            "construction>others": "Прочее"
         }
     },
     "advertisements": {
@@ -18,15 +18,16 @@ export default {
             "sign_making": "Изготовление вывесок",
             "internet_ads": "Реклама в интернете, СММ",
             "internet_jobs": "Работа в интернете",
-            "others": "Прочее"
+            "advertisements>others": "Прочее"
         }
     },
     "transportation": {
         "name": "Перевозки и транспортировка",
         "options": {
+            "travel": "Путешествия и туры",
             "shipping": "Перевозка груза",
             "loaders": "Услуги грузчиков",
-            "others": "Прочее"
+            "transportation>others": "Прочее"
         }
     },
     "financial": "Финансовые услуги",
@@ -37,7 +38,7 @@ export default {
         "options": {
             "rent": "Аренда и прокат транспрорта",
             "repair": "Ремонт транспорта",
-            "others": "Прочее"
+            "auto_services>others": "Прочее"
         }
     },
     "it_services": {
@@ -47,7 +48,7 @@ export default {
             "sites_development": "Разработка сайтов",
             "copyrighting": "Копирайтинг",
             "design": "Дизайн",
-            "others": "Прочее"
+            "it_services>others": "Прочее"
         }
     },
     "others": "Прочие услуги"

@@ -13,9 +13,10 @@ export default class AdReviewSection extends Component {
     render() {
         return (
             <div>
+                <hr/>
                 <h3>Отзывы:</h3>
                 <div className="ad-review">
-                    {this.reviews.map(review => <ReviewComponent review={review}/>) }
+                    {this.reviews.length ? this.reviews.map(review => <ReviewComponent review={review}/>) : <p>Отзывов пока нет, станьте первым.</p>}
                 </div>
             </div>
         );

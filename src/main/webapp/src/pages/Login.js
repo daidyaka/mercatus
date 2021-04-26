@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {toUrlParams} from "../services/url-parser";
 import {Button, Col, Form, Row} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 export default class Login extends Component {
 
@@ -66,6 +67,9 @@ export default class Login extends Component {
                         Войти
                     </Button>
                 </Row>
+                <div className="mt-4 mb-4" style={{textAlign: 'center'}}>
+                    Нет аккаунта? Всегда можно <Link to="/registration">создать новый</Link>.
+                </div>
             </Form>
         );
     }

@@ -24,7 +24,7 @@ export default class Header extends Component {
                         <FormControl type="text" placeholder="Поиск" name="query" className="search-field"
                                      value={this.state.query}
                                      onChange={ev => this.setState({query: ev.target.value})}/>
-                        <Button variant="secondary" className="search-btn"><FontAwesomeIcon icon={faSearch}/></Button>
+                        <Button variant="secondary" type="submit" className="search-btn"><FontAwesomeIcon icon={faSearch}/></Button>
                     </Form>
                     <div className="mr-4"/>
                     <NavDropdown title="Язык" id="basic-nav-dropdown">
