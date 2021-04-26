@@ -7,6 +7,7 @@ import '../styles/Header.css';
 import {Button, Form, FormControl, Navbar, NavDropdown} from "react-bootstrap";
 import Flags from 'country-flag-icons/react/3x2'
 import {getParam} from "../services/url-parser";
+import i18n from "../services/i18n/i18n";
 
 export default class Header extends Component {
 
@@ -27,11 +28,10 @@ export default class Header extends Component {
                         <Button variant="secondary" type="submit" className="search-btn"><FontAwesomeIcon icon={faSearch}/></Button>
                     </Form>
                     <div className="mr-4"/>
-                    <NavDropdown title="Язык" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#ua"><Flags.UA style={{height: '20px'}}/> Українська</NavDropdown.Item>
-                        <NavDropdown.Item href="#ru" selected><Flags.RU
-                            style={{height: '20px'}}/> Русский</NavDropdown.Item>
-                        <NavDropdown.Item href="#en"><Flags.GB style={{height: '20px'}}/> English</NavDropdown.Item>
+                    <NavDropdown title={i18n.get('language')} id="basic-nav-dropdown">
+                        <NavDropdown.Item onClick={() => i18n.setLocale('uk')}><Flags.UA style={{height: '20px'}}/> Українська</NavDropdown.Item>
+                        <NavDropdown.Item onClick={() => i18n.setLocale('ru')}><Flags.RU style={{height: '20px'}}/> Русский</NavDropdown.Item>
+                        <NavDropdown.Item onClick={() => i18n.setLocale('en')}><Flags.GB style={{height: '20px'}}/> English</NavDropdown.Item>
                     </NavDropdown>
                 </Navbar.Collapse>
                 <HeaderAuth/>

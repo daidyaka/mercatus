@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import AuthenticationContext from "../providers/AuthenticationContext";
 import VerticalDelimiter from "./VerticalDelimiter";
+import i18n from "../services/i18n/i18n";
 
 class HeaderAuth extends Component {
     constructor(props) {
@@ -18,15 +19,15 @@ class HeaderAuth extends Component {
                 {value => {
                     return (value.auth.isAuthenticated ? (
                         <div className="header-auth">
-                            <Link to="/profile">Профиль</Link>
+                            <Link to="/profile">{i18n.get('profile')}</Link>
                             <VerticalDelimiter/>
-                            <a href="http://localhost:8080/logout">Выйти</a>
+                            <a href="http://localhost:8080/logout">{i18n.get('logout')}</a>
                         </div>
                     ) : (
                         <div className="header-auth">
-                            <Link to="/login">Войти</Link>
+                            <Link to="/login">{i18n.get('login')}</Link>
                             <VerticalDelimiter/>
-                            <Link to="/registration">Зарегистрироваться</Link>
+                            <Link to="/registration">{i18n.get('register')}</Link>
                         </div>
                     ))
                 }}
