@@ -17,8 +17,8 @@ export default class Header extends Component {
 
     render() {
         return (
-            <Navbar bg="light" expand="lg" className={"mb-4"}>
-                <Link to={"/"}><Navbar.Brand className={"site-name"}>Paradigme</Navbar.Brand></Link>
+            <Navbar bg="dark" variant="dark" expand="lg" className={"mb-4"}>
+                <Link to={"/"}><Navbar.Brand className={"site-name"}>Mercatus</Navbar.Brand></Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
                     <Form inline action="/search" method="get">

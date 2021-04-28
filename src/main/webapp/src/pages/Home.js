@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Container, Jumbotron} from "react-bootstrap";
+import {Carousel} from "react-bootstrap";
 
 export default class Home extends Component {
 
@@ -10,15 +10,47 @@ export default class Home extends Component {
     render() {
         return (
             <div className="App">
-                <Jumbotron fluid>
-                    <Container>
-                        <h1>Fluid jumbotron</h1>
-                        <p>
-                            This is a modified jumbotron that occupies the entire horizontal space of
-                            its parent.
-                        </p>
-                    </Container>
-                </Jumbotron>
+                <Carousel>
+                    <Carousel.Item interval={5000}>
+                        <img
+                            className="d-block w-100"
+                            src="images/remont.jpg"
+                            alt="First slide"
+                            height={400}
+                            style={{objectFit: 'cover'}}
+                        />
+                        <Carousel.Caption style={{backgroundColor: 'rgba(0,0,0,0.5)'}}>
+                            <h3>First slide label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item interval={5000}>
+                        <img
+                            className="d-block w-100"
+                            src="images/perevozki.jpg"
+                            alt="Second slide"
+                            height={400}
+                            style={{objectFit: 'cover'}}
+                        />
+                        <Carousel.Caption style={{backgroundColor: 'rgba(0,0,0,0.5)'}}>
+                            <h3>Second slide label</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item interval={5000}>
+                        <img
+                            className="d-block w-100"
+                            src="images/it_uslugi.jpg"
+                            height={400}
+                            alt="Third slide"
+                            style={{objectFit: 'cover'}}
+                        />
+                        <Carousel.Caption style={{backgroundColor: 'rgba(0,0,0,0.5)'}}>
+                            <h3>Third slide label</h3>
+                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                </Carousel>
             </div>
         );
     }

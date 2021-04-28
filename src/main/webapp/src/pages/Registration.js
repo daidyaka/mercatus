@@ -1,11 +1,12 @@
 import React, {Component} from "react";
 import {Button, Col, Form, FormFile, Image} from "react-bootstrap";
 import "../styles/Registarion.css";
+import i18n from "../services/i18n/i18n";
 
 export default class Registration extends Component {
 
     componentDidMount() {
-        document.title = 'Регистрация';
+        document.title = i18n.get('registration');
     }
 
     handleSubmit(event) {

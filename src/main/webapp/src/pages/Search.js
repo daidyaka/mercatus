@@ -4,6 +4,7 @@ import {getAllParams, toUrlParams} from '../services/url-parser';
 import AdSearchElement from "../components/AdSearchElement";
 import {Alert, CardColumns, Col, Container, Form, Row} from "react-bootstrap";
 import {withRouter} from "react-router";
+import i18n from "../services/i18n/i18n";
 
 class Search extends Component {
 
@@ -22,6 +23,8 @@ class Search extends Component {
     }
 
     componentDidMount() {
+        let query = this.queryParameters['query'];
+        document.title = 'Поиск ' + (!!query ? query : '')
         this.fetchData();
     }
 

@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import AuthenticationContext from "../providers/AuthenticationContext";
 import VerticalDelimiter from "./VerticalDelimiter";
 import i18n from "../services/i18n/i18n";
+import {Image} from "react-bootstrap";
 
 class HeaderAuth extends Component {
     constructor(props) {
@@ -19,7 +20,11 @@ class HeaderAuth extends Component {
                 {value => {
                     return (value.auth.isAuthenticated ? (
                         <div className="header-auth">
-                            <Link to="/profile">{i18n.get('profile')}</Link>
+                            <Link to="/profile">
+                                <Image className="mr-2" height={30} roundedCircle
+                                       src={`/media/images/${value.auth.user.id}/${value.auth.user.imageUrl}`}/>
+                                {i18n.get('profile')}
+                            </Link>
                             <VerticalDelimiter/>
                             <a href="http://localhost:8080/logout">{i18n.get('logout')}</a>
                         </div>

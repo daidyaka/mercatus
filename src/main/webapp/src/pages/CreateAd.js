@@ -9,6 +9,10 @@ import {Button, Col, Form, InputGroup, Row} from "react-bootstrap";
 
 export default class CreateAd extends Component {
 
+    componentDidMount() {
+        document.title = 'Создать объявление'
+    }
+
     constructor() {
         super();
 
