@@ -1,10 +1,11 @@
 import React, {Component} from "react";
 import {Carousel} from "react-bootstrap";
+import i18n from "../services/i18n/i18n";
 
 export default class Home extends Component {
 
     componentDidMount() {
-        document.title = 'Paradigme | Сервис объявлений услуг';
+        document.title = i18n.get('siteName');
     }
 
     render() {

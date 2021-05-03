@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFileDownload, faFileUpload, faTrash, faUpload, faWindowClose} from "@fortawesome/free-solid-svg-icons";
 import "../styles/PersonalMedia.css";
 import DragNDropComponent from "../components/DragNDropComponent";
+import i18n from "../services/i18n/i18n";
 
 export default class PersonalMedia extends Component {
 
@@ -50,12 +51,12 @@ export default class PersonalMedia extends Component {
                 <div>
                     {this.state.showError ? (
                         <Alert variant={'danger'}>
-                            Во время удаления файл не был удален, попробуйте позже.
+                            {i18n.get('userMedia.upload.error')}
                         </Alert>
                     ) : <></>}
                     <hr/>
                     <Button variant={"success"} onClick={this.showUploadModal} size="lg" block>
-                        <FontAwesomeIcon icon={faUpload}/> Загрузить файл(ы)
+                        <FontAwesomeIcon icon={faUpload}/> {i18n.get('userMedia.upload')}
                     </Button>
                     <hr/>
                     <Row>
@@ -91,13 +92,13 @@ export default class PersonalMedia extends Component {
                             ) : (
                                 <Col style={{textAlign: 'center', fontSize: 35}}>
                                     <FontAwesomeIcon icon={faWindowClose}/>
-                                    <p>Файлы не найдены</p>
+                                    <p>{i18n.get('userMedia.upload.files-not-found')}</p>
                                 </Col>
                             )
                         ) : (
                             <Col style={{textAlign: 'center'}}>
                                 <Spinner animation="border" />
-                                <p>Загрузка</p>
+                                <p>{i18n.get('loading')}</p>
                             </Col>
                         )}
                     </Row>
@@ -105,7 +106,7 @@ export default class PersonalMedia extends Component {
 
                 <Modal show={this.state.showUpload} onHide={this.closeUploadModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Загрузить файлы в хранилище</Modal.Title>
+                        <Modal.Title>{i18n.get('userMedia.upload.modal.title')}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body className={"row justify-content-md-center"}>
                         <DragNDropComponent handleDrop={this.handleDrop}>
@@ -118,7 +119,7 @@ export default class PersonalMedia extends Component {
                                 <Row>
                                     <Col>
                                         <p className="modal-container-upload__description">
-                                            Перетащите файл или кликните в эту область
+                                            {i18n.get('userMedia.upload.modal.message')}
                                         </p>
                                     </Col>
                                 </Row>
@@ -127,10 +128,10 @@ export default class PersonalMedia extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="outline-danger" onClick={this.closeUploadModal}>
-                            Закрыть
+                            {i18n.get('close')}
                         </Button>
                         <Button variant="success" onClick={this.uploadFiles}>
-                            Загрузить
+                            {i18n.get('load')}
                         </Button>
                     </Modal.Footer>
                 </Modal>

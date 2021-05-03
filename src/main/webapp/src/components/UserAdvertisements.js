@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Slider from "./Slider";
 import Card from "./Card";
 import AdType from "./AdType";
+import i18n from "../services/i18n/i18n";
 
 export default class UserAdvertisements extends Component {
 
@@ -27,9 +28,9 @@ export default class UserAdvertisements extends Component {
             <>
                 <hr/>
                 <div className="user-ads-block">
-                    <h1>Мои объявления</h1>
+                    <h1>{i18n.get('profile.ads')}</h1>
                     <Link to="/profile/create-ad" className="btn btn-green">
-                        <FontAwesomeIcon icon={faPlus}/> Создать новое объявление
+                        <FontAwesomeIcon icon={faPlus}/> {i18n.get('profile.ads.create')}
                     </Link>
                 </div>
                 <hr/>
@@ -50,7 +51,7 @@ export default class UserAdvertisements extends Component {
                         : (
                             <div className="no-ads-container">
                                 <FontAwesomeIcon icon={faPenSquare}/>
-                                <h3>Пока нет ваших объявлений, но вы можете создать новое.</h3>
+                                <h3>{i18n.get('profile.ads.no-ads')}</h3>
                             </div>
                         )}
                 </div>

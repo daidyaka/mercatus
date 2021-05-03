@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
+import i18n from "../services/i18n/i18n";
 
 export default class NotFound extends Component {
 
     componentDidMount() {
-        document.title = 'Страница не найдена';
+        document.title = i18n.get('404.title');
     }
 
     render() {
         return (
             <>
                 <h1>404</h1>
-                <h2>Ресур не был найден ¯\_(ツ)_/¯</h2>
-                <h3>Проверьте правильно ли указана ссылка на него.</h3>
+                <h2>{i18n.get('404.message.main')}</h2>
+                <h3>{i18n.get('404.message.secondary')}</h3>
             </>
         )
     }

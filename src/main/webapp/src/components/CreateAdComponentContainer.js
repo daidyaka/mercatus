@@ -6,6 +6,7 @@ import RichTextEditor from 'react-rte';
 import {Button, Form, InputGroup, Modal} from "react-bootstrap";
 import PersonalMedia from "../pages/PersonalMedia";
 import RTEConfigs from "../providers/RTEConfigs";
+import i18n from "../services/i18n/i18n";
 
 export default class CreateAdComponentContainer extends Component {
 
@@ -62,16 +63,16 @@ export default class CreateAdComponentContainer extends Component {
                     <button type="button" className="btn green" onClick={() => {
                         this.showModal(this.updateImageUrl.bind(this, this.closeModal));
                     }}>
-                        <FontAwesomeIcon icon={faPhotoVideo}/> Выбрать главное фото
+                        <FontAwesomeIcon icon={faPhotoVideo}/> {i18n.get('ad.create.main-photo.add')}
                     </button>
                     <button className="btn green" type="button" el-type="text" onClick={this.addElement}>
-                        <FontAwesomeIcon icon={faPlus}/> Добавить текст
+                        <FontAwesomeIcon icon={faPlus}/> {i18n.get('ad.create.text.add')}
                     </button>
                     <button className="btn green" type="button" el-type="image" onClick={this.addElement}>
-                        <FontAwesomeIcon icon={faPlus}/> Добавить картинку
+                        <FontAwesomeIcon icon={faPlus}/> {i18n.get('ad.create.image.add')}
                     </button>
                     <button className="btn green" type="button" el-type="video" onClick={this.addElement}>
-                        <FontAwesomeIcon icon={faPlus}/> Добавить видео
+                        <FontAwesomeIcon icon={faPlus}/> {i18n.get('ad.create.video.add')}
                     </button>
                     {this.createButton}
                 </div>
@@ -83,7 +84,7 @@ export default class CreateAdComponentContainer extends Component {
                                 <div key={index} className="add-video">
                                     <br/>
                                     <InputGroup>
-                                        <Form.Control type="text" placeholder="Ссылка на видео Youtube"
+                                        <Form.Control type="text" placeholder={i18n.get('ad.create.video.placeholder')}
                                                       value={this.state.elements[index].text}
                                                       onChange={this.handleVideo.bind(this, index)}/>
                                         <InputGroup.Append>
@@ -99,7 +100,7 @@ export default class CreateAdComponentContainer extends Component {
                                 <div key={index} className="add-image">
                                     <br/>
                                     <InputGroup>
-                                        <Form.Control type="text" placeholder="Ссылка на личные медиа"
+                                        <Form.Control type="text" placeholder={i18n.get('ad.create.image.placeholder')}
                                                       value={el.src}
                                                       onClick={() => {
                                                           this.showModal(this.handleImage.bind(this, index));
@@ -132,12 +133,12 @@ export default class CreateAdComponentContainer extends Component {
                 </div>
                 <Modal show={this.state.showImageModal} onHide={this.closeModal}>
                     <Modal.Body>
-                        <h3>Выбор изображения</h3>
+                        <h3>{i18n.get('ad.create.image.choice')}</h3>
                         <PersonalMedia onImageChose={this.state.handleImageClick}/>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.closeModal}>
-                            Закрыть
+                            {i18n.get('close')}
                         </Button>
                     </Modal.Footer>
                 </Modal>

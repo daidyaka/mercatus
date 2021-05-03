@@ -15,6 +15,7 @@ import "../styles/CurrentUserInformation.css";
 import HoverableImage from "./HoverableImage";
 import {Button, Col, Container, Form, Modal, Row} from "react-bootstrap";
 import DragNDropComponent from "./DragNDropComponent";
+import i18n from "../services/i18n/i18n";
 
 export default class CurrentUserInformation extends Component {
 
@@ -61,15 +62,16 @@ export default class CurrentUserInformation extends Component {
                                         <p><b><FontAwesomeIcon icon={faMapMarkedAlt}/> {this.context.auth.user?.city}
                                         </b>
                                         </p>
-                                        <p className="personal-media-link"><Link to="/profile/media"><FontAwesomeIcon
-                                            icon={faPhotoVideo}/> Загруженные изображения и видео</Link></p>
-                                        <p><a href="#"><FontAwesomeIcon icon={faComment}/> &nbsp;Мои оставленные отзывы</a>
+                                        <p className="personal-media-link">
+                                            <Link to="/profile/media">
+                                                <FontAwesomeIcon icon={faPhotoVideo}/> {i18n.get('profile.loaded-media')}
+                                            </Link>
                                         </p>
                                     </div>
                                 </div>
                                 <div className="profile-edit-section">
                                     <Button onClick={this.showUpdateProfileModal}>
-                                        <FontAwesomeIcon icon={faEdit}/> Редактировать профиль
+                                        <FontAwesomeIcon icon={faEdit}/> {i18n.get('profile.edit.btn')}
                                     </Button>
                                 </div>
                             </div>
@@ -77,7 +79,7 @@ export default class CurrentUserInformation extends Component {
                             {/* UPDATE AVATAR MODAL */}
                             <Modal show={this.state.showUpload} onHide={this.closeUploadModal}>
                                 <Modal.Header closeButton>
-                                    <Modal.Title>Загрузить файлы в хранилище</Modal.Title>
+                                    <Modal.Title>{i18n.get('userMedia.upload.modal.title')}</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body className={"row justify-content-md-center"}>
                                     <DragNDropComponent handleDrop={this.handleDrop}>
@@ -90,7 +92,7 @@ export default class CurrentUserInformation extends Component {
                                             <Row>
                                                 <Col>
                                                     <p className="modal-container-upload__description">
-                                                        Перетащите файл или кликните в эту область
+                                                        {i18n.get('userMedia.upload.modal.message')}
                                                     </p>
                                                 </Col>
                                             </Row>
@@ -99,10 +101,10 @@ export default class CurrentUserInformation extends Component {
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Button variant="outline-danger" onClick={this.closeUploadModal}>
-                                        Закрыть
+                                        {i18n.get('close')}
                                     </Button>
                                     <Button variant="success" onClick={this.updateAvatar}>
-                                        Загрузить
+                                        {i18n.get('load')}
                                     </Button>
                                 </Modal.Footer>
                             </Modal>
@@ -111,15 +113,15 @@ export default class CurrentUserInformation extends Component {
                             <Modal size="lg" show={this.state.showUpdateProfile} onHide={this.closeUpdateProfileModal}>
                                 <Modal.Header closeButton>
                                     <Modal.Title>
-                                        Редактирование данных
+                                        {i18n.get('profile.edit')}
                                     </Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
-                                    <h5>Обновление персональных данных</h5>
+                                    <h5>{i18n.get('profile.edit.personal-info.title')}</h5>
                                     <Form action="/profile/update" onSubmit={this.handleForm}>
                                         <Form.Row>
                                             <Form.Group as={Col}>
-                                                <Form.Label>Имя: </Form.Label>
+                                                <Form.Label>{i18n.get('registration.firstName.label')}: </Form.Label>
                                                 <Form.Control value={
                                                     this.state.firstName !== undefined
                                                         ? this.state.firstName
@@ -127,7 +129,7 @@ export default class CurrentUserInformation extends Component {
                                                 } name="firstName" onChange={this.handleUserUpdateInfo}/>
                                             </Form.Group>
                                             <Form.Group as={Col}>
-                                                <Form.Label>Фамилия: </Form.Label>
+                                                <Form.Label>{i18n.get('registration.lastName.label')}: </Form.Label>
                                                 <Form.Control value={
                                                     this.state.lastName !== undefined
                                                         ? this.state.lastName
@@ -137,7 +139,7 @@ export default class CurrentUserInformation extends Component {
                                         </Form.Row>
                                         <Form.Row>
                                             <Form.Group as={Col} xs={6}>
-                                                <Form.Label>Город: </Form.Label>
+                                                <Form.Label>{i18n.get('registration.city.label')}: </Form.Label>
                                                 <Form.Control value={
                                                     this.state.city !== undefined
                                                         ? this.state.city
@@ -147,17 +149,17 @@ export default class CurrentUserInformation extends Component {
                                         </Form.Row>
                                         <Form.Row className={"justify-content-end mb-4"}>
                                             <Button variant="success" type="submit">
-                                                <FontAwesomeIcon icon={faSave}/> Обновить
+                                                <FontAwesomeIcon icon={faSave}/> {i18n.get('save')}
                                             </Button>
                                         </Form.Row>
                                     </Form>
                                     <hr/>
 
-                                    <h5>Обновление пароля</h5>
+                                    <h5>{i18n.get('profile.edit.password.title')}</h5>
                                     <Form action="/profile/update-password" onSubmit={this.handleForm}>
                                         <Form.Row>
                                             <Form.Group as={Col} xs={6}>
-                                                <Form.Label>Текущий пароль: </Form.Label>
+                                                <Form.Label>{i18n.get('profile.edit.password.current')}: </Form.Label>
                                                 <Form.Control placeholder="********"
                                                               type="password"
                                                               name="oldPassword"/>
@@ -165,13 +167,13 @@ export default class CurrentUserInformation extends Component {
                                         </Form.Row>
                                         <Form.Row>
                                             <Form.Group as={Col}>
-                                                <Form.Label>Новый пароль: </Form.Label>
+                                                <Form.Label>{i18n.get('profile.edit.password.new')}: </Form.Label>
                                                 <Form.Control placeholder="********"
                                                               type="password"
                                                               name="newPassword"/>
                                             </Form.Group>
                                             <Form.Group as={Col}>
-                                                <Form.Label>Повторите новый пароль: </Form.Label>
+                                                <Form.Label>{i18n.get('profile.edit.password.new-repeated')}: </Form.Label>
                                                 <Form.Control placeholder="********"
                                                               type="password"
                                                               name="newPasswordRepeated"/>
@@ -179,7 +181,7 @@ export default class CurrentUserInformation extends Component {
                                         </Form.Row>
                                         <Form.Row className={"justify-content-end mb-4"}>
                                             <Button variant="success" type="submit">
-                                                <FontAwesomeIcon icon={faUserSecret}/> Обновить пароль
+                                                <FontAwesomeIcon icon={faUserSecret}/> {i18n.get('save')}
                                             </Button>
                                         </Form.Row>
                                     </Form>

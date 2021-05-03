@@ -22,7 +22,7 @@ export default class Header extends Component {
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
                     <Form inline action="/search" method="get">
-                        <FormControl type="text" placeholder="Поиск" name="query" className="search-field"
+                        <FormControl type="text" placeholder={i18n.get('search')} name="query" className="search-field"
                                      value={this.state.query}
                                      onChange={ev => this.setState({query: ev.target.value})}/>
                         <Button variant="secondary" type="submit" className="search-btn"><FontAwesomeIcon icon={faSearch}/></Button>

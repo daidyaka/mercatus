@@ -4,6 +4,7 @@ import {Card} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import i18n from "../services/i18n/i18n";
 
 export default class AdSearchElement extends Component {
 
@@ -25,12 +26,13 @@ export default class AdSearchElement extends Component {
                         </Link>
                     </Card.Title>
                     <Card.Text style={{textAlign: 'right'}}>
-                        Рейтинг: {this.ad.rating} <FontAwesomeIcon icon={faStar}/>
+                        {i18n.get('rating')}: {this.ad.rating} <FontAwesomeIcon icon={faStar}/>
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                    <small className="text-muted">Объявление
-                        создано {this.timeSince(new Date(this.ad.dateCreated))} назад</small>
+                    <small className="text-muted">
+                        {i18n.get('ad.created.time.label')} {this.timeSince(new Date(this.ad.dateCreated))} {i18n.get('ad.created.time.ago')}
+                    </small>
                 </Card.Footer>
             </Card>
         );
@@ -42,25 +44,25 @@ export default class AdSearchElement extends Component {
         let interval = seconds / 31536000;
 
         if (interval > 1) {
-            return Math.floor(interval) + " лет";
+            return Math.floor(interval) + i18n.get('ad.created.time.ago.years');
         }
         interval = seconds / 2592000;
         if (interval > 1) {
-            return Math.floor(interval) + " месяцев";
+            return Math.floor(interval) + i18n.get('ad.created.time.ago.months');
         }
         interval = seconds / 86400;
         if (interval > 1) {
-            return Math.floor(interval) + " дней";
+            return Math.floor(interval) + i18n.get('ad.created.time.ago.days');
         }
         interval = seconds / 3600;
         if (interval > 1) {
-            return Math.floor(interval) + " часов";
+            return Math.floor(interval) + i18n.get('ad.created.time.ago.hours');
         }
         interval = seconds / 60;
         if (interval > 1) {
-            return Math.floor(interval) + " минут";
+            return Math.floor(interval) + i18n.get('ad.created.time.ago.minutes');
         }
-        return Math.floor(seconds) + " секунд";
+        return Math.floor(seconds) + i18n.get('ad.created.time.ago.second');
     }
 }
 

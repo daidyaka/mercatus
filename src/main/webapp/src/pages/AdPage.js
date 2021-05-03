@@ -7,6 +7,7 @@ import AdType from "../components/AdType";
 import {Container, Image, Jumbotron, Spinner} from "react-bootstrap";
 import {faLocationArrow, faMapMarkedAlt, faPhoneAlt, faStar} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import i18n from "../services/i18n/i18n";
 
 class AdPage extends Component {
 
@@ -60,14 +61,14 @@ class AdPage extends Component {
                             <h1>{ad.title}</h1>
                             <AdType type={ad.type}/>
                             <p className={"mt-2"}><FontAwesomeIcon icon={faMapMarkedAlt}/> {author.city}</p>
-                            <h3 className="mt-4">Средняя оценка: {ad.rating}<FontAwesomeIcon icon={faStar}/></h3>
+                            <h3 className="mt-4">{i18n.get('average-mark')}: {ad.rating}<FontAwesomeIcon icon={faStar}/></h3>
                             <a className="btn btn-success" href={`tel:${ad.phoneNumber}`}
                                style={{
                                    float: 'right',
                                    position: 'relative',
                                    bottom: 50
                                }}>
-                                <FontAwesomeIcon icon={faPhoneAlt}/> Связаться по телефону
+                                <FontAwesomeIcon icon={faPhoneAlt}/> {i18n.get('make-call')}
                             </a>
                         </Container>
                     </Jumbotron>
@@ -80,7 +81,7 @@ class AdPage extends Component {
             ) : (
                 <div style={{textAlign: 'center'}}>
                     <Spinner animation="border"/>
-                    <p>Загрузка</p>
+                    <p>{i18n.get('loading')}</p>
                 </div>
             )
         );

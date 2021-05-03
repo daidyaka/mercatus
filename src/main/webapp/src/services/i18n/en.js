@@ -4,6 +4,8 @@ const en = {
     'language': 'Language',
     'register': 'Register',
     'login': 'Login',
+    'search': 'Search',
+    'average-mark': 'Average mark:',
 }
 
 export default en

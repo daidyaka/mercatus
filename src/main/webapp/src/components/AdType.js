@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import types from '../data/ad-types'
+import i18n from "../services/i18n/i18n";
 
 export default class AdType extends Component {
 
@@ -11,31 +11,7 @@ export default class AdType extends Component {
         }
     }
 
-    componentDidMount() {
-        this.setState({
-            type: this.convertTypeToText()
-        })
-    }
-
     render() {
-        return <i>{this.state.type}</i>
-    }
-
-    convertTypeToText() {
-        let value = this.state.type;
-        for (const type in types) {
-            if (types[type].name) {
-                for (const [key, elVal] of Object.entries(types[type].options)) {
-                    if (key === value) {
-                        return types[type].name + ' > ' + elVal;
-                    }
-                }
-            } else {
-                if (value === type) {
-                    return types[type];
-                }
-            }
-        }
-        return 'Другое';
+        return <i>{i18n.get(`ad.types.${this.state.type}`)}</i>;
     }
 }

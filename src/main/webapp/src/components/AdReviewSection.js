@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import ReviewComponent from "./ReviewComponent";
+import i18n from "../services/i18n/i18n";
 
 export default class AdReviewSection extends Component {
 
@@ -14,9 +15,9 @@ export default class AdReviewSection extends Component {
         return (
             <div>
                 <hr/>
-                <h3>Отзывы:</h3>
+                <h3>{i18n.get('reviews.title')}:</h3>
                 <div className="ad-review">
-                    {this.reviews.length ? this.reviews.map(review => <ReviewComponent review={review}/>) : <p>Отзывов пока нет, станьте первым.</p>}
+                    {this.reviews.length ? this.reviews.map(review => <ReviewComponent review={review}/>) : <p>{i18n.get('reviews.no-reviews')}</p>}
                 </div>
             </div>
         );

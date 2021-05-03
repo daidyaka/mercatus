@@ -1,6 +1,7 @@
 import React, {Component} from "react";
-import types from '../data/ad-types'
+import types from '../providers/ad-types'
 import {Form} from "react-bootstrap";
+import i18n from "../services/i18n/i18n";
 
 export default class AdTypeSelector extends Component {
 
@@ -32,7 +33,7 @@ export default class AdTypeSelector extends Component {
                 collectedTypes.push(
                     <optgroup label={this.types[type].name} /*value={type}*/>
                         {Object.entries(this.types[type].options).map(([key, value]) => {
-                            return (<option value={key}>{value}</option>);
+                            return (<option value={key}>{i18n.get(`ad.types.${key}`)}</option>);
                         })}
                     </optgroup>
                 );

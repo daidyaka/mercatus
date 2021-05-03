@@ -6,7 +6,7 @@ import i18n from "../services/i18n/i18n";
 export default class Registration extends Component {
 
     componentDidMount() {
-        document.title = i18n.get('registration');
+        document.title = i18n.get('registration.title');
     }
 
     handleSubmit(event) {
@@ -24,7 +24,7 @@ export default class Registration extends Component {
     render() {
         return (
             <Form encType="multipart/form-data" onSubmit={this.handleSubmit}>
-                <h1 className={"mt-4"}>Регистрация</h1>
+                <h1 className={"mt-4"}>{i18n.get('registration.title')}</h1>
 
                 <hr/>
 
@@ -37,13 +37,13 @@ export default class Registration extends Component {
 
                 <Form.Row className={"mt-2"}>
                     <Form.Group as={Col} controlId="formGridFirstname">
-                        <Form.Label>Имя</Form.Label>
-                        <Form.Control type="text" placeholder="Введите имя" name="firstName"/>
+                        <Form.Label>{i18n.get('registration.firstName.label')}</Form.Label>
+                        <Form.Control type="text" placeholder={i18n.get('registration.firstName.placeholder')} name="firstName"/>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridLastname">
-                        <Form.Label>Фамилия</Form.Label>
-                        <Form.Control type="text" placeholder="Введите фамилию" name="lastName"/>
+                        <Form.Label>{i18n.get('registration.lastName.label')}</Form.Label>
+                        <Form.Control type="text" placeholder={i18n.get('registration.lastName.placeholder')} name="lastName"/>
                     </Form.Group>
                 </Form.Row>
 
@@ -52,50 +52,51 @@ export default class Registration extends Component {
                 <Form.Row className={"mt-4"}>
                     <Form.Group as={Col} controlId="formGridEmail">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" placeholder="Введите email" name={"email"}/>
+                        <Form.Control type="email" placeholder={i18n.get('registration.email.placeholder')} name={"email"}/>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridPassword">
-                        <Form.Label>Пароль</Form.Label>
-                        <Form.Control type="password" placeholder="Введите пароль" name={"password"}/>
+                        <Form.Label>{i18n.get('registration.password.label')}</Form.Label>
+                        <Form.Control type="password" placeholder={i18n.get('registration.password.placeholder')} name={"password"}/>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridPassword">
-                        <Form.Label>Повторите пароль</Form.Label>
-                        <Form.Control type="password" placeholder="Повторите пароль" name={"repeatPassword"}/>
+                        <Form.Label>{i18n.get('registration.repeatPassword.placeholder')}</Form.Label>
+                        <Form.Control type="password" placeholder={i18n.get('registration.repeatPassword.placeholder')} name={"repeatPassword"}/>
                     </Form.Group>
                 </Form.Row>
 
                 <Form.Row>
                     <Form.Group as={Col} controlId="formGridCity">
-                        <Form.Label>Город</Form.Label>
-                        <Form.Control name={"city"}/>
+                        <Form.Label>{i18n.get('registration.city.label')}</Form.Label>
+                        <Form.Control name={"city"} placeholder={i18n.get('registration.city.label')}/>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridGender">
-                        <Form.Label>Пол</Form.Label>
-                        <Form.Control as="select" defaultValue="Не указан" name={"gender"}>
-                            <option>Мужской</option>
-                            <option>Женский</option>
+                        <Form.Label>{i18n.get('registration.gender.label')}</Form.Label>
+                        <Form.Control as="select" defaultValue={i18n.get('registration.gender.not-selected')} name={"gender"}>
+                            <option>{i18n.get('registration.gender.men')}</option>
+                            <option>{i18n.get('registration.gender.women')}</option>
+                            <option>{i18n.get('registration.gender.not-selected')}</option>
                         </Form.Control>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridBirth">
-                        <Form.Label>Zip</Form.Label>
+                        <Form.Label>{i18n.get('registration.dateOfBirth.label')}</Form.Label>
                         <Form.Control type={"date"} name={"dateOfBirth"}/>
                     </Form.Group>
                 </Form.Row>
 
                 <Form.Group id="formGridCheckbox">
-                    <Form.Check type="checkbox" label="Я согласен с условиями использования" name="isAgreed"/>
+                    <Form.Check type="checkbox" label={i18n.get('registration.isAgreed.label')} name="isAgreed"/>
                 </Form.Group>
 
                 <Form.Row className={"justify-content-end mb-4"}>
                     <Button variant="outline-danger" type="reset">
-                        Очистить
+                        {i18n.get('clear')}
                     </Button>
                     <Button variant="success" type="submit" className={"ml-4"}>
-                        Зарегистрироваться
+                        {i18n.get('register')}
                     </Button>
                 </Form.Row>
             </Form>

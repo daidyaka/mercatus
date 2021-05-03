@@ -6,11 +6,12 @@ import VerticalDelimiter from "../components/VerticalDelimiter";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPhoneAlt, faSave} from "@fortawesome/free-solid-svg-icons";
 import {Button, Col, Form, InputGroup, Row} from "react-bootstrap";
+import i18n from "../services/i18n/i18n";
 
 export default class CreateAd extends Component {
 
     componentDidMount() {
-        document.title = 'Создать объявление'
+        document.title = i18n.get('ad.create')
     }
 
     constructor() {
@@ -71,7 +72,7 @@ export default class CreateAd extends Component {
             <div className="margin-header">
                 <Row className="create-ad-header">
                     <Col>
-                        <Form.Control size="sm" type="text" name="title" placeholder="Заголовок"
+                        <Form.Control size="sm" type="text" name="title" placeholder={i18n.get('ad.header')}
                                       value={this.state.title}
                                       onChange={this.handleInputChange}/>
                     </Col>
@@ -83,7 +84,7 @@ export default class CreateAd extends Component {
                                     <FontAwesomeIcon icon={faPhoneAlt}/>
                                 </InputGroup.Text>
                             </InputGroup.Prepend>
-                            <Form.Control size="sm" type="text" name="phoneNumber" placeholder="Номер телефона"
+                            <Form.Control size="sm" type="text" name="phoneNumber" placeholder={i18n.get('ad.phone-number')}
                                           value={this.state.phoneNumber}
                                           onChange={this.handleInputChange}/>
                         </InputGroup>
@@ -98,7 +99,7 @@ export default class CreateAd extends Component {
                                                     <VerticalDelimiter/>
                                                     <Button variant={"success"} type="button"
                                                             onClick={this.createAd}>
-                                                        <FontAwesomeIcon icon={faSave}/> Создать
+                                                        <FontAwesomeIcon icon={faSave}/> {i18n.get('create')}
                                                     </Button>
                                                 </>
                                             }/>

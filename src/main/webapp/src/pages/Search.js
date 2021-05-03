@@ -24,7 +24,7 @@ class Search extends Component {
 
     componentDidMount() {
         let query = this.queryParameters['query'];
-        document.title = 'Поиск ' + (!!query ? query : '')
+        document.title = i18n.get('search') + ' ' + (!!query ? query : '')
         this.fetchData();
     }
 
@@ -56,24 +56,24 @@ class Search extends Component {
                             <AdTypeSelector onTypeChange={this.collectValue}/>
                         </Col>
                         <Col>
-                            <Form.Control size="sm" type="text" name="location" placeholder="Город"
+                            <Form.Control size="sm" type="text" name="location" placeholder={i18n.get('search.city.label')}
                                           value={this.queryParameters?.location}
                                           onChange={this.collectValue}/>
                         </Col>
                         <Col>
                             <Form.Group>
                                 <Form.Control as="select" size="sm" custom name="sortType" onChange={this.collectValue}>
-                                    <optgroup label="по дате">
-                                        <option value="RELEVANCE_ASC">дата по убыванию</option>
-                                        <option value="RELEVANCE_DESC">дата по возрастанию</option>
+                                    <optgroup label={i18n.get('search.sort.date')}>
+                                        <option value="RELEVANCE_ASC">{i18n.get('search.sort.date.asc')}</option>
+                                        <option value="RELEVANCE_DESC">{i18n.get('search.sort.date.desc')}</option>
                                     </optgroup>
-                                    <optgroup label="по алфавиту">
-                                        <option value="ALPHABET_ASC">в алфавитном порядке</option>
-                                        <option value="ALPHABET_DESC">против алфавитного порядка</option>
+                                    <optgroup label={i18n.get('search.sort.alphabet')}>
+                                        <option value="ALPHABET_ASC">{i18n.get('search.sort.alphabet.asc')}</option>
+                                        <option value="ALPHABET_DESC">{i18n.get('search.sort.alphabet.desc')}</option>
                                     </optgroup>
-                                    <optgroup label="по рейтингу (отключено)" disabled={true}>
-                                        <option value="RATING_ASC">по убыванию</option>
-                                        <option value="RATING_DESC">по возрастанию</option>
+                                    <optgroup label={i18n.get('search.sort.rating')} disabled={true}>
+                                        <option value="RATING_ASC">{i18n.get('search.sort.rating.asc')}</option>
+                                        <option value="RATING_DESC">{i18n.get('search.sort.rating.desc')}</option>
                                     </optgroup>
                                 </Form.Control>
                             </Form.Group>
@@ -83,7 +83,7 @@ class Search extends Component {
                 <Container className="search-results">
                     {this.state.results.length !== 0
                         ? <CardColumns> {this.state.results.map((ad) => <AdSearchElement ad={ad}/>)}</CardColumns>
-                        : <Alert variant={'danger'} className="mt-2">Результатов не найдено.</Alert>}
+                        : <Alert variant={'danger'} className="mt-2">{i18n.get('search.no-results')}</Alert>}
                 </Container>
             </>
         );

@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import AuthenticationContext from "../providers/AuthenticationContext";
 import {Button, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import i18n from "../services/i18n/i18n";
 
 class LeaveReviewComponent extends Component {
 
@@ -30,11 +31,11 @@ class LeaveReviewComponent extends Component {
             <div>
                 {this.context.auth.user ? (
                     <Form action={`/ad/${this.ad.url}/review`} method="post">
-                        <h3>Оставить отзыв</h3>
+                        <h3>{i18n.get('rating.leave')}</h3>
                         <Form.Group>
-                            <Form.Label>Оценка:</Form.Label>
+                            <Form.Label>{i18n.get('rating.mark')}:</Form.Label>
                             <Form.Control as="select" custom onChange={this.handleMarkCounter} name="mark">
-                                <option selected={true} value={-1}>Без оценки</option>
+                                <option selected={true} value={-1}>{i18n.get('rating.no-mark')}</option>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -43,18 +44,18 @@ class LeaveReviewComponent extends Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Отзыв:</Form.Label>
+                            <Form.Label>{i18n.get('rating.review')}:</Form.Label>
                             <Form.Control as="textarea" rows={3} name="text"/>
                         </Form.Group>
                         <input name="username" type="hidden" value={this.context.auth.user.id}/>
                         <input name="userFullName" type="hidden"
                                value={this.context.auth.user.firstName + ' ' + this.context.auth.user.lastName}/>
                         <Button type="submit" variant={"success"} style={{float: 'right'}}
-                                className="mb-4">Отправить</Button>
+                                className="mb-4">{i18n.get('send')}</Button>
                     </Form>
                 ) : (
                     <div className="mb-4" style={{textAlign: 'center'}}>
-                        Для того, чтобы оставить отзыв, необходимо <Link to="/login">авторизоваться</Link>.
+                        {i18n.get('rating.no-auth.message')} <Link to="/login">{i18n.get('rating.no-auth.link')}</Link>.
                     </div>
                 )}
             </div>
