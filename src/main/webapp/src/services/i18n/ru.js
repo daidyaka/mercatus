@@ -54,7 +54,7 @@ const ru = {
     'registration.isAgreed.label': 'Я согласен с условиями использования',
 
     '404.title': 'Страница не найдена',
-    '404.message.main': 'Ресур не был найден ¯\\_(ツ)_/¯',
+    '404.message.main': 'Ресурс не был найден ¯\\_(ツ)_/¯',
     '404.message.secondary': 'Проверьте правильно ли указана ссылка на него.',
 
     'userMedia.upload': 'Загрузить файл(ы)',
@@ -77,7 +77,6 @@ const ru = {
 
     'ad.create.main-photo.add': 'Выбрать главное фото',
     'ad.create.text.add': 'Добавить текст',
-    'ad.create.text.placeholder': ' лет',
     'ad.create.image.add': 'Добавить картинку',
     'ad.create.image.placeholder': 'Ссылка на личные медиа',
     'ad.create.image.choice': 'Выбор изображения',
@@ -108,7 +107,7 @@ const ru = {
     'ad.types.juridical': 'Юридические услуги',
     'ad.types.health': 'Красота и здоровье',
     'ad.types.auto_services': 'Авто-услуги',
-    'ad.types.rent': 'Аренда и прокат транспрорта',
+    'ad.types.rent': 'Аренда и прокат транспорта',
     'ad.types.repair': 'Ремонт транспорта',
     'ad.types.auto_services>others': 'Прочее',
     'ad.types.it_services': 'IT-услуги',

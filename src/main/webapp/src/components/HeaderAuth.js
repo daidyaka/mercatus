@@ -21,7 +21,7 @@ class HeaderAuth extends Component {
                     return (value.auth.isAuthenticated ? (
                         <div className="header-auth">
                             <Link to="/profile">
-                                <Image className="mr-2" height={30} roundedCircle
+                                <Image className="mr-2" width={30} height={30} roundedCircle
                                        src={`/media/images/${value.auth.user.id}/${value.auth.user.imageUrl}`}/>
                                 {i18n.get('profile')}
                             </Link>
