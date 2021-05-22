@@ -21,8 +21,8 @@ export default class Home extends Component {
                             style={{objectFit: 'cover'}}
                         />
                         <Carousel.Caption style={{backgroundColor: 'rgba(0,0,0,0.5)'}}>
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                            <h3>Все объявления в одном месте</h3>
+                            <p>Ищете мастера по ремонту? Легко!</p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item interval={5000}>

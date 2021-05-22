@@ -55,7 +55,7 @@ class AdPage extends Component {
                         }}>
                             <h6 style={{textAlign: 'right'}}>
                                 Автор: {author.firstName} {author.lastName}
-                                <Image className="ml-2" height={30} roundedCircle
+                                <Image className="ml-2" height={30} width={30} roundedCircle
                                        src={`/media/images/${author.id}/${author.imageUrl}`}/>
                             </h6>
                             <h1>{ad.title}</h1>

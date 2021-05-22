@@ -12,7 +12,8 @@ import CreateAd from "./pages/CreateAd";
 import AuthenticationContext from "./providers/AuthenticationContext";
 import AdPage from "./pages/AdPage";
 import Search from "./pages/Search";
-import {Container} from "react-bootstrap";
+import {Container, Spinner} from "react-bootstrap";
+import PrivateRoute from "./components/PrivateRoute";
 
 class App extends React.Component {
 
@@ -20,6 +21,7 @@ class App extends React.Component {
         super(props);
 
         this.state = {
+            fetched: false,
             auth: {
                 isAuthenticated: false,
                 user: undefined
@@ -35,31 +37,38 @@ class App extends React.Component {
                     auth: {
                         isAuthenticated: auth.isAuthenticated,
                         user: auth.user
-                    }
+                    },
+                    fetched: true
                 });
             });
     }
 
     render() {
         return (
-            <AuthenticationContext.Provider value={this.state}>
-                <Router>
-                    <Header/>
-                    <Container id="root">
-                        <Switch>
-                            <Route path={'/ad/:title'}><AdPage/></Route>
-                            <Route path={'/profile/media'}><PersonalMedia/></Route>
-                            <Route path={'/profile/create-ad'}><CreateAd/></Route>
-                            <Route path={'/profile'}><Profile/></Route>
-                            <Route path={'/search'}><Search/></Route>
-                            <Route path={'/registration'}><Registration/></Route>
-                            <Route path={'/login'}><Login/></Route>
-                            <Route exact path={'/'}><Home/></Route>
-                            <Route path={'*'}><NotFound/></Route>
-                        </Switch>
-                    </Container>
-                </Router>
-            </AuthenticationContext.Provider>
+            this.state.fetched ? (
+                <AuthenticationContext.Provider value={this.state}>
+                    <Router>
+                        <Header/>
+                        <Container id="root">
+                            <Switch>
+                                <Route path={'/ad/:title'}><AdPage/></Route>
+                                <PrivateRoute auth={this.state.auth} path={'/profile/media'}
+                                              component={PersonalMedia}/>
+                                <PrivateRoute auth={this.state.auth} path={'/profile/create-ad'}
+                                              component={CreateAd}/>
+                                <PrivateRoute auth={this.state.auth} path={'/profile'} component={Profile}/>
+                                <Route path={'/search'}><Search/></Route>
+                                <Route path={'/registration'}><Registration/></Route>
+                                <Route path={'/login'}><Login/></Route>
+                                <Route exact path={'/'}><Home/></Route>
+                                <Route path={'*'}><NotFound/></Route>
+                            </Switch>
+                        </Container>
+                    </Router>
+                </AuthenticationContext.Provider>
+            ) : (
+                <Spinner animation="grow" className={"text-center"}/>
+            )
         );
     }
 }
