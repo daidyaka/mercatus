@@ -72,7 +72,7 @@ class Search extends Component {
                                         <option value="ALPHABET_ASC">{i18n.get('search.sort.alphabet.asc')}</option>
                                         <option value="ALPHABET_DESC">{i18n.get('search.sort.alphabet.desc')}</option>
                                     </optgroup>
-                                    <optgroup label={i18n.get('search.sort.rating')} disabled={true}>
+                                    <optgroup label={i18n.get('search.sort.rating')}>
                                         <option value="RATING_ASC">{i18n.get('search.sort.rating.asc')}</option>
                                         <option value="RATING_DESC">{i18n.get('search.sort.rating.desc')}</option>
                                     </optgroup>

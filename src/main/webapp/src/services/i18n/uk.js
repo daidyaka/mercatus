@@ -127,7 +127,7 @@ const uk = {
     'search.sort.alphabet': 'за алфавітом',
     'search.sort.alphabet.asc': 'в алфавітному порядку',
     'search.sort.alphabet.desc': 'проти алфавітного порядку',
-    'search.sort.rating': 'за рейтингом (відключено)',
+    'search.sort.rating': 'за рейтингом',
     'search.sort.rating.asc': 'за спаданням',
     'search.sort.rating.desc': 'за зростанням',
     'search.no-results': 'Результатів не знайдено',

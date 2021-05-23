@@ -127,7 +127,7 @@ const en = {
     'search.sort.alphabet': 'by alphabet',
     'search.sort.alphabet.asc': 'in alphabet order',
     'search.sort.alphabet.desc': 'against alphabetical order',
-    'search.sort.rating': 'by rating (disabled)',
+    'search.sort.rating': 'by rating',
     'search.sort.rating.asc': 'ascending',
     'search.sort.rating.desc': 'descending',
     'search.no-results': 'No results.',

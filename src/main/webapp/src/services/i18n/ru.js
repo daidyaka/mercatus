@@ -129,7 +129,7 @@ const ru = {
     'search.sort.alphabet': 'по алфавиту',
     'search.sort.alphabet.asc': 'в алфавитном порядке',
     'search.sort.alphabet.desc': 'против алфавитного порядка',
-    'search.sort.rating': 'по рейтингу (отключено)',
+    'search.sort.rating': 'по рейтингу',
     'search.sort.rating.asc': 'по убыванию',
     'search.sort.rating.desc': 'по возрастанию',
     'search.no-results': 'Результатов не найдено.',
