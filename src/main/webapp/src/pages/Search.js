@@ -31,6 +31,7 @@ class Search extends Component {
     fetchData() {
         let url = '/search?' + toUrlParams(this.queryParameters);
         this.props.history.push(url);
+        this.setState({results: []})
         fetch(url).then(response => {
             if (response.status === 200) {
                 response.json().then(
