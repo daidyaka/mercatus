@@ -146,6 +146,12 @@ const ru = {
     'rating.no-auth.message': 'Для того, чтобы оставить отзыв, необходимо',
     'rating.no-auth.link': 'авторизоваться',
 
+    'intro.first.title': 'Все объявления в одном месте',
+    'intro.first.description': 'Ищете мастера по ремонту? Легко!',
+    'intro.second.title': 'Ищете достойного перевозчика?',
+    'intro.second.description': 'Воспользуйтесь поиском в шапке сайта!',
+    'intro.third.title': 'Нужна помощь в создании сайта?',
+    'intro.third.description': 'Легко! Просто воспользуйтесь поиском и найдите нужного мастера за 5 минут!',
 }
 
 export default ru

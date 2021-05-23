@@ -144,6 +144,12 @@ const uk = {
     'rating.no-auth.message': 'Аби залишити відгук необхідно',
     'rating.no-auth.link': 'авторизуватися',
 
+    'intro.first.title': 'Усі оголошення в одному місці',
+    'intro.first.description': 'Шукаєте мастера з ремонту? Легко!',
+    'intro.second.title': 'Шукаєте достойного перевізника?',
+    'intro.second.description': 'Скористуйтеся пошуком у шапці сайту!',
+    'intro.third.title': 'Потрібна допомога у створенні сайту?',
+    'intro.third.description': 'Легко! Просто скористуйтеся пошуком та знайдіть потрібного майстра вже через 5 хвилин!',
 }
 
 export default uk

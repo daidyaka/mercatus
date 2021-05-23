@@ -144,6 +144,12 @@ const en = {
     'rating.no-auth.message': 'In order to leave a review, you must',
     'rating.no-auth.link': 'authorize',
 
+    'intro.first.title': 'All ads in one place',
+    'intro.first.description': 'Looking for serviceman? Easy!',
+    'intro.second.title': 'Looking for worthy carrier?',
+    'intro.second.description': 'Just use the search bar in the header!',
+    'intro.third.title': 'Looking for the help creating a website?',
+    'intro.third.description': 'Easy! Just use the search page and find a professional in 5 minutes!',
 }
 
 export default en
