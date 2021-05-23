@@ -33,6 +33,7 @@ const uk = {
     'login.password.placeholder': 'Введіть пароль',
     'login.no-account.promotion': 'Нема акаунта? Завжди можна',
     'login.no-account.link': 'створити новий',
+    'login.not-found': 'Аккаунт не знайдено або пароль введено невірно.',
 
     'registration.title': 'Зареєструватися',
     'registration.firstName.placeholder': "Введіть ім'я",
@@ -54,6 +55,10 @@ const uk = {
     '404.title': 'Сторінка не знайдена',
     '404.message.main': 'Ресурс було найдено ¯\\_(ツ)_/¯',
     '404.message.secondary': 'Перевірте будь-ласка правильність посилання на ресурс.',
+
+    '403.title': 'Доступ заборонено',
+    '403.message.main': 'У вас недостатньо прав для цього ресурсу!',
+    '403.message.secondary': 'Перевірте авторизацію в системі.',
 
     'userMedia.upload': 'Завантажити файли',
     'userMedia.upload.files-not-found': 'Файли не знайдено',

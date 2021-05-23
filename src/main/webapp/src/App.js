@@ -14,6 +14,8 @@ import AdPage from "./pages/AdPage";
 import Search from "./pages/Search";
 import {Container, Spinner} from "react-bootstrap";
 import PrivateRoute from "./components/PrivateRoute";
+import i18n from "./services/i18n/i18n";
+import Forbidden from "./pages/Forbidden";
 
 class App extends React.Component {
 
@@ -60,6 +62,7 @@ class App extends React.Component {
                                 <Route path={'/search'}><Search/></Route>
                                 <Route path={'/registration'}><Registration/></Route>
                                 <Route path={'/login'}><Login/></Route>
+                                <Route path={'/403'}><Forbidden/></Route>
                                 <Route exact path={'/'}><Home/></Route>
                                 <Route path={'*'}><NotFound/></Route>
                             </Switch>
@@ -67,7 +70,10 @@ class App extends React.Component {
                     </Router>
                 </AuthenticationContext.Provider>
             ) : (
-                <Spinner animation="grow" className={"text-center"}/>
+                <p className={"text-center"} style={{padding: 10}}>
+                    <Spinner animation="grow"/>
+                    <span style={{fontSize: 20, marginLeft: 10}}>{i18n.get('loading')}...</span>
+                </p>
             )
         );
     }

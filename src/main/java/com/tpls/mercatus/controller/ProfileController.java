@@ -1,6 +1,8 @@
 package com.tpls.mercatus.controller;
 
+import com.google.common.collect.ImmutableMap;
 import com.tpls.mercatus.entity.Advertisement;
+import com.tpls.mercatus.entity.error.ValidationError;
 import com.tpls.mercatus.entity.user.ChangePasswordDto;
 import com.tpls.mercatus.entity.user.ChangeUserDataDto;
 import com.tpls.mercatus.entity.user.LoginDto;
@@ -23,9 +25,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/profile")
@@ -66,9 +70,23 @@ public class ProfileController extends AbstractController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> register(@Valid User user,
+    public ResponseEntity<Object> register(@Valid User user,
+                                           @RequestParam String repeatPassword,
                                            @RequestParam(value = "avatar", required = false) MultipartFile file) throws IOException {
-        userService.createUser(user, file);
+        if (!Objects.equals(user.getPassword(), repeatPassword)) {
+            return ResponseEntity.badRequest().body(ValidationError.builder()
+                    .errors(ImmutableMap.of("password", "Пароли не совпадают!", "repeatPassword", ""))
+                    .build());
+        }
+
+        boolean created = userService.createUser(user, file);
+
+        if (!created) {
+            return ResponseEntity.badRequest().body(ValidationError.builder()
+                    .errors(Collections.singletonMap("email", "Этот email уже занят"))
+                    .build());
+        }
+
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -95,10 +113,23 @@ public class ProfileController extends AbstractController {
     }
 
     @PostMapping("/update-password")
-    public ResponseEntity<Boolean> updatePassword(Authentication auth, @Valid ChangePasswordDto dto) {
+    public ResponseEntity<Object> updatePassword(Authentication auth, @Valid ChangePasswordDto dto) {
+        if (!Objects.equals(dto.getNewPassword(), dto.getNewPasswordRepeated())) {
+            return ResponseEntity.badRequest().body(ValidationError.builder()
+                    .errors(Collections.singletonMap("newPassword", "Пароли не совпадают!"))
+                    .build());
+        }
+
         User authenticatedUser = getAuthenticatedUser(auth);
         boolean isUpdated = userService.updatePassword(authenticatedUser, dto);
-        return ResponseEntity.status(isUpdated ? HttpStatus.OK : HttpStatus.BAD_REQUEST).body(isUpdated);
+
+        if (!isUpdated) {
+            return ResponseEntity.badRequest().body(ValidationError.builder()
+                    .errors(Collections.singletonMap("oldPassword", "Пароль введен неверно!"))
+                    .build());
+        }
+
+        return ResponseEntity.ok(true);
     }
 
 }

@@ -55,11 +55,11 @@ class Search extends Component {
                         <Col xs={6}>
                             <AdTypeSelector onTypeChange={this.collectValue}/>
                         </Col>
-                        <Col>
-                            <Form.Control size="sm" type="text" name="location" placeholder={i18n.get('search.city.label')}
-                                          value={this.queryParameters?.location}
-                                          onChange={this.collectValue}/>
-                        </Col>
+                        {/*<Col>*/}
+                        {/*    <Form.Control size="sm" type="text" name="location" placeholder={i18n.get('search.city.label')}*/}
+                        {/*                  value={this.queryParameters?.location}*/}
+                        {/*                  onChange={this.collectValue}/>*/}
+                        {/*</Col>*/}
                         <Col>
                             <Form.Group>
                                 <Form.Control as="select" size="sm" custom name="sortType" onChange={this.collectValue}>

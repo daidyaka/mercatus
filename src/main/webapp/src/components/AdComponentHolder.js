@@ -15,13 +15,14 @@ export default class AdComponentHolder extends Component {
 
     render() {
         return (
-            this.elements.map(el => {
+            this.elements.filter(el => !!el).map(el => {
                 if (el.type === 'text') {
                     return <TextArticleComponent text={el.text}/>
                 }
 
                 if (el.type === 'image') {
-                    return <ImageArticleComponent imageLink={`http://localhost:8080/media/images/${this.userId + '/' + el.src}`}/>
+                    return <ImageArticleComponent
+                        imageLink={`http://localhost:8080/media/images/${this.userId + '/' + el.src}`}/>
                 }
 
                 if (el.type === 'video') {

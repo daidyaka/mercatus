@@ -39,8 +39,8 @@ public class SearchRequestDto {
         RELEVANCE_DESC("dateCreated", false),
         ALPHABET_ASC("title", true),
         ALPHABET_DESC("title", false),
-        RATING_ASC("title", true),   //TODO
-        RATING_DESC("title", false); //TODO
+        RATING_ASC("rating", true),
+        RATING_DESC("rating", false);
 
         private final Sort sort;
 

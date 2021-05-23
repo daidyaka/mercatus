@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import static com.tpls.mercatus.controller.MediaController.MEDIA_BASE_URL;
 
@@ -51,7 +52,9 @@ public class MediaController extends AbstractController {
     public ResponseEntity<byte[]> loadImage(@PathVariable String userId, @PathVariable String fileName) {
         UploadedMediaItemResponse itemResponse = storageService.loadUserFile(userId + '/' + fileName);
         return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(itemResponse.getMediaType()))
+                .contentType(Optional.ofNullable(itemResponse.getMediaType())
+                        .map(MediaType::parseMediaType)
+                        .orElse(MediaType.IMAGE_JPEG))
                 .body(itemResponse.getBytes());
     }
 

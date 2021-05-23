@@ -33,6 +33,7 @@ const en = {
     'login.password.placeholder': 'Enter password',
     'login.no-account.promotion': 'No account yet? You always can',
     'login.no-account.link': 'create one',
+    'login.not-found': 'Account was not found or entered data is not correct.',
 
     'registration.title': 'Register',
     'registration.firstName.placeholder': 'Enter name',
@@ -54,6 +55,10 @@ const en = {
     '404.title': 'Page not found',
     '404.message.main': 'Resource was not found ¯\\_(ツ)_/¯',
     '404.message.secondary': 'Please check if the link is correctly specified.',
+
+    '403.title': 'Forbidden',
+    '403.message.main': 'You don`t have enough rights for this resource!',
+    '403.message.secondary': 'Please check you authorization in the system.',
 
     'userMedia.upload': 'Load files',
     'userMedia.upload.files-not-found': 'Files are not found',

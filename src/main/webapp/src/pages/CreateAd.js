@@ -7,6 +7,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPhoneAlt, faSave} from "@fortawesome/free-solid-svg-icons";
 import {Button, Col, Form, InputGroup, Row} from "react-bootstrap";
 import i18n from "../services/i18n/i18n";
+import network from "../services/network/network";
 
 export default class CreateAd extends Component {
 
@@ -36,24 +37,27 @@ export default class CreateAd extends Component {
         close();
     }
 
-    createAd() {
-        fetch('/profile/create-ad', {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
+    createAd(event) {
+        network.sendForm('/profile/create-ad', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: this.state.title,
+                    type: this.state.type,
+                    phoneNumber: this.state.phoneNumber,
+                    elements: this.elements,
+                    imageUrl: this.state.imageUrl
+                })
             },
-            body: JSON.stringify({
-                title: this.state.title,
-                type: this.state.type,
-                phoneNumber: this.state.phoneNumber,
-                elements: this.elements,
-                imageUrl: this.state.imageUrl
-            })
-        }).then(response => {
-            if (response.ok) {
-                window.location = `${response.headers.get('Location')}.html`;
+            event,
+            response => {
+                if (response.ok) {
+                    window.location = `${response.headers.get('location')}.html`;
+                }
             }
-        });
+        );
     }
 
     updateElements(elements) {
@@ -84,7 +88,8 @@ export default class CreateAd extends Component {
                                     <FontAwesomeIcon icon={faPhoneAlt}/>
                                 </InputGroup.Text>
                             </InputGroup.Prepend>
-                            <Form.Control size="sm" type="text" name="phoneNumber" placeholder={i18n.get('ad.phone-number')}
+                            <Form.Control size="sm" type="text" name="phoneNumber"
+                                          placeholder={i18n.get('ad.phone-number')}
                                           value={this.state.phoneNumber}
                                           onChange={this.handleInputChange}/>
                         </InputGroup>

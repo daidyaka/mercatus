@@ -35,7 +35,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id);
     }
 
-    public void createUser(User user, MultipartFile file) throws IOException {
+    public boolean createUser(User user, MultipartFile file) throws IOException {
         if (loadUserByUsername(user.getEmail()) == null) {
             user.setRole(UserRole.USER);
             user.setPassword(hashPassword(user.getPassword()));
@@ -45,11 +45,18 @@ public class UserService implements UserDetailsService {
             storageService.createUserFolder(user.getId());
             if (file.getBytes().length != 0) {
                 String fileName = file.getName();
+
+                if (!fileName.endsWith(".jpg")) {
+                    fileName = fileName + ".jpg";
+                }
+
                 user.setImageUrl(fileName);
                 storageService.saveAndCompressImage(file.getInputStream(), user.getId(), fileName);
                 userRepository.save(user);
             }
+            return true;
         }
+        return false;
     }
 
     public boolean updatePassword(User user, ChangePasswordDto dto) {

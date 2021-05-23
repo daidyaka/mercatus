@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -72,7 +73,10 @@ public class StorageService {
                     .map(file -> UploadedMediaItemResponse.builder()
                             .name(file.getName())
                             .link("/media/" + userId + "/" + file.getName())
-                            .isImage("image".equals(getMediaType(file).split("/")[0]))
+                            .isImage(Optional.ofNullable(getMediaType(file))
+                                    .map(value -> value.split("/")[0])
+                                    .map("image"::equals)
+                                    .orElse(false))
                             .build())
                     .collect(Collectors.toList());
         } catch (IOException e) {

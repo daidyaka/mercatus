@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Button, Col, Form, FormFile, Image} from "react-bootstrap";
 import "../styles/Registarion.css";
 import i18n from "../services/i18n/i18n";
+import network from "../services/network/network";
 
 export default class Registration extends Component {
 
@@ -10,11 +11,10 @@ export default class Registration extends Component {
     }
 
     handleSubmit(event) {
-        event.preventDefault();
-        fetch('/profile/create', {
+        network.sendForm('/profile/create', {
             method: 'POST',
             body: new FormData(event.target)
-        }).then(res => {
+        }, event, res => {
             if (res.status === 201) {
                 location.href = '/login';
             }

@@ -35,6 +35,7 @@ const ru = {
     'login.password.placeholder': 'Введите пароль',
     'login.no-account.promotion': 'Нет аккаунта? Всегда можно',
     'login.no-account.link': 'создать новый',
+    'login.not-found': 'Аккаунт не найден или пароль введен неправильно.',
 
     'registration.title': 'Зарегистрироваться',
     'registration.firstName.placeholder': 'Введите имя',
@@ -56,6 +57,10 @@ const ru = {
     '404.title': 'Страница не найдена',
     '404.message.main': 'Ресурс не был найден ¯\\_(ツ)_/¯',
     '404.message.secondary': 'Проверьте правильно ли указана ссылка на него.',
+
+    '403.title': 'Доступ запрещен',
+    '403.message.main': 'К данному ресурсу ограничен доступ!',
+    '403.message.secondary': 'Проверьте авторизированны ли Вы в системе.',
 
     'userMedia.upload': 'Загрузить файл(ы)',
     'userMedia.upload.files-not-found': 'Файлы не найдены',

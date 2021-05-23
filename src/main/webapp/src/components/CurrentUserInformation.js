@@ -3,7 +3,6 @@ import AuthenticationContext from "../providers/AuthenticationContext";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faComment,
     faEdit,
     faFileUpload,
     faMapMarkedAlt,
@@ -16,6 +15,7 @@ import HoverableImage from "./HoverableImage";
 import {Button, Col, Container, Form, Modal, Row} from "react-bootstrap";
 import DragNDropComponent from "./DragNDropComponent";
 import i18n from "../services/i18n/i18n";
+import network from "../services/network/network";
 
 export default class CurrentUserInformation extends Component {
 
@@ -64,7 +64,8 @@ export default class CurrentUserInformation extends Component {
                                         </p>
                                         <p className="personal-media-link">
                                             <Link to="/profile/media">
-                                                <FontAwesomeIcon icon={faPhotoVideo}/> {i18n.get('profile.loaded-media')}
+                                                <FontAwesomeIcon
+                                                    icon={faPhotoVideo}/> {i18n.get('profile.loaded-media')}
                                             </Link>
                                         </p>
                                     </div>
@@ -211,24 +212,18 @@ export default class CurrentUserInformation extends Component {
         if (this.state.image) {
             let formData = new FormData();
             formData.append('avatar', this.state.image)
-            fetch('/media/images/upload-avatar', {
+            network.sendForm('/media/images/upload-avatar', {
                 method: 'POST',
                 body: formData
-            }).then(() => location.reload())
+            }, undefined, (res) => location.reload())
         }
     }
 
     handleForm = (event) => {
-        event.preventDefault();
-
-        fetch(event.target.getAttribute('action'), {
+        network.sendForm(event.target.getAttribute('action'), {
             method: 'POST',
             body: new FormData(event.target)
-        }).then(res => {
-            if (res.status === 200) {
-                window.location.reload();
-            }
-        })
+        }, event, () => location.reload())
     }
 
     handleUserUpdateInfo = ({target}) => {

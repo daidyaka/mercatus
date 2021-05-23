@@ -5,6 +5,7 @@ import {faFileDownload, faFileUpload, faTrash, faUpload, faWindowClose} from "@f
 import "../styles/PersonalMedia.css";
 import DragNDropComponent from "../components/DragNDropComponent";
 import i18n from "../services/i18n/i18n";
+import network from "../services/network/network";
 
 export default class PersonalMedia extends Component {
 
@@ -97,7 +98,7 @@ export default class PersonalMedia extends Component {
                             )
                         ) : (
                             <Col style={{textAlign: 'center'}}>
-                                <Spinner animation="border" />
+                                <Spinner animation="border"/>
                                 <p>{i18n.get('loading')}</p>
                             </Col>
                         )}
@@ -143,10 +144,10 @@ export default class PersonalMedia extends Component {
         let formData = new FormData()
         this.state.filesToUpload.forEach(file => formData.append('files', file));
 
-        fetch('/media/upload', {
+        network.sendForm('/media/upload', {
             method: 'POST',
             body: formData
-        }).then(() => this.fetchFiles()).then(() => this.closeUploadModal())
+        }, undefined, res => res.arrayBuffer().then(() => this.fetchFiles()).then(() => this.closeUploadModal()))
     }
 
     fetchFiles = () => {

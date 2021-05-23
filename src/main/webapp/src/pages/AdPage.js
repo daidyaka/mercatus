@@ -41,7 +41,7 @@ class AdPage extends Component {
                 <>
                     <Jumbotron fluid style={
                         {
-                            background: ad.imageUrl ? `url(/media/images/${ad.userId}/${ad.imageUrl})` : 'lightgray',
+                            background: ad.imageUrl ? `url('/media/images/${ad.userId}/${ad.imageUrl}')` : 'lightgray',
                             backgroundSize: 'cover',
                             backgroundPosition: 'center'
                         }
